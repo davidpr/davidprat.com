@@ -1,5 +1,5 @@
 import { Hero } from "@/components/Hero";
-import { Stats } from "@/components/Stats";
+import { Skills } from "@/components/Skills";
 import { About } from "@/components/About";
 import { Experience } from "@/components/Experience";
 import { Projects } from "@/components/Projects";
@@ -15,7 +15,7 @@ export default function Page() {
       <div aria-hidden="true" className="backdrop" />
       <main className="mx-auto max-w-3xl px-4 pb-24 sm:px-6 lg:max-w-4xl">
         <Hero />
-        <Stats />
+        <Skills />
         <About />
         <Experience />
         <Projects />

@@ -42,12 +42,11 @@ describe("site content", () => {
     }
   });
 
-  it("has an availability line and stats", () => {
+  it("has an availability line and top skills", () => {
     expect(site.availability.length).toBeGreaterThan(10);
-    expect(site.stats.length).toBeGreaterThanOrEqual(3);
-    for (const s of site.stats) {
-      expect(s.value).toBeTruthy();
-      expect(s.label).toBeTruthy();
+    expect(site.topSkills.length).toBe(5);
+    for (const s of site.topSkills) {
+      expect(s).toBeTruthy();
     }
   });
 

@@ -21,13 +21,12 @@ export type CertificationItem = {
   badge: string;
 };
 export type ExternalArticle = { title: string; date: string; href: string; source: string };
-export type StatItem = { value: string; label: string };
 export type SiteContent = {
   name: string;
   headline: string;
   location: string;
   availability: string;
-  stats: StatItem[];
+  topSkills: string[];
   heroLinks: LinkItem[];
   about: string[];
   aboutHighlights: HighlightItem[];
@@ -55,11 +54,12 @@ export const site: SiteContent = {
   headline: "Engineering leader — AI Infrastructure & LLM Platforms",
   location: "Barcelona · remote EU",
   availability: "Open to Head of Engineering and Director roles",
-  stats: [
-    { value: "15+", label: "years in engineering" },
-    { value: "30+", label: "ML engineers led" },
-    { value: "4", label: "teams managed" },
-    { value: "50%+", label: "LLM size reduction shipped" },
+  topSkills: [
+    "Technology Management",
+    "Cross-functional Team Leadership",
+    "Artificial Intelligence (AI)",
+    "Big Data",
+    "DevSecOps",
   ],
   heroLinks: [
     { label: "LinkedIn", href: "https://www.linkedin.com/in/davidpratrobles/" },
