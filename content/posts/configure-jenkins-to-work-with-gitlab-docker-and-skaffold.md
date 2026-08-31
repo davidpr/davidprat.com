@@ -55,7 +55,7 @@ Basically, we create one username with password credential and one SSH username 
 
 ![](/posts/configure-jenkins-to-work-with-gitlab-docker-and-skaffold/jenkins-credentials.png)For the second one, we need to create an SSH key in our Linux server. Typically done with: _ssh-keygen -t rsa –b 4096_. We’ll then copy they public key into the Gitlab account. In Gitlab go to “User Settings” -> “SSH Keys” and create a new key. Copy the public key content in the Key text box.
 
-![](/posts/configure-jenkins-to-work-with-gitlab-docker-and-skaffold/jenkins-gitlab-sshkey-1024x536.png)
+![](/posts/configure-jenkins-to-work-with-gitlab-docker-and-skaffold/jenkins-gitlab-sshkey-1024x536.jpg)
 
 And finally we want get the convey this SSH key information to Jenkins as it is showing the credential n5010, because it will use it to establish the communication automatically with Gitlab. If we hadn’t Jenkins and we wanted to interact from our Llinux server with Gitlab we would only have to copy the public key into Gitlab.
 
@@ -215,7 +215,7 @@ Until here we have seen how to make the configuration of Jenkins and Gitlab to m
 
 Before we configure the webhook we need to configure the relationship between Jenkins and Gitlab for the authentication. In the case of the webhook, here we choose to generate a personal access token. For this, go to Gitlab and under the “User Settings” select “Access Token”. Give it a name and select the permissions you will need for your purpose. In this case, read access would be enough.
 
-![](/posts/configure-jenkins-to-work-with-gitlab-docker-and-skaffold/gitlab-personalaccesstoken-1024x706.png)
+![](/posts/configure-jenkins-to-work-with-gitlab-docker-and-skaffold/gitlab-personalaccesstoken-1024x706.jpg)
 
 Then we have to go to Jenkins and paste the PAT into a credential. For this go to the menu: “Manage Jenkins” -> “Credentials” -> “Add credential”. Select “Gitlab API Token”
 
@@ -233,7 +233,7 @@ Go to advanced and generate a token. The webhook needs some kind of authorizatio
 
 See the “Secret token” field and copy its content. Then paste it into Gitlab in the webhook screen. For this go your repository in Gitlab and select “Settings” -> “Webhooks”. There you’ll paste the address of the webhook you see in Jenkins. However, in my case, I had to change the address because the Jenkins server is working in my LAN whereas Gitlab is on the Internet. If you have the same configuration you can use your public IP address (assigned from your ISP) or you can also enable a DDNS service like no-ip as I have done to avoid losing the connection when your ISP rotates your IP (the rotation period varies with your ISP). What’s very important in this step is to mark the “push events” trigger but only for the main branch. This is done in this way because Jenkins will execute the Skaffold command to build and then push back again the changes to Gitlab so ArgoCD can take those updated images from the Kubernetes resources; specifically in the deployments definitions. But if that change is pushed back to main branch, Jenkins would detect again and this would create an infinite loop. Because the interaction between Gitlab and Jenkins is somehow limited at the time of writing this tutorial, the way to tackle these technical limitations is to just push the Skaffold changes to another branch called prd. This doesn’t have any negative impact over the development.
 
-![](/posts/configure-jenkins-to-work-with-gitlab-docker-and-skaffold/gitlab-webhook-1024x539.png)
+![](/posts/configure-jenkins-to-work-with-gitlab-docker-and-skaffold/gitlab-webhook-1024x539.jpg)
 
 You will notice that in the webhook address it appears port 9099 instead of 8080. This is because in my case, my ISP was blocking the port 8080. If the same happens to you, there are two options: call the ISP provider and request for this port to be opened again, or you can use another port in Jenkins. For the case of this tutorial, using Ubuntu distribution, the procedure is the following:
 

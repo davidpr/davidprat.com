@@ -22,6 +22,15 @@ export async function generateMetadata({
   return {
     title: `${post.meta.title} — ${site.name}`,
     description: post.meta.excerpt,
+    alternates: { canonical: `/posts/${slug}` },
+    openGraph: {
+      title: post.meta.title,
+      description: post.meta.excerpt,
+      type: "article",
+      publishedTime: post.meta.date,
+      authors: [site.name],
+      ...(post.meta.cover ? { images: [{ url: post.meta.cover }] } : {}),
+    },
   };
 }
 

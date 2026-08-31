@@ -19,7 +19,10 @@ export async function generateMetadata({
   const { slug } = await params;
   const page = getProjectPage(slug);
   if (!page) return {};
-  return { title: `${page.title} — ${site.name}` };
+  return {
+    title: `${page.title} — ${site.name}`,
+    alternates: { canonical: `/projects/${slug}` },
+  };
 }
 
 export default async function ProjectPage({

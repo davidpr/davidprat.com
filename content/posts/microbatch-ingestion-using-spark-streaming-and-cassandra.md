@@ -69,7 +69,7 @@ Go to this website and download the Docker Desktop application: https://www.dock
 
 The visual aspect should be something like the image below.
 
-![](/posts/microbatch-ingestion-using-spark-streaming-and-cassandra/docker-desktop-1024x591.png)
+![](/posts/microbatch-ingestion-using-spark-streaming-and-cassandra/docker-desktop-1024x591.jpg)
 
 Assign it 4 GB of RAM.
 
@@ -81,17 +81,17 @@ https://downloads.datastax.com/#desktop
 
 Make sure you meet the requirements and then create a stack to have an instance of Cassandra running on top of Kubernetes.
 
-#### ![](/posts/microbatch-ingestion-using-spark-streaming-and-cassandra/datastax1-1024x792.png)
+#### ![](/posts/microbatch-ingestion-using-spark-streaming-and-cassandra/datastax1-1024x792.jpg)
 
 Use the Launch guided experience.
 
-#### ![](/posts/microbatch-ingestion-using-spark-streaming-and-cassandra/datastax2-1024x795.png)
+#### ![](/posts/microbatch-ingestion-using-spark-streaming-and-cassandra/datastax2-1024x795.jpg)
 
 #### Preparing the database
 
 Now it’¡s time to prepare the database. First create a keyspace and inside that keyspace create a table.
 
-![](/posts/microbatch-ingestion-using-spark-streaming-and-cassandra/datastax3-1024x799.png)
+![](/posts/microbatch-ingestion-using-spark-streaming-and-cassandra/datastax3-1024x799.jpg)
 
 Create the keyspace and the table:
 
@@ -181,7 +181,7 @@ There are different ways to track changes and load them with Spark Streaming. Fo
 
 Press shift and intro to run the notebook block. The expected output should be something like:
 
-![](/posts/microbatch-ingestion-using-spark-streaming-and-cassandra/jupyter-output-1024x779.png)
+![](/posts/microbatch-ingestion-using-spark-streaming-and-cassandra/jupyter-output-1024x779.jpg)
 
 An interesting functionality is that because of the job was a streaming job, when going to the Spark UI there will be a tab for information related to structured streaming jobs.
 
@@ -189,7 +189,7 @@ An interesting functionality is that because of the job was a streaming job, whe
 
 The available information even shows performance related to the rate of processed information which can be a convenient way to improve the performance of the code.
 
-#### ![](/posts/microbatch-ingestion-using-spark-streaming-and-cassandra/sparkUI-2-1024x835.png)
+#### ![](/posts/microbatch-ingestion-using-spark-streaming-and-cassandra/sparkUI-2-1024x835.jpg)
 
 The last chart shows a simple experiment: deleting a folder that stores information of a loaded file makes to reload that file again. The plot shows the operation duration of processing one micro batch. As the code processes only one file per micro batch, this is a simple way to see how much time did the file needed to be ingested.
 

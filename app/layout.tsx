@@ -5,13 +5,32 @@ import { site } from "@/content/site";
 import { Footer } from "@/components/Footer";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://davidprat.com"),
   title: `${site.name} — ${site.headline}`,
   description: site.about[0],
+  alternates: { canonical: "/" },
+  keywords: [
+    "David Prat",
+    "David Prat Robles",
+    "Engineering leader",
+    "AI infrastructure",
+    "LLM platforms",
+    "Head of Engineering",
+    "Barcelona",
+  ],
   openGraph: {
     title: site.name,
     description: site.headline,
     url: "https://davidprat.com",
+    siteName: "davidprat.com",
     type: "website",
+    images: [{ url: "/avatar.jpg", width: 400, height: 400, alt: site.name }],
+  },
+  twitter: {
+    card: "summary",
+    title: site.name,
+    description: site.headline,
+    images: ["/avatar.jpg"],
   },
 };
 

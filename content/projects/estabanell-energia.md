@@ -13,4 +13,4 @@ Installation and configuration of the CDH version 6.3 which provided free licenc
 
 **CLOUDERA MANAGER**
 
-![](/projects/estabanell-energia/CDH-6.2.0-SimigSolutions-Etabanell-2-1024x563.png)
+![](/projects/estabanell-energia/CDH-6.2.0-SimigSolutions-Etabanell-2-1024x563.jpg)

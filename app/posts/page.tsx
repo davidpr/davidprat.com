@@ -7,6 +7,7 @@ import { PostCard } from "@/components/PostCard";
 export const metadata: Metadata = {
   title: `Posts — ${site.name}`,
   description: "Technical posts on AI infrastructure, Kubernetes, data platforms and LLMs.",
+  alternates: { canonical: "/posts" },
 };
 
 export default function PostsPage() {

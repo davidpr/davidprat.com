@@ -28,7 +28,7 @@ It may take some minutes to have the instance available. Once it is done, you sh
 
 In the overview panel the URL and FTP address are shown. There is also a dashboard with some useful metrics of the instance. At this moment, the instance is not running the code, so all charts show the lack of activity.
 
-##### ![](/posts/machine-learning-model-deployment-in-azure/ML-5-1024x614.png)
+##### ![](/posts/machine-learning-model-deployment-in-azure/ML-5-1024x614.jpg)
 
 Now we are going to specify the code that the web app will use. Here is were we insert the ML code that will be used as a service. Select the Github option and use the code of the following address: https://github.com/davidpr/AQI-Deployment. This is using a random forest algorithm to predict the air quality based on some input parameters.
 
@@ -40,11 +40,11 @@ Your Github account will be requested in the next step, so it is needed to fork 
 
 While the code is been deployed in the instance you can see the logs, which tell you the steps under the hood.
 
-##### ![](/posts/machine-learning-model-deployment-in-azure/ML-10-1024x603.png)
+##### ![](/posts/machine-learning-model-deployment-in-azure/ML-10-1024x603.jpg)
 
 Once the code is deployed return to the overview tab to confirm the activity in the instance. Go to the URL and access to the service you have just created.
 
-##### ![](/posts/machine-learning-model-deployment-in-azure/ML-11-1024x622.png)
+##### ![](/posts/machine-learning-model-deployment-in-azure/ML-11-1024x622.jpg)
 
 Congratulation! you’ve deployed the machine learning code in the cloud, which will unleash all the power of your code.
 
