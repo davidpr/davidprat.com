@@ -3,11 +3,11 @@ import { site } from "@/content/site";
 
 export function Hero() {
   return (
-    <header className="pt-24 pb-14">
+    <header className="pt-14 pb-12 sm:pt-24 sm:pb-14">
       <div className="flex flex-col-reverse items-start justify-between gap-8 sm:flex-row sm:items-center">
         <div>
           <p className="eyebrow fade-up text-neutral-500 dark:text-neutral-400">davidprat.com</p>
-          <h1 className="gradient-text fade-up delay-1 mt-4 text-5xl font-bold tracking-tight sm:text-6xl">
+          <h1 className="gradient-text fade-up delay-1 mt-4 text-4xl font-bold tracking-tight sm:text-6xl">
             {site.name}
           </h1>
           <p className="fade-up delay-2 mt-4 text-xl text-neutral-700 sm:text-2xl dark:text-neutral-300">

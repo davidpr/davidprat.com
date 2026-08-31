@@ -19,15 +19,15 @@ export function Certifications() {
       </h2>
       <ul className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3">
         {visible.map((c) => (
-          <li key={c.name} className="card flex flex-col items-center p-5 text-center">
-            <span className="flex h-32 w-32 items-center justify-center rounded-xl bg-white p-2">
+          <li key={c.name} className="card flex flex-col items-center p-4 text-center sm:p-5">
+            <span className="flex aspect-square w-full max-w-32 items-center justify-center rounded-xl bg-white p-2">
               <Image
                 src={c.badge}
                 alt={`${c.name} badge`}
                 width={112}
                 height={112}
                 unoptimized
-                className="h-28 w-28 object-contain"
+                className="h-full w-full object-contain"
               />
             </span>
             <h3 className="mt-4 text-sm leading-snug font-medium">{c.name}</h3>

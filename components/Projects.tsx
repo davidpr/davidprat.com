@@ -16,7 +16,7 @@ export function Projects() {
       </h2>
       <div className="mt-6 space-y-5">
         {visible.map((p) => (
-          <article key={p.name} className="card p-6">
+          <article key={p.name} className="card p-4 sm:p-6">
             <div className="flex flex-wrap items-baseline justify-between gap-2">
               <h3 className="text-lg font-semibold">{p.name}</h3>
               <p className="eyebrow text-neutral-500 dark:text-neutral-400">{p.period}</p>

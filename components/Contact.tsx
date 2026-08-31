@@ -3,7 +3,7 @@ import { site } from "@/content/site";
 export function Contact() {
   return (
     <section aria-labelledby="contact-heading" className="py-10">
-      <div className="card p-8 text-center sm:p-12">
+      <div className="card p-6 text-center sm:p-12">
         <p className="eyebrow text-violet-600 dark:text-violet-400">07</p>
         <h2 id="contact-heading" className="mt-1 text-2xl font-semibold tracking-tight">
           {site.contact.heading}
