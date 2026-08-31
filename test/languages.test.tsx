@@ -14,4 +14,14 @@ describe("Languages", () => {
     expect(screen.getByText("C2")).toBeInTheDocument();
     expect(screen.getAllByText("B2")).toHaveLength(2);
   });
+
+  it("renders credential lines only where present", () => {
+    render(<Languages />);
+    for (const l of site.languages) {
+      if (l.credential) {
+        expect(screen.getByText(l.credential)).toBeInTheDocument();
+      }
+    }
+    expect(screen.getByText(/Cambridge English/)).toBeInTheDocument();
+  });
 });

@@ -16,18 +16,22 @@ export function Languages() {
       </h2>
       <ul className="mt-6 flex flex-wrap gap-3">
         {site.languages.map((l) => (
-          <li
-            key={l.name}
-            className="card flex items-center gap-3 px-5 py-3"
-          >
-            <span className="font-medium">{l.name}</span>
-            <span
-              className={`rounded-full border px-2.5 py-0.5 text-xs font-semibold ${
-                levelStyles[l.level] ?? defaultLevelStyle
-              }`}
-            >
-              {l.level}
+          <li key={l.name} className="card px-5 py-3">
+            <span className="flex items-center gap-3">
+              <span className="font-medium">{l.name}</span>
+              <span
+                className={`rounded-full border px-2.5 py-0.5 text-xs font-semibold ${
+                  levelStyles[l.level] ?? defaultLevelStyle
+                }`}
+              >
+                {l.level}
+              </span>
             </span>
+            {l.credential && (
+              <span className="mt-1 block text-xs text-neutral-500 dark:text-neutral-400">
+                {l.credential}
+              </span>
+            )}
           </li>
         ))}
       </ul>

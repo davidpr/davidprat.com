@@ -11,7 +11,7 @@ export type ProjectItem = {
 };
 export type EducationItem = { period: string; school: string; degree: string };
 export type HighlightItem = { title: string; text: string };
-export type LanguageItem = { name: string; level: string };
+export type LanguageItem = { name: string; level: string; credential?: string };
 export type CertificationItem = {
   name: string;
   issuer: string;
@@ -338,10 +338,12 @@ export const site: SiteContent = {
     },
   ],
   certificationsVisibleCount: 6,
+  // TODO(user): confirm exam names and years for English (Cambridge ESOL — which
+  // exam and year?), German and French so the credential lines can be completed.
   languages: [
     { name: "Spanish", level: "Native" },
     { name: "Catalan", level: "Native" },
-    { name: "English", level: "C2" },
+    { name: "English", level: "C2", credential: "Cambridge English (ESOL)" },
     { name: "German", level: "B2" },
     { name: "French", level: "B2" },
   ],
