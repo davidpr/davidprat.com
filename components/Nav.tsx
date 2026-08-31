@@ -18,9 +18,8 @@ export function Nav() {
       className="sticky top-0 z-10 border-b border-neutral-200/60 bg-white/75 backdrop-blur-md dark:border-neutral-800/60 dark:bg-neutral-950/75"
     >
       <div className="mx-auto flex max-w-3xl flex-wrap items-center gap-x-5 gap-y-1 px-4 py-2.5 sm:px-6 lg:max-w-4xl">
-        <a href="#" aria-label="Back to top" className="flex items-center gap-2">
-          <LogoMark className="h-6 w-auto" />
-          <span className="text-sm font-bold tracking-wide">DAVID PRAT</span>
+        <a href="#" aria-label="Back to top" className="flex items-center">
+          <LogoMark className="h-5 w-auto" />
         </a>
         <ul className="flex flex-wrap items-center gap-x-5 gap-y-1 sm:ml-auto">
         {items.map((i) => (
