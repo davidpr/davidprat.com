@@ -9,6 +9,12 @@ describe("Hero", () => {
     expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(site.name);
   });
 
+  it("renders the profile photo with a descriptive alt", () => {
+    render(<Hero />);
+    const img = screen.getByRole("img", { name: `Portrait of ${site.name}` });
+    expect(img).toHaveAttribute("src", expect.stringContaining("avatar.jpg"));
+  });
+
   it("renders headline, location, and every hero link", () => {
     render(<Hero />);
     expect(screen.getByText(site.headline)).toBeInTheDocument();
