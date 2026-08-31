@@ -1,7 +1,11 @@
+import Link from "next/link";
 import { site } from "@/content/site";
+import { getFeed } from "@/lib/posts";
+import { PostCard } from "@/components/PostCard";
 
 export function Writing() {
-  const { intro, articles, channels } = site.writing;
+  const { intro, channels } = site.writing;
+  const latest = getFeed(site.externalArticles).slice(0, 3);
   return (
     <section aria-labelledby="writing-heading" className="py-10">
       <p className="eyebrow text-violet-600 dark:text-violet-400">07</p>
@@ -9,18 +13,18 @@ export function Writing() {
         Writing
       </h2>
       <p className="mt-4 leading-relaxed text-neutral-700 dark:text-neutral-300">{intro}</p>
-      {articles.length > 0 && (
-        <ul aria-label="Articles" className="mt-4 space-y-3">
-          {articles.map((a) => (
-            <li key={a.href}>
-              <a href={a.href} className="card block p-5 font-medium">
-                {a.title}
-              </a>
-            </li>
-          ))}
-        </ul>
-      )}
-      <p className="mt-5 flex flex-wrap gap-3">
+      <div className="mt-5 space-y-4">
+        {latest.map((item) => (
+          <PostCard key={item.href} item={item} />
+        ))}
+      </div>
+      <p className="mt-6 flex flex-wrap gap-3">
+        <Link
+          href="/posts"
+          className="rounded-lg bg-neutral-900 px-5 py-2.5 text-sm font-medium text-white transition-opacity hover:opacity-85 dark:bg-white dark:text-neutral-900"
+        >
+          All posts
+        </Link>
         {channels.map((c) => (
           <a
             key={c.href}

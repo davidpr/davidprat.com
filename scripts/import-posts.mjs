@@ -43,8 +43,13 @@ function stripUnsafe(html) {
     .replace(/javascript:/gi, "");
 }
 
+// WPBakery/shortcode remnants like [vc_row], [/vc_column_text]
+function stripShortcodes(s) {
+  return s.replace(/\[\/?[a-z0-9_]+(?:\s[^\]]*)?\]/gi, "");
+}
+
 function plainText(html) {
-  return stripUnsafe(html)
+  return stripShortcodes(stripUnsafe(html))
     .replace(/<[^>]+>/g, " ")
     .replace(/&#\d+;|&[a-z]+;/gi, " ")
     .replace(/\s+/g, " ")
@@ -92,7 +97,7 @@ for (const post of posts) {
     html = html.split(raw).join(local);
   }
 
-  let md = td.turndown(html);
+  let md = stripShortcodes(td.turndown(html));
   // srcset/size-suffixed leftovers and origin references
   md = md.split(ORIGIN).join("");
 

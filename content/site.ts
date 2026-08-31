@@ -17,7 +17,7 @@ export type CertificationItem = {
   issuer: string;
   badge: string;
 };
-export type ArticleItem = { title: string; href: string };
+export type ExternalArticle = { title: string; date: string; href: string; source: string };
 export type StatItem = { value: string; label: string };
 export type SiteContent = {
   name: string;
@@ -39,9 +39,9 @@ export type SiteContent = {
   languages: LanguageItem[];
   writing: {
     intro: string;
-    articles: ArticleItem[];
     channels: LinkItem[];
   };
+  externalArticles: ExternalArticle[];
   contact: { heading: string; body: string; links: LinkItem[] };
 };
 
@@ -359,12 +359,6 @@ export const site: SiteContent = {
   ],
   writing: {
     intro: "I write about AI infrastructure and LLM internals.",
-    articles: [
-      {
-        title: "Guide to AI Infrastructure: Understanding LLM GPUs",
-        href: "https://www.linkedin.com/pulse/001-guide-ai-infrastructure-understanding-llm-gpu-david-prat-robles-hr5te/",
-      },
-    ],
     channels: [
       {
         label: "Articles on LinkedIn",
@@ -376,6 +370,14 @@ export const site: SiteContent = {
       },
     ],
   },
+  externalArticles: [
+    {
+      title: "Guide to AI Infrastructure: Understanding LLM GPUs",
+      date: "2026-07-15",
+      href: "https://www.linkedin.com/pulse/001-guide-ai-infrastructure-understanding-llm-gpu-david-prat-robles-hr5te/",
+      source: "LinkedIn",
+    },
+  ],
   contact: {
     heading: "Contact",
     body: "The fastest way to reach me is a LinkedIn message.",

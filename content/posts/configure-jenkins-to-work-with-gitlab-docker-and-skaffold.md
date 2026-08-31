@@ -1,7 +1,7 @@
 ---
 title: "Configure Jenkins to work with Gitlab, Docker and Skaffold"
 date: "2023-08-05T12:48:25"
-excerpt: "[vc_row][vc_column][vc_column_text] Configure Jenkins to work with Gitlab, Docker and Skaffold [/vc_column_text][/vc_column][/vc_row][vc_row][vc_column][vc_column_text]In today s post we are going to see how to install J"
+excerpt: "Configure Jenkins to work with Gitlab, Docker and Skaffold In today s post we are going to see how to install Jenkins in a straightforward way in a bare metal server and explain what s the function of Jenkins in a GitOps"
 cover: "/posts/configure-jenkins-to-work-with-gitlab-docker-and-skaffold/jenkins-agent-logo.jpg"
 ---
 \[vc\_row\]\[vc\_column\]\[vc\_column\_text\]

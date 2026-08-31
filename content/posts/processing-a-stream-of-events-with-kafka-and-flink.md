@@ -1,7 +1,7 @@
 ---
 title: "Processing a stream of events with Kafka and Flink"
 date: "2020-11-12T15:01:46"
-excerpt: "[vc_row][vc_column][vc_column_text] Processing a stream of events with Kafka and Flink [/vc_column_text][/vc_column][/vc_row] Dear reader, in this post you ll learn how to deploy a Kafka cluster and a Flink cluster. You "
+excerpt: "Processing a stream of events with Kafka and Flink Dear reader, in this post you ll learn how to deploy a Kafka cluster and a Flink cluster. You ll also learn how to make a simple application in Flink to process a stream"
 cover: "/posts/processing-a-stream-of-events-with-kafka-and-flink/flink-dashboard3.png"
 ---
 \[vc\_row\]\[vc\_column\]\[vc\_column\_text\]

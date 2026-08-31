@@ -1,7 +1,7 @@
 ---
 title: "Presto Cluster on Kubernetes"
 date: "2020-02-03T11:06:13"
-excerpt: "[vc_row][vc_column][vc_column_text] Presto Cluster on Kubernetes [/vc_column_text][/vc_column][/vc_row] This tutorial is the continuation of the tutorial Data Federation with Presto on Docker. After having acquired some "
+excerpt: "Presto Cluster on Kubernetes This tutorial is the continuation of the tutorial Data Federation with Presto on Docker. After having acquired some understanding and experience of Docker now it is turn to deploy these Docke"
 cover: "/posts/presto-cluster-on-kubernetes/presto-db2.jpeg"
 ---
 \[vc\_row\]\[vc\_column\]\[vc\_column\_text\]
@@ -10,13 +10,13 @@ cover: "/posts/presto-cluster-on-kubernetes/presto-db2.jpeg"
 
 \[/vc\_column\_text\]\[/vc\_column\]\[/vc\_row\]
 
-This tutorial is the continuation of the tutorial [Data Federation with Presto on Docker](/data-federation-with-presto-on-docker/). After having acquired some understanding and experience of Docker now it is turn to deploy these Docker images into a managed cluster with Kubernetes. Kubernetes allows to orchestrate a cluster of microservices in which each service corresponds to one container. In this case, Docker images are used, but Kubernetes can also work with other container technologies such as rtk, etc.
+This tutorial is the continuation of the tutorial (/data-federation-with-presto-on-docker/). After having acquired some understanding and experience of Docker now it is turn to deploy these Docker images into a managed cluster with Kubernetes. Kubernetes allows to orchestrate a cluster of microservices in which each service corresponds to one container. In this case, Docker images are used, but Kubernetes can also work with other container technologies such as rtk, etc.
 
 In Kubernetes we define the infrastructure with a code. So in this sense, we don’t use an imperative programming language but a descriptive one. In Kubernetes this is done by using YAML files which are very similar to use JSON files.
 
-For this tutorial we will take Minikube as the tool to create in a fast way the underlying virtual machine to support the containers created by Kubernetes. Please follow the instructions [here](https://kubernetes.io/docs/tasks/tools/install-minikube/):
+For this tutorial we will take Minikube as the tool to create in a fast way the underlying virtual machine to support the containers created by Kubernetes. Please follow the instructions (https://kubernetes.io/docs/tasks/tools/install-minikube/):
 
-Kubernetes internals are quite complex for this post and it’s out of scope to make a compete explanation of how it works. However I can recommend you this book as a complete source of information with this respect: [Kuberntes in Action](https://www.manning.com/books/kubernetes-in-action). Having said this, here I make a quick explanation about the infrastructure:
+Kubernetes internals are quite complex for this post and it’s out of scope to make a compete explanation of how it works. However I can recommend you this book as a complete source of information with this respect: (https://www.manning.com/books/kubernetes-in-action). Having said this, here I make a quick explanation about the infrastructure:
 
 ##### Namespace
 

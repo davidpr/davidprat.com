@@ -1,7 +1,7 @@
 ---
 title: "Streaming in Confluent KsqlDB: Modifying AVRO Schema"
 date: "2020-12-01T15:00:55"
-excerpt: "[vc_row][vc_column][vc_column_text] Streaming in Confluent KsqlDB: Modifying AVRO Schema [/vc_column_text][/vc_column][/vc_row] In the context of streaming applications Kafka has been a very used technology to solve real"
+excerpt: "Streaming in Confluent KsqlDB: Modifying AVRO Schema In the context of streaming applications Kafka has been a very used technology to solve real time and exactly-once-processing problems by many big and medium companies"
 cover: "/posts/streaming-in-confluent-ksqldb-modifying-avro-schema/ksqldb-squared.png"
 ---
 \[vc\_row\]\[vc\_column\]\[vc\_column\_text\]
@@ -28,7 +28,7 @@ It is very likely that you already have Java installed. In this tutorial java 1.
 
 java -version
 
-If no java is installed in your machine you can follow the instructions [here](https://mkyong.com/java/how-to-install-java-on-mac-osx/).
+If no java is installed in your machine you can follow the instructions (https://mkyong.com/java/how-to-install-java-on-mac-osx/).
 
 ##### Install Confluent Platform
 
@@ -56,7 +56,7 @@ export CONFLUENT\_HOME=/Users/david/bigdata/confluent
 
 (export PATH=”${CONFLUENT\_HOME}/bin:$PATH”)
 
-(For more information go: [here](https://docs.confluent.io/current/confluent-cli/command-reference/local/services/ksql-server/confluent_local_services_ksql-server_start.html))
+(For more information go: (https://docs.confluent.io/current/confluent-cli/command-reference/local/services/ksql-server/confluent_local_services_ksql-server_start.html))
 
 ##### Running the Confluent Platform and testing it
 
@@ -90,7 +90,7 @@ Create a topic in Kafka Cluster.
 
 kafka-topics --zookeeper localhost:2181 --create --partitions 1 --replication-factor 1 --topic USERS
 
-Now in a separate terminal turn the ksqlDB server by typing ksql. Then perform the following commands. You’ll see that the commands are very self-explanatory. However, if more information is required you can consult a list of ksql commands [here](https://docs.ksqldb.io/en/latest/developer-guide/ksqldb-reference/quick-reference/).
+Now in a separate terminal turn the ksqlDB server by typing ksql. Then perform the following commands. You’ll see that the commands are very self-explanatory. However, if more information is required you can consult a list of ksql commands (https://docs.ksqldb.io/en/latest/developer-guide/ksqldb-reference/quick-reference/).
 
 ksql> list topics;
 

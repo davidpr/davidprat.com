@@ -72,6 +72,84 @@ body {
   }
 }
 
+/* Markdown post body typography */
+.post-body {
+  line-height: 1.75;
+  color: var(--tw-prose-body, inherit);
+}
+.post-body h2 {
+  margin-top: 2.5rem;
+  font-size: 1.4rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.post-body h3,
+.post-body h4,
+.post-body h5 {
+  margin-top: 2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+.post-body p {
+  margin-top: 1rem;
+}
+.post-body ul,
+.post-body ol {
+  margin-top: 1rem;
+  padding-left: 1.5rem;
+  list-style: disc;
+}
+.post-body ol {
+  list-style: decimal;
+}
+.post-body li {
+  margin-top: 0.4rem;
+}
+.post-body a {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.post-body img {
+  margin: 1.5rem auto;
+  max-width: 100%;
+  border-radius: 0.75rem;
+  background: #fff;
+}
+.post-body pre {
+  margin-top: 1.25rem;
+  overflow-x: auto;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(100, 116, 139, 0.25);
+  background: rgba(15, 23, 42, 0.9);
+  color: #e2e8f0;
+  padding: 1rem 1.25rem;
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+.post-body code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.875em;
+}
+.post-body p code,
+.post-body li code {
+  border-radius: 0.3rem;
+  border: 1px solid rgba(100, 116, 139, 0.25);
+  background: rgba(100, 116, 139, 0.12);
+  padding: 0.1rem 0.35rem;
+}
+.post-body table {
+  margin-top: 1.25rem;
+  display: block;
+  overflow-x: auto;
+  border-collapse: collapse;
+}
+.post-body th,
+.post-body td {
+  border: 1px solid rgba(100, 116, 139, 0.3);
+  padding: 0.4rem 0.75rem;
+  text-align: left;
+}
+
 .eyebrow {
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
   font-size: 0.75rem;

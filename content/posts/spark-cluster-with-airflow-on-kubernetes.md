@@ -1,7 +1,7 @@
 ---
 title: "Spark cluster with Airflow on Kubernetes"
 date: "2020-02-14T17:43:07"
-excerpt: "[vc_row][vc_column][vc_column_text] Spark cluster with Airflow on Kubernetes [/vc_column_text][/vc_column][/vc_row] Architecture diagram In this tutorial Kubernetes will be used to create a Spark cluster from which paral"
+excerpt: "Spark cluster with Airflow on Kubernetes Architecture diagram In this tutorial Kubernetes will be used to create a Spark cluster from which parallel jobs will be launched. The launch of the jobs won t be done directly th"
 cover: "/posts/spark-cluster-with-airflow-on-kubernetes/spark-cluster-1.png"
 ---
 \[vc\_row\]\[vc\_column\]\[vc\_column\_text\]
@@ -157,7 +157,7 @@ Now it is turn to define the Airflow instance, also through a Deployment. Notice
 
 ##### Airflow custom Docker image
 
-For this tutorial a custom Docker image of Airflow has been developed. There are some already prepared images on the Internet that contain an Airflow installation inside a very lightweight Linux distribution. For example the [Puckel](https://github.com/puckel/docker-airflow) build. However, to execute Scala Jobs SSH operator will be required and for this reason a custom build is done. In this case, we start from a Linux CentOS image and make a basic installation of Apache Airflow. The Dockerfile is included below:
+For this tutorial a custom Docker image of Airflow has been developed. There are some already prepared images on the Internet that contain an Airflow installation inside a very lightweight Linux distribution. For example the (https://github.com/puckel/docker-airflow) build. However, to execute Scala Jobs SSH operator will be required and for this reason a custom build is done. In this case, we start from a Linux CentOS image and make a basic installation of Apache Airflow. The Dockerfile is included below:
 
 FROM centos:8
 
@@ -184,7 +184,7 @@ CMD \["./airflow\_wrapper\_script.sh"\]
 
 The image is basically an Airflow installation inside a CentOS 8 Linux. First the dependencies of Airflow are installed, then the ssh module for Airflow is installed. This will allow to use the ssh operator in Airflow, what will enable to launch any command from Spark. In this case, the spark-submit command. Vim and tree are also included as auxiliary tools but they would be not needed.
 
-Airflow has two processes that should be run in order to use it with all its functionalities. These are the the web server UI and the scheduler. The former one is in charge of providing the user interface that has been shown previously, whereas the later one is the schedules the DAGs executions. Because the best practices for Docker includes only executing one command per container, executing two commands can be achieved in [different ways](https://docs.docker.com/config/containers/multi-service_container/). For example: the first attempt was to use supervisor, which is a process manager. This gives a lot of power to the programmer to launch multiple process. However, its utilisation results to be CPU intensive for the container. For this reason, in this tutorial has opted to use a script that runs the two processes. The code is shown below:
+Airflow has two processes that should be run in order to use it with all its functionalities. These are the the web server UI and the scheduler. The former one is in charge of providing the user interface that has been shown previously, whereas the later one is the schedules the DAGs executions. Because the best practices for Docker includes only executing one command per container, executing two commands can be achieved in (https://docs.docker.com/config/containers/multi-service_container/). For example: the first attempt was to use supervisor, which is a process manager. This gives a lot of power to the programmer to launch multiple process. However, its utilisation results to be CPU intensive for the container. For this reason, in this tutorial has opted to use a script that runs the two processes. The code is shown below:
 
 #!/bin/bash
 
@@ -245,7 +245,7 @@ scalaVersion := "2.11.12"
 libraryDependencies += "org.apache.spark" %% "spark-core" % "2.4.0"
 libraryDependencies += "org.apache.spark" %% "spark-sql" % "2.4.0"
 
-As an example of code you can take the code of below. A Spark session is created to then run a word counter over a text file. It is very important to notice here that while setting the Spark configuration of the Spark session, the master address was provided. The way to run the cluster is as [standalone cluster](https://spark.apache.org/docs/latest/submitting-applications.html). This is how the docker images are configured, and this tutorial doesn’t go into configuring Yarn or Mesos cluster.
+As an example of code you can take the code of below. A Spark session is created to then run a word counter over a text file. It is very important to notice here that while setting the Spark configuration of the Spark session, the master address was provided. The way to run the cluster is as (https://spark.apache.org/docs/latest/submitting-applications.html). This is how the docker images are configured, and this tutorial doesn’t go into configuring Yarn or Mesos cluster.
 
 import org.apache.spark.\_
 import org.apache.spark.sql.SparkSession
@@ -271,7 +271,7 @@ To compile the code execute the build command. This command not only compiles th
 
 /spark/bin/spark-submit --class "helloworld" --master=spark://spark-master:7077 ./target/scala-2.11/helloworld\_2.11-1.0.jar
 
-Before executing the spark-submit the Spark cluster has to be initialised. The Spark Docker images from [bde2020](https://github.com/big-data-europe/docker-spark) don’t come built to configure themselves once they are running. For this reason it is needed to configure them manually with the commands of below. Bear in mind that the important parameter is the IP of the master node.
+Before executing the spark-submit the Spark cluster has to be initialised. The Spark Docker images from (https://github.com/big-data-europe/docker-spark) don’t come built to configure themselves once they are running. For this reason it is needed to configure them manually with the commands of below. Bear in mind that the important parameter is the IP of the master node.
 
 #Inside of the Workernode
 apk add procps coreutils rsync && /spark/sbin/start-slave.sh spark://10.1.0.49:7077
@@ -317,7 +317,7 @@ Once the DAG is uploaded to the shared folder with the container of the Airflow,
 
 ##### Troubleshooting
 
-When running the Spark cluster, depending on the RAM capacity of your underlying hardware, it can happen that little RAM is assigned by default to the containers in comparison to what Spark processes need. In this case, the containers can be shut down by Kubernetes. This will show up an error of “command terminated with exit code 137″, which indicates an OOM problem. To solve this issue [this post](https://circleci.com/blog/how-to-handle-java-oom-errors/) can be check out to perform the tuning in the Java of the node. Alternatively, more memory can be allocated to the containers. If running Docker on Mac, more resources for the cluster can be requested from the control panel. In any case, the resources for the containers can be set within the yaml file. To have more information of this concern the [following link](https://kubernetes.io/docs/tasks/configure-pod-container/assign-memory-resource/) contains examples.
+When running the Spark cluster, depending on the RAM capacity of your underlying hardware, it can happen that little RAM is assigned by default to the containers in comparison to what Spark processes need. In this case, the containers can be shut down by Kubernetes. This will show up an error of “command terminated with exit code 137″, which indicates an OOM problem. To solve this issue (https://circleci.com/blog/how-to-handle-java-oom-errors/) can be check out to perform the tuning in the Java of the node. Alternatively, more memory can be allocated to the containers. If running Docker on Mac, more resources for the cluster can be requested from the control panel. In any case, the resources for the containers can be set within the yaml file. To have more information of this concern the (https://kubernetes.io/docs/tasks/configure-pod-container/assign-memory-resource/) contains examples.
 
 ##### Conclusions
 

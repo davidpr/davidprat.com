@@ -1,7 +1,7 @@
 ---
 title: "Install ArgoCD in 3 minutes and learn GitOps"
 date: "2023-05-19T08:54:07"
-excerpt: "[vc_row][vc_column][vc_column_text] Install ArgoCD in 3 minutes and learn GitOps [/vc_column_text][/vc_column][/vc_row][vc_row][vc_column][vc_column_text]In today s post we are going to see how to install ArgoCD in a str"
+excerpt: "Install ArgoCD in 3 minutes and learn GitOps In today s post we are going to see how to install ArgoCD in a straightforward way and explain what s the function of ArgoCD in a GitOps setup. First we ll be going though a t"
 cover: "/posts/install-argocd-in-3-minutes-and-learn-gitops/argocd2.jpg"
 ---
 \[vc\_row\]\[vc\_column\]\[vc\_column\_text\]

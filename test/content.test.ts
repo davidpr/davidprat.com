@@ -16,7 +16,6 @@ describe("site content", () => {
   it("has only absolute https hrefs in links", () => {
     const links = [
       ...site.heroLinks,
-      ...site.writing.articles,
       ...site.writing.channels,
       ...site.contact.links,
     ];
@@ -35,7 +34,12 @@ describe("site content", () => {
     expect(site.writing.channels.map((c) => c.href)).toContain(
       "https://www.youtube.com/@davidpratr",
     );
-    expect(site.writing.articles.length).toBeGreaterThanOrEqual(1);
+    expect(site.externalArticles.length).toBeGreaterThanOrEqual(1);
+    for (const a of site.externalArticles) {
+      expect(a.href).toMatch(/^https:\/\//);
+      expect(a.date).toMatch(/^\d{4}-\d{2}-\d{2}/);
+      expect(a.source).toBeTruthy();
+    }
   });
 
   it("has an availability line and stats", () => {

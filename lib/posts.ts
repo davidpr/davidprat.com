@@ -28,6 +28,35 @@ export function getAllPosts(): PostMeta[] {
     .sort((a, b) => (a.date < b.date ? 1 : -1));
 }
 
+export type FeedItem = {
+  title: string;
+  date: string;
+  excerpt?: string;
+  href: string;
+  external: boolean;
+  source?: string;
+};
+
+export function getFeed(
+  external: { title: string; date: string; href: string; source: string }[],
+): FeedItem[] {
+  const local: FeedItem[] = getAllPosts().map((p) => ({
+    title: p.title,
+    date: p.date,
+    excerpt: p.excerpt,
+    href: `/posts/${p.slug}`,
+    external: false,
+  }));
+  const ext: FeedItem[] = external.map((a) => ({
+    title: a.title,
+    date: a.date,
+    href: a.href,
+    external: true,
+    source: a.source,
+  }));
+  return [...local, ...ext].sort((a, b) => (a.date < b.date ? 1 : -1));
+}
+
 export function getPost(slug: string): { meta: PostMeta; body: string } | null {
   const file = join(POSTS_DIR, `${slug}.md`);
   if (!/^[a-z0-9-]+$/.test(slug) || !existsSync(file)) return null;

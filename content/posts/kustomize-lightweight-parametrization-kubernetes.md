@@ -1,7 +1,7 @@
 ---
 title: "Kustomize: lightweight parametrization of your Kubernetes manifests"
 date: "2023-08-12T11:44:37"
-excerpt: "[vc_row][vc_column][vc_column_text] Kustomize: lightweight parametrization of your Kubernetes manifests [/vc_column_text][/vc_column][/vc_row][vc_row][vc_column][vc_column_text]In this post we are going to see how to ins"
+excerpt: "Kustomize: lightweight parametrization of your Kubernetes manifests In this post we are going to see how to install Kustomize in a straightforward way in a bare metal server and explain what s its relationship with Kuber"
 cover: "/posts/kustomize-lightweight-parametrization-kubernetes/kustomize-post.png"
 ---
 \[vc\_row\]\[vc\_column\]\[vc\_column\_text\]

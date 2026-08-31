@@ -1,7 +1,7 @@
 ---
 title: "Add Safety to your Ansible Automations"
 date: "2022-04-26T12:58:37"
-excerpt: "[vc_row][vc_column][vc_column_text] Add Safety to your Ansible Automations [/vc_column_text][/vc_column][/vc_row][vc_row][vc_column][vc_column_text]Using Ansible for automation really makes the work of systems administra"
+excerpt: "Add Safety to your Ansible Automations Using Ansible for automation really makes the work of systems administrators scalable as it gives to the sysadmin the power to launch sets of commands on groups of machines. While s"
 cover: "/posts/add-safety-to-your-ansible-automations/ansible-1.jpeg"
 ---
 \[vc\_row\]\[vc\_column\]\[vc\_column\_text\]

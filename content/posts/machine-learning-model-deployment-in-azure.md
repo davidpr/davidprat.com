@@ -1,7 +1,7 @@
 ---
 title: "Machine Learning Model Deployment in Azure"
 date: "2020-05-03T10:33:28"
-excerpt: "[vc_row][vc_column][vc_column_text] Machine Learning Model Deployment in Azure [/vc_column_text][/vc_column][/vc_row] Introduction It is very common that the machine learning (ML) models are developed locally. Specially "
+excerpt: "Machine Learning Model Deployment in Azure Introduction It is very common that the machine learning (ML) models are developed locally. Specially when de task is done within a small data scientists group. However, to allo"
 cover: "/posts/machine-learning-model-deployment-in-azure/azureML-2.png"
 ---
 \[vc\_row\]\[vc\_column\]\[vc\_column\_text\]

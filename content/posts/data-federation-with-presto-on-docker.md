@@ -1,7 +1,7 @@
 ---
 title: "Data Federation in Presto with Docker"
 date: "2020-01-12T12:45:35"
-excerpt: "[vc_row][vc_column][vc_column_text] Data Federation with Presto on Docker [/vc_column_text][/vc_column][/vc_row] [vc_row][vc_column][vc_column_text] Introduction This post is about describing how to set a Presto installa"
+excerpt: "Data Federation with Presto on Docker Introduction This post is about describing how to set a Presto installation in the form of a cluster on top of Docker containers. On the process of setting up the cluster several use"
 cover: "/posts/data-federation-with-presto-on-docker/presto-db2.jpeg"
 ---
 \[vc\_row\]\[vc\_column\]\[vc\_column\_text\]
@@ -230,7 +230,7 @@ docker volume ls
 docker run -d -p 33060:3306 --name mysql-db -e MYSQL\_ROOT\_PASSWORD=secret --mount src=mysql-db-data,dst=/var/lib/mysql mysql
 docker exec -it mysql-db mysql -p
 
-To fill the database with some sample data, a file containing a Spotify song list is used. [Spotify list](/wp-content/uploads/2020/02/spotifyclassification.csv). You can for example insert a part of the list and another part to MongoDB to play later with the federated queries. To load data to MySQL a database client can be used. In this case, I have used TablePlus, which is a very updated client that allows to connect to several database technologies. It supports the last version of MySQL (to the date of this post, it is the 8.019).
+To fill the database with some sample data, a file containing a Spotify song list is used. (/wp-content/uploads/2020/02/spotifyclassification.csv). You can for example insert a part of the list and another part to MongoDB to play later with the federated queries. To load data to MySQL a database client can be used. In this case, I have used TablePlus, which is a very updated client that allows to connect to several database technologies. It supports the last version of MySQL (to the date of this post, it is the 8.019).
 
 In case you don’t want to spend time defining the table, below there’s the code to define the table and load the data:
 

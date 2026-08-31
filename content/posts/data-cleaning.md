@@ -1,7 +1,7 @@
 ---
 title: "Online Platform for Clinical and Molecular data Retrieval"
 date: "2018-07-17T14:36:11"
-excerpt: "[vc_row][vc_column][vc_column_text] Online Platform for Clinical and Molecular data Retrieval [/vc_column_text][/vc_column][/vc_row][vc_row][vc_column][vc_column_text] Introduction This post is about describing a technol"
+excerpt: "Online Platform for Clinical and Molecular data Retrieval Introduction This post is about describing a technologies stack used in a project aimed to create an online platform for clinical and molecular data retrieval. Th"
 cover: "/posts/data-cleaning/reactDashboard3.png"
 ---
 \[vc\_row\]\[vc\_column\]\[vc\_column\_text\]

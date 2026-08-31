@@ -1,7 +1,7 @@
 ---
 title: "Install K3s, Prometheus and Grafana in 5 minutes"
 date: "2023-04-01T10:15:39"
-excerpt: "[vc_row][vc_column][vc_column_text] Install K3s, Prometheus and Grafana in 5 minutes [/vc_column_text][/vc_column][/vc_row][vc_row][vc_column][vc_column_text]I m excited to announce that I will be creating a tutorial on "
+excerpt: "Install K3s, Prometheus and Grafana in 5 minutes I m excited to announce that I will be creating a tutorial on how to install k3s with Prometheus and Grafana. As you may already know, setting up and configuring these too"
 cover: "/posts/install-k3s-prometheus-and-grafana-in-5-minutes/node-exporter-grafana-dashboard.png"
 ---
 \[vc\_row\]\[vc\_column\]\[vc\_column\_text\]
