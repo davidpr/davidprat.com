@@ -5,6 +5,7 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { getAllPosts, getPost } from "@/lib/posts";
 import { site } from "@/content/site";
+import { MarkdownLink } from "@/components/MarkdownLink";
 
 export function generateStaticParams() {
   return getAllPosts().map((p) => ({ slug: p.slug }));
@@ -52,7 +53,9 @@ export default async function PostPage({
         </p>
       </header>
       <article className="post-body mt-8">
-        <ReactMarkdown remarkPlugins={[remarkGfm]}>{post.body}</ReactMarkdown>
+        <ReactMarkdown remarkPlugins={[remarkGfm]} components={{ a: MarkdownLink }}>
+          {post.body}
+        </ReactMarkdown>
       </article>
     </main>
   );

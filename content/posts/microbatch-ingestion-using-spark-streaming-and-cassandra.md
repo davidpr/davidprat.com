@@ -4,11 +4,7 @@ date: "2020-11-22T09:30:45"
 excerpt: "Microbatch ingestion using Spark Streaming and Cassandra In this post you ll learn how to ingest data files in near real time using Spark Structured Streaming framework and storing them in Cassandra database. Spark Struc"
 cover: "/posts/microbatch-ingestion-using-spark-streaming-and-cassandra/sparkUI-2.png"
 ---
-\[vc\_row\]\[vc\_column\]\[vc\_column\_text\]
-
 ## Microbatch ingestion using Spark Streaming and Cassandra
-
-\[/vc\_column\_text\]\[/vc\_column\]\[/vc\_row\]
 
 In this post you’ll learn how to ingest data files in near real time using Spark Structured Streaming framework and storing them in Cassandra database. Spark Structured Streaming allows the programmer to implement the streaming solutions by means of dataframes instead of RDDs. This makes the development much more agile while preserving the performance thanks to the Catalyst optimiser, which runs as a compiler hidden to the programmer.
 
@@ -24,34 +20,46 @@ Let’s first configure the environment. Basically we need to download and confi
 
 You can find many ways or variants to install it. For this post the following three instructions are for MacOS.
 
+```
 brew cask install java
 brew install scala
 brew install apache-spark
+```
 
 Verify that you have Spark Scala and Pyspark installed.
 
+```
 spark-shell
 (quit from the interactive session and then run pyspark)
 pyspark
+```
 
 Add the spark connector package to operate with Cassandra database.
 
 /usr/local/opt/apache-spark/libexec/conf/spark-defaults.conf
 
-spark.jars.packages com.datastax.spark:spark-cassandra-connector\_2.12:3.0.0-beta
+```
+spark.jars.packages com.datastax.spark:spark-cassandra-connector_2.12:3.0.0-beta
+```
 
 Check the package is loaded correctly.
 
+```
 /usr/local/opt/apache-spark/libexec/bin/pyspark
+```
 
 You will see how the package is downloaded and loaded to spark correctly.
 
 ##### Install Jupyter Notebooks
 
+```
 pip3 install jupyterlab
 pip3 install notebook
+```
 
+```
 jupyter notebook --port=80
+```
 
 ##### Install Docker Desktop
 
@@ -87,8 +95,11 @@ Now it’¡s time to prepare the database. First create a keyspace and inside th
 
 Create the keyspace and the table:
 
-CREATE KEYSPACE consumptions WITH replication = {'class': 'SimpleStrategy', 'replication\_factor' : 1};
+```
+CREATE KEYSPACE consumptions WITH replication = {'class': 'SimpleStrategy', 'replication_factor' : 1};
+```
 
+```
 CREATE TABLE c1(
    consumerID text PRIMARY KEY,
    date text,
@@ -97,6 +108,7 @@ CREATE TABLE c1(
    measure2 varint,
    filepath text
    );
+```
 
 #### Coding the application
 
@@ -104,62 +116,64 @@ The application looks very simple but it’s enough to deploy a system that inge
 
 Thanks to having the loaded data inside of a dataframe it’s very convenient to apply all transformations in between reading from the file and storing to Cassandra.
 
+```
 import findspark
 findspark.init()
 
 import pyspark
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import expr
-from pyspark.sql.functions import \*
+from pyspark.sql.functions import *
 from pyspark.sql.types import StructType, StructField, IntegerType, FloatType, StringType, BooleanType,TimestampType, DateType
 
 print("start")
 ##################################################################################################################
-def write\_to\_cassandra(target\_df, batch\_id):
+def write_to_cassandra(target_df, batch_id):
 print("hi write cassandra")
 
-df=target\_df.selectExpr("cast(\_c0 as string)consumerid", "cast(\_c1 as string)date", "cast(\_c2 as int)timevariation", "cast(\_c3 as string)measure1", "cast(\_c4 as string)measure2","filepath" )
+df=target_df.selectExpr("cast(_c0 as string)consumerid", "cast(_c1 as string)date", "cast(_c2 as int)timevariation", "cast(_c3 as string)measure1", "cast(_c4 as string)measure2","filepath" )
 
-df.write \\
-.format("org.apache.spark.sql.cassandra") \\
-.option("keyspace", "consumptions") \\
-.option("table", "c1") \\
-.mode("append") \\
+df.write \
+.format("org.apache.spark.sql.cassandra") \
+.option("keyspace", "consumptions") \
+.option("table", "c1") \
+.mode("append") \
 .save()
 df.show()
 
 print ("end write cassandra")
 
 ################################################################################################################
-spark = SparkSession \\
-.builder \\
-.master("local\[3\]") \\
-.appName("Write to Cassandra") \\
-.config("spark.streaming.stopGracefullyOnShutdown", "true") \\
-.config("spark.sql.shuffle.partitions", 2) \\
-.config("spark.cassandra.connection.host", "localhost") \\
-.config("spark.cassandra.connection.port", "9042") \\
-.config("spark.sql.extensions", "com.datastax.spark.connector.CassandraSparkExtensions") \\
-.config("spark.sql.catalog.lh", "com.datastax.spark.connector.datasource.CassandraCatalog") \\
+spark = SparkSession \
+.builder \
+.master("local") \
+.appName("Write to Cassandra") \
+.config("spark.streaming.stopGracefullyOnShutdown", "true") \
+.config("spark.sql.shuffle.partitions", 2) \
+.config("spark.cassandra.connection.host", "localhost") \
+.config("spark.cassandra.connection.port", "9042") \
+.config("spark.sql.extensions", "com.datastax.spark.connector.CassandraSparkExtensions") \
+.config("spark.sql.catalog.lh", "com.datastax.spark.connector.datasource.CassandraCatalog") \
 .getOrCreate()
 
-userSchema = StructType().add("\_c0", "string").add("\_c1", "string").add("\_c2", "integer").add("\_c3", "integer").add("\_c4", "integer")
+userSchema = StructType().add("_c0", "string").add("_c1", "string").add("_c2", "integer").add("_c3", "integer").add("_c4", "integer")
 
-raw\_df = spark.readStream \\
-.format("csv") \\
-.option("path", "/Users/david/bigdata/sparkstreamingfiles") \\
-.option("maxFilesPerTrigger", 1) \\
-.schema(userSchema) \\
+raw_df = spark.readStream \
+.format("csv") \
+.option("path", "/Users/david/bigdata/sparkstreamingfiles") \
+.option("maxFilesPerTrigger", 1) \
+.schema(userSchema) \
 .load()
 
-raw\_df = raw\_df.withColumn("filepath", input\_file\_name() )
+raw_df = raw_df.withColumn("filepath", input_file_name() )
 
-output\_query = raw\_df.writeStream \\
-.foreachBatch(write\_to\_cassandra) \\
-.outputMode("update") \\
-.option("checkpointLocation", "chk-point-dir") \\
-.trigger(processingTime="1 minute") \\
+output_query = raw_df.writeStream \
+.foreachBatch(write_to_cassandra) \
+.outputMode("update") \
+.option("checkpointLocation", "chk-point-dir") \
+.trigger(processingTime="1 minute") \
 .start()
+```
 
 There are different ways to track changes and load them with Spark Streaming. For this example can investigate what’s the behaviour when restarting the SparkSession object (which runs in the master node). Although the SparkSession is deleted, Spark Streaming keeps a log of all inserted files with some metadata as an offset for the ongoing job. In this code, this is the chk-point-dir. Go to this directory in your machine and check that you have different folders that contain as many folders as files there have been loaded. Try to erase some of those subfolders and see how spark reload that information into Cassandra. However, as the operation acts and an upsert, if no modifications are set into the files the final data will remain the same in Cassandra.
 

@@ -137,6 +137,20 @@ body {
   background: rgba(100, 116, 139, 0.12);
   padding: 0.1rem 0.35rem;
 }
+.post-body .yt-embed {
+  display: block;
+  margin: 1.5rem 0;
+  aspect-ratio: 16 / 9;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  border: 1px solid rgba(100, 116, 139, 0.25);
+}
+.post-body .yt-embed iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
 .post-body table {
   margin-top: 1.25rem;
   display: block;

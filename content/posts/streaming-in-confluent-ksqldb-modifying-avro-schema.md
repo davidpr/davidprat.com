@@ -4,11 +4,7 @@ date: "2020-12-01T15:00:55"
 excerpt: "Streaming in Confluent KsqlDB: Modifying AVRO Schema In the context of streaming applications Kafka has been a very used technology to solve real time and exactly-once-processing problems by many big and medium companies"
 cover: "/posts/streaming-in-confluent-ksqldb-modifying-avro-schema/ksqldb-squared.png"
 ---
-\[vc\_row\]\[vc\_column\]\[vc\_column\_text\]
-
 ## Streaming in Confluent KsqlDB: Modifying AVRO Schema
-
-\[/vc\_column\_text\]\[/vc\_column\]\[/vc\_row\]
 
 In the context of streaming applications Kafka has been a very used technology to solve real time and exactly-once-processing problems by many big and medium companies. It also has been used as a temporary logs in which all applications could benefit from brokerage and read from multiple destinations the same incoming data. With the introduction of cloud services such as Kinesis, MSK, Firehose, etc. infrastructure management has been reduced and with so the associated costs. This has been called “the democratization of streaming” because it has allowed smaller companies to use these powerful technologies without spending huge figures in large IT teams. However, there still was a caveat in this matter: programming a Kafka application was reduced to using Java and the development complexity was higher than using Spark Structured Streaming or even Flink or Storm. Moreover, the later frameworks provide much more powerful calls to manipulate data on the fly. Whether in form of microbatches such as the case of Spark Structured Streaming and Storm in its Trident version, or in the form of real time such as in Flink or Storm by default. Gives this, it is very common to see architectures with Kafka only being at the front of the data pipeline gathering and storing incoming data tuples as the fastest technology and coupling some other more friendly framework to process and manipulate data from Kafka even if after the Kafka step there only was a single application.
 
@@ -26,9 +22,11 @@ https://kafka.apache.org/downloads
 
 It is very likely that you already have Java installed. In this tutorial java 1.8 has been used so make sure you have this or a later version by typing:
 
+```
 java -version
+```
 
-If no java is installed in your machine you can follow the instructions (https://mkyong.com/java/how-to-install-java-on-mac-osx/).
+If no java is installed in your machine you can follow the instructions [here](https://mkyong.com/java/how-to-install-java-on-mac-osx/).
 
 ##### Install Confluent Platform
 
@@ -38,31 +36,41 @@ https://www.confluent.io/download/
 
 make a soft link to access to the latest version and export the PATH variable so you have the needed binaries conveniently accessible.
 
+```
 ln -s confluent-6.0.0/ confluent
 export PATH=${PATH}:/Users/david/bigdata/confluent/bin
 kafka-topics
+```
 
 Now let’s install the standalone Confluent CLI (command line interface). Start and stop and interrogate the state of the Confluent platform.
 
+```
 curl -L https://cnfl.io/cli | sh -s -- -b /Users/david/bigdata/confluent/bin
+```
 
 Check the confluent command is well pointed.
 
+```
 ./confluent
+```
 
 Set the confluent environment variable.
 
-export CONFLUENT\_HOME=/Users/david/bigdata/confluent
+```
+export CONFLUENT_HOME=/Users/david/bigdata/confluent
+```
 
 (export PATH=”${CONFLUENT\_HOME}/bin:$PATH”)
 
-(For more information go: (https://docs.confluent.io/current/confluent-cli/command-reference/local/services/ksql-server/confluent_local_services_ksql-server_start.html))
+(For more information go: [here](https://docs.confluent.io/current/confluent-cli/command-reference/local/services/ksql-server/confluent_local_services_ksql-server_start.html))
 
 ##### Running the Confluent Platform and testing it
 
+```
 confluent local services ksql-server start
 confluent local services ksql-server status
 confluent local services status
+```
 
 _The local commands are intended for a single-node development environment only_
 
@@ -88,11 +96,15 @@ Now that the ksqlDB server is up let’s start to play a bit with the system:
 
 Create a topic in Kafka Cluster.
 
+```
 kafka-topics --zookeeper localhost:2181 --create --partitions 1 --replication-factor 1 --topic USERS
+```
 
-Now in a separate terminal turn the ksqlDB server by typing ksql. Then perform the following commands. You’ll see that the commands are very self-explanatory. However, if more information is required you can consult a list of ksql commands (https://docs.ksqldb.io/en/latest/developer-guide/ksqldb-reference/quick-reference/).
+Now in a separate terminal turn the ksqlDB server by typing ksql. Then perform the following commands. You’ll see that the commands are very self-explanatory. However, if more information is required you can consult a list of ksql commands [here](https://docs.ksqldb.io/en/latest/developer-guide/ksqldb-reference/quick-reference/).
 
+```
 ksql> list topics;
+```
 
 \>;
 
@@ -106,7 +118,9 @@ _default\_ksql\_processing\_log | 1          | 1_                 �
 
 _test                        | 1          | 1_                  
 
+```
 kafka-console-producer --broker-list localhost:9092 --topic USERS
+```
 
 _\>Alice,US_
 
@@ -116,7 +130,9 @@ _\>Carole,AU_
 
 _\>Dan,US_
 
+```
 ksql> print 'USERS'
+```
 
 _\>;_
 
@@ -130,7 +146,9 @@ _rowtime: 2020/11/15 09:15:13.726 Z, key: <null>, value: Dan,US_
 
 _^CTopic printing ceased_
 
-_ksql> print 'USERS' from beginning;_
+```
+ksql> print 'USERS' from beginning;
+```
 
 _Key format: ¯\\\_(ツ)\_/¯ – no data processed_
 
@@ -156,7 +174,9 @@ _rowtime: 2020/11/15 09:14:27.093 Z, key: <null>, value: Bob,GB_
 
 _Topic printing ceased_
 
+```
 ksql> print 'USERS' from beginning interval 2 limit 2;
+```
 
 _Key format: ¯\\\_(ツ)\_/¯ – no data processed_
 
@@ -168,8 +188,10 @@ _rowtime: 2020/11/15 09:15:04.592 Z, key: <null>, value: Carole,AU_
 
 _Topic printing ceased_
 
-ksql>create stream users\_stream (name VARCHAR, countrycode VARCHAR) WITH (KAFKA\_TOPIC='USERS', VALUE\_FORMAT='DELIMITED');
+```
+ksql>create stream users_stream (name VARCHAR, countrycode VARCHAR) WITH (KAFKA_TOPIC='USERS', VALUE_FORMAT='DELIMITED');
 ksql> list streams;
+```
 
 _Stream Name         | Kafka Topic                 | Format_    
 
@@ -181,11 +203,13 @@ _USERS\_STREAM        | USERS                       | DELIMITED_
 
 * * *
 
-_SET 'auto.offset.reset'='earliest';_
+```
+SET 'auto.offset.reset'='earliest';
 ksql> list streams;
-_select name,countrycode  from users\_stream EMIT CHANGES;_
-_select name,countrycode  from users\_stream EMIT CHANGES limit 1;_
-_select countrycode, count(\*) from users\_stream group by countrycode EMIT CHANGES;_ 
+select name,countrycode  from users_stream EMIT CHANGES;
+select name,countrycode  from users_stream EMIT CHANGES limit 1;
+select countrycode, count(*) from users_stream group by countrycode EMIT CHANGES; 
+```
 
 _+————————————-+————————————-+_
 
@@ -199,9 +223,11 @@ _|AU                                   |1              �
 
 _|US                                   |2                                    |_
 
-ksql> drop stream if exists users\_stream delete topic;
+```
+ksql> drop stream if exists users_stream delete topic;
 show streams,
 show topics;
+```
 
 #### Coding the application
 
@@ -209,7 +235,9 @@ We already have played somehow with the ksqlDB. Created a topic, published data 
 
 First of all,, let’s stop the confluent services and start them again. But this time we are going to start all them by simply specifying start without referring to anyone in special.
 
+```
 confluent local services start
+```
 
 To access the Confluent Control Center, go to your browser and type localhost using the 9021 port. A simple resume of the clusters will appear. In this case there only one cluster with a single broker.
 
@@ -221,17 +249,21 @@ Looking into the menu more detailed information regarding the Kafka cluster and 
 
 Let’s create a new topic, which will represent complains from the users.
 
-kafka-topics --zookeeper localhost:2181 --create --partitions 1 --replication-factor 1 --topic COMPLAINTS\_AVRO
+```
+kafka-topics --zookeeper localhost:2181 --create --partitions 1 --replication-factor 1 --topic COMPLAINTS_AVRO
+```
 
 Now let’s create a stream for the complains topic and insert a record in AVRO format. Finally, we describe the stream.
 
+```
 ksql
-create stream complaints\_avro with (kafka\_topic='COMPLAINTS\_AVRO', value\_format='AVRO');
-kafka-avro-console-producer --broker-list localhost:9092 --topic COMPLAINTS\_AVRO --property value.schema='{ "type": "record", "name": "myrecord", "fields": \[ {"name": "customer\_name", "type": "string" }, {"name": "complaint\_type", "type": "string" },{"name": "trip\_cost", "type": "float" }, {"name": "new\_customer", "type": "boolean"} \] }' << EOF
-{"customer\_name":"Carol", "complaint\_type":"Late arrival", "trip\_cost": 19.60, "new\_customer": false}
+create stream complaints_avro with (kafka_topic='COMPLAINTS_AVRO', value_format='AVRO');
+kafka-avro-console-producer --broker-list localhost:9092 --topic COMPLAINTS_AVRO --property value.schema='{ "type": "record", "name": "myrecord", "fields": [ {"name": "customer_name", "type": "string" }, {"name": "complaint_type", "type": "string" },{"name": "trip_cost", "type": "float" }, {"name": "new_customer", "type": "boolean"} ] }' << EOF
+{"customer_name":"Carol", "complaint_type":"Late arrival", "trip_cost": 19.60, "new_customer": false}
 EOF
 
-ksql> describe extended complaints\_avro;
+ksql> describe extended complaints_avro;
+```
 
 _Name                 : COMPLAINTS\_AVRO_
 
@@ -273,9 +305,11 @@ The topic has been created and the schema can be seen in the Confluent Control C
 
 Now let’s create the version 2 of the schema by executing the following command.
 
-kafka-avro-console-producer --broker-list localhost:9092 --topic COMPLAINTS\_AVRO --property value.schema=' {"type": "record","name": "myrecord","fields": \[{"name": "customer\_name", "type": "string" }, {"name": "complaint\_type", "type": "string" }, {"name": "trip\_cost", "type": "float" }, {"name": "new\_customer", "type": "boolean"}, {"name": "number\_of\_rides", "type": "int", "default" : 1}\]}' << EOF
-{"customer\_name":"Ed", "complaint\_type":"Dirty car", "trip\_cost": 29.10,"new\_customer": false, "number\_of\_rides": 22}
+```
+kafka-avro-console-producer --broker-list localhost:9092 --topic COMPLAINTS_AVRO --property value.schema=' {"type": "record","name": "myrecord","fields": [{"name": "customer_name", "type": "string" }, {"name": "complaint_type", "type": "string" }, {"name": "trip_cost", "type": "float" }, {"name": "new_customer", "type": "boolean"}, {"name": "number_of_rides", "type": "int", "default" : 1}]}' << EOF
+{"customer_name":"Ed", "complaint_type":"Dirty car", "trip_cost": 29.10,"new_customer": false, "number_of_rides": 22}
 EOF
+```
 
 And when going back to the CCC it is possible to see the schema version 2. Notice how it is possible to make a diff between the different versions. In this case we only have the two created versions.
 
@@ -283,7 +317,9 @@ And when going back to the CCC it is possible to see the schema version 2. Notic
 
 Versions can also be retrieved by applying curl command over the CCC.
 
-curl -s -X GET http://localhost:8081/subjects/COMPLAINTS\_AVRO-value/versions
+```
+curl -s -X GET http://localhost:8081/subjects/COMPLAINTS_AVRO-value/versions
+```
 
 \[1,2\]**%**
 
@@ -291,21 +327,29 @@ Let’s have a look to the streams to understand what’s the behaviour of them 
 
 describe the old stream:
 
-describe complaints\_avro;
+```
+describe complaints_avro;
+```
 
 You’ll see that despite the avro schema was changed the old stream still treat the data according to the first schema.
 
 To operate with the second or newer schema let’s create a new stream:
 
-create stream complaints\_avro\_v2 with (kafka\_topic='COMPLAINTS\_AVRO', value\_format='AVRO');
+```
+create stream complaints_avro_v2 with (kafka_topic='COMPLAINTS_AVRO', value_format='AVRO');
+```
 
 Now describe the newer stream to discover that it takes into account the new field fo the updated schema
 
-describe complaints\_avro\_v2;
+```
+describe complaints_avro_v2;
+```
 
 An additional check is to directly consult both streams:
 
-ksql> select \* from complaints\_avro EMIT CHANGES;
+```
+ksql> select * from complaints_avro EMIT CHANGES;
+```
 
 +—————–+—————–+—————–+—————–+
 
@@ -329,7 +373,9 @@ ksql> select \* from complaints\_avro\_v2 EMIT CHANGES;
 
 If no users where shown it’s because you closed the ksql session and you lost the environment configuration. Just type again:
 
+```
 SET 'auto.offset.reset'='earliest';
+```
 
 You can achieve the same effect by using the Confluent Control Center. Set the knobs just like the image below:
 

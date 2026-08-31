@@ -18,6 +18,33 @@ const td = new TurndownService({ headingStyle: "atx", codeBlockStyle: "fenced" }
 td.use(gfm);
 td.remove(["script", "style", "iframe", "object", "embed", "form", "noscript"]);
 
+function decodeEntities(s) {
+  return s
+    .replace(/&#8221;|&#8220;|&quot;/g, '"')
+    .replace(/&#8217;|&#8216;/g, "'")
+    .replace(/&amp;/g, "&");
+}
+
+// [vc_video link="https://www.youtube.com/watch?v=ID" ...] → standalone link
+// (rendered as an embedded player by the post page).
+function extractVideos(html) {
+  return html.replace(/\[vc_video\s+([^\]]*)\]/gi, (_, attrs) => {
+    const m = decodeEntities(attrs).match(/link="([^"]+)"/i);
+    return m ? `</p><p><a href="${m[1]}">Watch the video tutorial on YouTube</a></p><p>` : "";
+  });
+}
+
+// Bare <pre> (no <code> child) → <pre><code> so Turndown emits fenced blocks.
+function normalizeBarePre(html) {
+  return html.replace(
+    /<pre(?![^>]*>\s*<code)[^>]*>([\s\S]*?)<\/pre>/gi,
+    (whole, inner) => {
+      if (/<code|<xmp/i.test(inner)) return whole;
+      return `<pre><code>${inner.replace(/<[^>]+>/g, "")}\n</code></pre>`;
+    },
+  );
+}
+
 // Elementor/Prism code blocks keep raw code inside <xmp>; rebuild them as
 // plain <pre><code> so Turndown emits fenced blocks with newlines intact.
 function normalizeCodeBlocks(html) {
@@ -72,7 +99,12 @@ for (const post of posts) {
   await mkdir(imgDir, { recursive: true });
   await mkdir(OUT_MD, { recursive: true });
 
-  let html = stripUnsafe(normalizeCodeBlocks(post.content.rendered));
+  let html = post.content.rendered;
+  html = extractVideos(html);
+  html = stripShortcodes(html); // before Turndown escapes the brackets
+  html = normalizeCodeBlocks(html);
+  html = normalizeBarePre(html);
+  html = stripUnsafe(html);
 
   // collect image URLs from the post body (src attributes)
   const imgUrls = [...new Set([...html.matchAll(/<img[^>]+src="([^"]+)"/gi)].map((m) => m[1]))];
@@ -97,7 +129,10 @@ for (const post of posts) {
     html = html.split(raw).join(local);
   }
 
-  let md = stripShortcodes(td.turndown(html));
+  let md = td.turndown(html);
+  // safety net strictly for escaped vc shortcode remnants (\[vc\_row\]);
+  // must never touch markdown link syntax
+  md = md.replace(/\\?\[\\?\/?vc\\?_[^\]\n]*\\?\]/gi, "");
   // srcset/size-suffixed leftovers and origin references
   md = md.split(ORIGIN).join("");
 

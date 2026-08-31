@@ -64,7 +64,7 @@ print (response)
 
 Here is where we perform the evaluation of the RAG system using the Trulens library. The Trulens library works under a paradigm called “triad of metrics”. This triad is composed of the following three metrics:
 
-!(/posts/evaulate-production-rag-with-truelens/trulens-rag-triad-1024x375.png)
+![Trulens Rag Triad](/posts/evaulate-production-rag-with-truelens/trulens-rag-triad-1024x375.png)
 
 Trulens Rag Triad
 
@@ -148,7 +148,7 @@ tru.run_dashboard()
 
 In the last lines of the code the Trulens dashboard is called. It is where we are going to check the results of the RAG evaluation. Typically it’s going to be available in the address of the form: http://192.168.1.197:8502. A part from being able to see the scores for each metric and each question, we are going able to see other useful results such as the answers that the LLM returned for each question, the retrieved contexts, the execution times, the latencies of each LLM call, etc. Bear in mind that the provided code is making a reset of the Trulens DB for each execution but you can omit this reset to be able to compare scores between different evaluations and RAGs.
 
-!(/posts/evaulate-production-rag-with-truelens/trulens-evaluations-1-1024x342.png)
+![Trulens Evaluations](/posts/evaulate-production-rag-with-truelens/trulens-evaluations-1-1024x342.png)
 
 ##### Conclusions
 

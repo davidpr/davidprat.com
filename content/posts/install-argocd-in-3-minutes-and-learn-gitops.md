@@ -4,11 +4,9 @@ date: "2023-05-19T08:54:07"
 excerpt: "Install ArgoCD in 3 minutes and learn GitOps In today s post we are going to see how to install ArgoCD in a straightforward way and explain what s the function of ArgoCD in a GitOps setup. First we ll be going though a t"
 cover: "/posts/install-argocd-in-3-minutes-and-learn-gitops/argocd2.jpg"
 ---
-\[vc\_row\]\[vc\_column\]\[vc\_column\_text\]
-
 ## Install ArgoCD in 3 minutes and learn GitOps
 
-\[/vc\_column\_text\]\[/vc\_column\]\[/vc\_row\]\[vc\_row\]\[vc\_column\]\[vc\_column\_text\]In today’s post we are going to see how to install ArgoCD in a straightforward way and explain what’s the function of ArgoCD in a GitOps setup. First we’ll be going though a typical GitOps setup and how it works in each step. Then we’ll take into account the rest of the CI/CD pipeline is already setup and we’ll focus on the ArgoCD part. So, let’s get started!
+In today’s post we are going to see how to install ArgoCD in a straightforward way and explain what’s the function of ArgoCD in a GitOps setup. First we’ll be going though a typical GitOps setup and how it works in each step. Then we’ll take into account the rest of the CI/CD pipeline is already setup and we’ll focus on the ArgoCD part. So, let’s get started!
 
 ##### Crash course in GitOps
 
@@ -22,7 +20,9 @@ The below picture shows a typical GitOps flow in which not only the CI/CD is app
 
 We are going to install ArgoCD as a Kubernetes deployment in the same K3s cluster where our web applications will reside. ArgoCD doesn’t consume too many resources of the cluster and it’s very convenient to have it all in the same cluster. Specially, as we have everything in the Gitlab repo. including the application, the specification of the infrastructure and the specification of our CI/CD pipeline, we are more secure in terms of infrastructure and we don’t have to have so much redundancy in this sense.
 
+```
 kubectl create namespace argocd && kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+```
 
 Then change the service to NodePort to be able to connect from your browser locally. The service is: service/argocd-server
 
@@ -30,7 +30,9 @@ Access to the localhost in the port indicated by the NodePort and it will ask yo
 
 To get the password use the following command:
 
+```
 kubectl -n argocd get secret argocd-initial-admin-secret -o yaml -o jsonpath="{.data.password}" | base64 -d
+```
 
 Now login to ArgoCD webUI and configure the connection to the Gitlab account.
 
@@ -42,6 +44,7 @@ To configure ArgoCD the first point is to establish the connection with the Gitl
 
 The next step in the configuration is just to include the ArgoCD application that will contain the configuration to control the deployment of our React application. ArgoCD structures the control of the deployments in logical units called applications. This applications can be created via the same webUI or it also can be done using a .yaml file. For our example we’ll use a.yaml file.
 
+```
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -56,12 +59,15 @@ spec:
     path: finlooker-infra/k8s-render/dev
     repoURL: https://gitlab.com/datapta/finlooker-webapp.git
     targetRevision: main
+```
 
 As you can see, a basic configuration is very straightforward to setup. We specify the repository as the origin and the kubernetes cluster as the destination. After the application is created we’ll be able to specify in the webUI how do we want the synchronization to be done.
 
 Creating the application out of a .yaml file is done with the kubectl apply command.
 
+```
 kubectl apply -f finlooker-infra/argocd/finlooker-dev.yaml
+```
 
 After having specified the ArgoCD application we’ll configure the way the sync is done. For our example, we are going to make click in “Sync” button and just accept the default values. Notice how it’s possible to sync only for some resources of the .yaml file, which is something very powerful. What we have done here corresponds to the point 5 of the diagram. We have configured the webhook to automatize pulling the updates from the repo and then configured in ArgoCD how to treat and manipulate those updates in the infrastructure.
 
@@ -79,4 +85,6 @@ When doing the deployment is interesting to manually connect to the cluster mach
 
 With this we conclude the post of ArgoCD and learning GitOps. I hope it has been short and useful at the same time. With the increasingly use of Kubernetes and tools such as Skaffold that have a good integration with Kustomize allowing to define infrastructure for different environments in an elegant manner, the remaining tool the CNCF ecosystem needed was something like ArgoCD, that allows to synchronize in a configurable way our deployments in a Kubernetes cluster.
 
-In the next posts of this GitOps series we’ll be deepening our focus on the other parts of the GitOps pipeline where things will include having some understanding on the web application.\[/vc\_column\_text\]\[/vc\_column\]\[/vc\_row\]\[vc\_row\]\[vc\_column\]\[vc\_video link=”https://www.youtube.com/watch?v=gTLHH05Y4NU” title=”Video Tutorial”\]\[/vc\_column\]\[/vc\_row\]
+In the next posts of this GitOps series we’ll be deepening our focus on the other parts of the GitOps pipeline where things will include having some understanding on the web application.
+
+[Watch the video tutorial on YouTube](https://www.youtube.com/watch?v=gTLHH05Y4NU)

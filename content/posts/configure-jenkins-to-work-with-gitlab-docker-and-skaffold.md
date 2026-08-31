@@ -4,11 +4,9 @@ date: "2023-08-05T12:48:25"
 excerpt: "Configure Jenkins to work with Gitlab, Docker and Skaffold In today s post we are going to see how to install Jenkins in a straightforward way in a bare metal server and explain what s the function of Jenkins in a GitOps"
 cover: "/posts/configure-jenkins-to-work-with-gitlab-docker-and-skaffold/jenkins-agent-logo.jpg"
 ---
-\[vc\_row\]\[vc\_column\]\[vc\_column\_text\]
-
 ## Configure Jenkins to work with Gitlab, Docker and Skaffold
 
-\[/vc\_column\_text\]\[/vc\_column\]\[/vc\_row\]\[vc\_row\]\[vc\_column\]\[vc\_column\_text\]In today’s post we are going to see how to install Jenkins in a straightforward way in a bare metal server and explain what’s the function of Jenkins in a GitOps setup. First we’ll be going though a typical GitOps setup and how it works in each step. Then we’ll take into account the rest of the CI/CD pipeline is already setup and we’ll focus on the Jenkins part. So, let’s get started!
+In today’s post we are going to see how to install Jenkins in a straightforward way in a bare metal server and explain what’s the function of Jenkins in a GitOps setup. First we’ll be going though a typical GitOps setup and how it works in each step. Then we’ll take into account the rest of the CI/CD pipeline is already setup and we’ll focus on the Jenkins part. So, let’s get started!
 
 ##### Crash course in GitOps
 
@@ -24,6 +22,7 @@ We are going to install Jenkins directly in an Linux server running Ubuntu 22.04
 
 In the case of Jenkins, the processes will very likely to consume a good amount of CPU and RAM because we will be executing from there the steps that build React and Node.s projects. As we know, this workloads are tricky and resource consuming, this is why cloud vendors have created their paid services that are specialised in building docker images with high performance.
 
+```
 #install java first 
 #installing-specific-versions-of-openjdk 
 sudo apt install default-jre 
@@ -40,6 +39,7 @@ sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 5BA31D57EF5975CA
 
 sudo apt update 
 sudo apt install jenkins
+```
 
 Now we should be able to login to Jenkins webUI and configure the connection to the Gitlab account. Just use the IP of your server followed by the port 80890, which is the default port of Jenkins.
 
@@ -63,18 +63,24 @@ We haven’t finished with our connections. Now it’s time for the Docker conne
 
 This credential in Jenkins is just a secret text.
 
-variable name: DOCKER\_PASS
+```
+variable name: DOCKER_PASS
 variable secret text: passwordOfDockerHub
+```
 
 Now we also need to include the Jenkins user into the Docker group so the Jenkins user can access to the docker daemon. And restart Jenkins-
 
+```
 sudo usermod -aG docker jenkins
 sudo systemctl restart jenkins
+```
 
 Add the Jenkins user to the group of docker so it can access the docker daemon
 
+```
 sudo usermod -aG docker jenkins
 sudo systemctl restart jenkins
+```
 
 Now we are going to perform the the installation of the required Jenkins plugins:
 
@@ -98,6 +104,7 @@ To create a pipeline, from the Jenkins dashboard we are gong to create it with: 
 
 Once we are in the text box, just use the following code:
 
+```
 pipeline {
     agent {
         docker {
@@ -108,25 +115,25 @@ pipeline {
     stages {
         stage('Build and Checkout') {
             steps {
-                withCredentials(\[string(credentialsId: 'DOCKER\_PASS', variable: 'DOCKER\_PASS'),
-                sshUserPrivateKey(credentialsId: 'n5101', keyFileVariable: 'SSH\_KEYFILE')\])
+                withCredentials([string(credentialsId: 'DOCKER_PASS', variable: 'DOCKER_PASS'),
+                sshUserPrivateKey(credentialsId: 'n5101', keyFileVariable: 'SSH_KEYFILE')])
                 {
                     echo '->Stage 1 Step 1'
                     sh "id"  
                     sh "ls -lashtr ~"  
                       
-                    sh "docker login -u datapta -p $DOCKER\_PASS"
+                    sh "docker login -u datapta -p $DOCKER_PASS"
                        
                     sh 'git config --global credential.helper cache'
                     sh 'git config --global push.default simple'    
   
                     //checkout the main branch
-                    checkout(\[  
+                    checkout([  
     				      $class: 'GitSCM', 
-    				      branches: \[\[name: 'main'\]\],
+    				      branches: [[name: 'main']],
     				      gitTool: 'git',
-    				      userRemoteConfigs: \[\[url: "https://gitlab.com/datapta/finlooker-webapp.git", credentialsId: "gitlabdatapta"\]\]
-    				    \])
+    				      userRemoteConfigs: [[url: "https://gitlab.com/datapta/finlooker-webapp.git", credentialsId: "gitlabdatapta"]]
+    				    ])
     			    
                     sh 'git config --global user.name "dataptaofficial@gmail.com"'
                     sh 'git config --global user.email "dataptaofficial@gmail.com"'
@@ -137,11 +144,11 @@ pipeline {
     				sh 'git remote set-url origin git@gitlab.com:datapta/finlooker-webapp.git'
                     sh 'git checkout main'
                     
-    				sshagent(\['n5101'\]) {
+    				sshagent(['n5101']) {
     				    sh '''
                         set +x
                         mkdir ~/.ssh
-                        ssh-keyscan gitlab.com >> ~/.ssh/known\_hosts
+                        ssh-keyscan gitlab.com >> ~/.ssh/known_hosts
                         git pull git@gitlab.com:datapta/finlooker-webapp.git
                         '''
                     }    
@@ -149,12 +156,12 @@ pipeline {
     				sh 'skaffold build -p dev && skaffold render -p dev --output=finlooker-infra/k8s-render/dev/all-resources-dev.yaml'
                     
                     //checkout the prd branch
-                    checkout(\[  
+                    checkout([  
     				      $class: 'GitSCM', 
-    				      branches: \[\[name: 'prd'\]\],
+    				      branches: [[name: 'prd']],
     				      gitTool: 'git',
-    				      userRemoteConfigs: \[\[url: "https://gitlab.com/datapta/finlooker-webapp.git", credentialsId: "gitlabdatapta"\]\]
-    				    \])
+    				      userRemoteConfigs: [[url: "https://gitlab.com/datapta/finlooker-webapp.git", credentialsId: "gitlabdatapta"]]
+    				    ])
     				    
     				sh 'git config --global user.name "dataptaofficial@gmail.com"'
                     sh 'git config --global user.email "dataptaofficial@gmail.com"'
@@ -165,9 +172,9 @@ pipeline {
     				sh 'git remote set-url origin git@gitlab.com:datapta/finlooker-webapp.git'
                     sh 'git checkout prd'
 
-                    sshagent(\['n5101'\]) {
+                    sshagent(['n5101']) {
     				    sh ''' 
-    				    ssh-keyscan gitlab.com >> ~/.ssh/known\_hosts
+    				    ssh-keyscan gitlab.com >> ~/.ssh/known_hosts
                         git pull git@gitlab.com:datapta/finlooker-webapp.git
                         '''
                     }    
@@ -175,9 +182,9 @@ pipeline {
                     sh 'git merge main'  
     				sh 'git add .'   
 
-    				sshagent(\['n5101'\]) {  
+    				sshagent(['n5101']) {  
     				    sh '''
-    				    ssh-keyscan gitlab.com >> ~/.ssh/known\_hosts
+    				    ssh-keyscan gitlab.com >> ~/.ssh/known_hosts
                         git push 
                         ''' 
                     }   
@@ -186,6 +193,7 @@ pipeline {
         }
     }
 }
+```
 
 Now were going to explain some of the key concepts of the code. To begin with, we declare a Jenkins agent. Because it’s the only agent declared and there’s no other directive with respect to agents, this tells the Jenkins that we’ll execute the whole pipeline in this agent. The agent is a docker container that we have prepared beforehand. This container already has installed Skaffold that will be used to automate the building of the Docker images and the generation of the Kubernetes resources. In this tutorial we are not going to go through the details of generating the image but feel free to use it as it is a the public repository of Docker Hub. Here it is important to notice that the container is mounting the docker daemon from the host Linux server. This is a little trick that we make to use the full potential of the server instead of relaying on the resources of the pod. Take into account also that because of we are delegating the Docker commands work to the server the Skaffold command, which is what under the hood calls to the Docker daemon, won’t need to execute anything with dind (docker in docker). This simplified quite a lot the process removing further tuning for Skaffold.
 
@@ -229,11 +237,12 @@ See the “Secret token” field and copy its content. Then paste it into Gitlab
 
 You will notice that in the webhook address it appears port 9099 instead of 8080. This is because in my case, my ISP was blocking the port 8080. If the same happens to you, there are two options: call the ISP provider and request for this port to be opened again, or you can use another port in Jenkins. For the case of this tutorial, using Ubuntu distribution, the procedure is the following:
 
-\# Edit this file because the way we have installed Jenkins leaves it running as a service
+```
+# Edit this file because the way we have installed Jenkins leaves it running as a service
 /lib/systemd/system/jenkins.service
 
 # Modify the Environment variable with this value
-Environment="JENKINS\_PORT=9099 JENKINS\_HTTPS\_LISTEN\_ADDRESS=0.0.0.0"
+Environment="JENKINS_PORT=9099 JENKINS_HTTPS_LISTEN_ADDRESS=0.0.0.0"
 
 # Notify the systemd manager that there are changes to be applied 
 systemctl daemon-reload
@@ -244,10 +253,13 @@ sudo systemctl restart jenkins
 # Check the status of the jenkins service 
 sudo systemctl status jenkins
 netstat -nltpu
+```
 
 With these steps performed we would go to Gitlab and test the webhook. Finally, all we have to do is to make some change in the code from our local machine in the main branch and push the changes to Gitlab. Gitlab will take care of noticing Jenkins that a new build has to take place. An example of the command that would trigger the build and deployment can be viewed in the following block of code.
 
+```
 git add .; git commit -m 'New code update'; git push
+```
 
 Once Jenkins performs the build and updates the prd branch, ArgoCD with auto-sync enabled would just pick the changes that got generated in the finlooker-webapp/finlooker-infra/k8s-render/prd/all-resources-prd.yaml file and would deploy them into our K3s cluster. So, at this point all the production building process would be completely automated. This is what is called continuous deployment. Let it suffice to say, that the complete DevOps pipeline typically includes a dev, tst and stg environments. However, with the explained in this tutorial the key points of how to set up such systems are explained.
 
@@ -255,4 +267,6 @@ Once Jenkins performs the build and updates the prd branch, ArgoCD with auto-syn
 
 With this we conclude the post of Jenkins, which is a key aspect in GitOps. I hope it has been short and useful at the same time. We have relied on a veteran tools such as Jenkins because it works pretty well and its architecture based on plugins has been a key aspect to grow its community and support for many and many tasks for CI/CD. In this case, Jenkins is not part of CNCF but part of CD Foundation, which contains less projects but contains Jenkins that itself is quite an important DevOps tool. There’s also the possibility to make the part of Jenkins with Gitlab CI. However, after a couple of months of having developed the code, Gitlab downgraded the free credits per months which basically made it a paid service because the building of React and Node.js images can be rather CPU consuming.
 
-In the next posts of this GitOps series we’ll be deepening our focus on the other parts of the GitOps pipeline and more specific things related to the way a React application is ported from testing to production environment.\[/vc\_column\_text\]\[/vc\_column\]\[/vc\_row\]\[vc\_row\]\[vc\_column\]\[vc\_video link=”https://www.youtube.com/watch?v=peo-Cc6qPOM” title=”Video Tutorial”\]\[/vc\_column\]\[/vc\_row\]
+In the next posts of this GitOps series we’ll be deepening our focus on the other parts of the GitOps pipeline and more specific things related to the way a React application is ported from testing to production environment.
+
+[Watch the video tutorial on YouTube](https://www.youtube.com/watch?v=peo-Cc6qPOM)

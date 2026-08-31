@@ -4,11 +4,7 @@ date: "2020-11-12T15:01:46"
 excerpt: "Processing a stream of events with Kafka and Flink Dear reader, in this post you ll learn how to deploy a Kafka cluster and a Flink cluster. You ll also learn how to make a simple application in Flink to process a stream"
 cover: "/posts/processing-a-stream-of-events-with-kafka-and-flink/flink-dashboard3.png"
 ---
-\[vc\_row\]\[vc\_column\]\[vc\_column\_text\]
-
 ## Processing a stream of events with Kafka and Flink
-
-\[/vc\_column\_text\]\[/vc\_column\]\[/vc\_row\]
 
 Dear reader, in this post you’ll learn how to deploy a Kafka cluster and a Flink cluster. You’ll also learn how to make a simple application in Flink to process a stream of event coming from a Kafka producer. The tutorial is intended to prepare the reader to have this first experience with both technologies and successfully deploy this simple but powerful application.
 
@@ -36,7 +32,9 @@ log.dirs=../kafka-logs/server-0
 
 set the KAFKA\_HOME environment variable
 
-export KAFKA\_HOME=/Users/david/bigdata/kafka\_2.12-2.6.0
+```
+export KAFKA_HOME=/Users/david/bigdata/kafka_2.12-2.6.0
+```
 
 Remember to have this variable set for all the incoming terminals that you use. Alternatively you can define it in the .bashrc profile file.
 
@@ -46,9 +44,13 @@ https://kafka.apache.org/documentation/#quickstart
 
 But for our purpose we’ll need only this:
 
+```
 bin/zookeeper-server-start.sh config/zookeeper.properties
+```
 
+```
 bin/kafka-server-start.sh config/server.properties
+```
 
 ##### Install Flink
 
@@ -58,7 +60,9 @@ Unzip the file and move it to an applications folder in your computer
 
 Go to the directory and start the flink cluster
 
+```
 ./start-cluster.sh
+```
 
 Check the Flink cluster is running:
 
@@ -86,6 +90,7 @@ Under the recently create package do right click and create a new class, name th
 
 Then substitute the code of the class with the following class:
 
+```
 package kfp1;
 
 import java.util.Properties;
@@ -96,13 +101,13 @@ import org.apache.flink.api.common.functions.FlatMapFunction;
 
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
-import org.apache.flink.streaming.connectors.kafka.\*;
+import org.apache.flink.streaming.connectors.kafka.*;
 import org.apache.flink.streaming.util.serialization.SimpleStringSchema;
 
 
 public class KafkaFlinkC1 
 {
-	public static void main(String\[\] args) throws Exception
+	public static void main(String[] args) throws Exception
     {
 	final StreamExecutionEnvironment env =  StreamExecutionEnvironment.getExecutionEnvironment();
 
@@ -115,7 +120,7 @@ public class KafkaFlinkC1
 			{
 		public void flatMap(String value, Collector<Tuple2<String, Integer>> out)
 		{
-			String\[\] words = value.split(" ");
+			String[] words = value.split(" ");
 			for (String word : words)
 				out.collect(new Tuple2<String, Integer>(word, 1));
 		}	})
@@ -129,10 +134,13 @@ public class KafkaFlinkC1
 
 }
 
+```
+
 remember to change the package and class names for the ones that you have defined when creating the project, package and class
 
 Now it’s time to indicate the dependencies by means of the pom.xml file. Use the following code:
 
+```
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>kafka-flink</groupId>
@@ -149,21 +157,21 @@ Now it’s time to indicate the dependencies by means of the pom.xml file. Use t
 
 	<dependency>
   <groupId>org.apache.flink</groupId>
-  <artifactId>flink-streaming-java\_2.11</artifactId>
+  <artifactId>flink-streaming-java_2.11</artifactId>
   <version>1.11.2</version>
   <scope>provided</scope>
 </dependency>
 
 <dependency>
   <groupId>org.apache.flink</groupId>
-  <artifactId>flink-clients\_2.11</artifactId>
+  <artifactId>flink-clients_2.11</artifactId>
   <version>1.11.2</version>
   <scope>provided</scope>
 </dependency>
 
 <dependency>
   <groupId>org.apache.flink</groupId>
-  <artifactId>flink-connector-kafka-0.11\_2.11</artifactId>
+  <artifactId>flink-connector-kafka-0.11_2.11</artifactId>
   <version>1.11.2</version>
 </dependency>
 <dependency>
@@ -214,15 +222,21 @@ Now it’s time to indicate the dependencies by means of the pom.xml file. Use t
 
 </project>
 
+```
+
 Remember to check your java compiler version as well as the Flink downloaded version. Otherwise you may not encounter errors at compilation time but you’ll face out error when deploying the application in the Flink cluster. For this demo the Flink version has been 1.11.2.
 
 Go tot the pom.xm file. Do right click and select maven clean, then do a maven install. First time, the required jars will be downloaded so this can take some minutes. Inside eclipse in the below terminal check the jar path and keep it open because we will use that path to indicate to Flink run where the .jar is located.
 
 #### Testing the system
 
+```
 bin/kafka-console-producer.sh --broker-list localhost:9092 --topic test
+```
 
+```
 ./bin/flink run /Users/david/eclipse-workspace/kafka-flink/target/kafka-flink-0.0.1-SNAPSHOT-jar-with-dependencies.jar
+```
 
  Now we can check that our package is running in the Flink cluster by going to the Flink dashboard
 
