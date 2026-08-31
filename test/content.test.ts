@@ -67,7 +67,8 @@ describe("site content", () => {
   });
 
   it("keeps projects in chronological order with portfolio imports and existing images", () => {
-    expect(site.projects.length).toBeGreaterThanOrEqual(12);
+    expect(site.projects.length).toBeGreaterThanOrEqual(17);
+    expect(site.projects.map((p) => p.name).join(" ")).toMatch(/Tegra 2/);
     const names = site.projects.map((p) => p.name).join(" | ");
     expect(names).toMatch(/Universal Data Catalog/);
     expect(names).toMatch(/Electricity Consumption/);

@@ -273,6 +273,41 @@ export const site: SiteContent = {
       image: "/projects/imidomics-dashboard.png",
       imageAlt: "React dashboard of the genomics data platform",
     },
+    {
+      name: "International Project Management Environments",
+      byline: "La Salle BCN",
+      period: "Jun 2016",
+      description:
+        "Master's thesis providing project managers with tools for cross-cultural teams and international stakeholders — seeing the big picture of multiculturalism and bridging distant issues such as globalization.",
+    },
+    {
+      name: "Runtime-Guided Hardware Reconfiguration for the IBM POWER7",
+      byline: "Universitat Politècnica de Catalunya",
+      period: "2015",
+      description:
+        "Research project on adaptive, application-dependent runtime-guided hardware reconfiguration for the IBM POWER7 processor.",
+    },
+    {
+      name: "Automatic Venipuncture Using a Peripheral Venous Catheter",
+      byline: "Engineering project",
+      period: "2014 — 2015",
+      description:
+        "Engineering project developing a system for automatic venipuncture with a peripheral venous catheter.",
+    },
+    {
+      name: "Parallel Programming Models on the Nvidia Tegra 2 SoC",
+      byline: "Universitat Politècnica de Catalunya",
+      period: "2011 — 2012",
+      description:
+        "Degree thesis building the first cluster in the world to use Nvidia Tegra 2 boards for scientific computing, exploiting the power-efficient ARM architecture and analysing the integration of parallel programming models.",
+    },
+    {
+      name: "Microcontroller System for Data Acquisition with USB",
+      byline: "Universitat Politècnica de Catalunya",
+      period: "2008 — 2009",
+      description:
+        "Design and build of a microcontroller-based data-acquisition system with USB connectivity.",
+    },
   ],
   projectsVisibleCount: 3,
   education: [
