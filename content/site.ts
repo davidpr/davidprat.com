@@ -338,14 +338,24 @@ export const site: SiteContent = {
     },
   ],
   certificationsVisibleCount: 6,
-  // TODO(user): confirm exam names and years for English (Cambridge ESOL — which
-  // exam and year?), German and French so the credential lines can be completed.
   languages: [
     { name: "Spanish", level: "Native" },
     { name: "Catalan", level: "Native" },
-    { name: "English", level: "C2", credential: "Cambridge English (ESOL)" },
-    { name: "German", level: "B2" },
-    { name: "French", level: "B2" },
+    {
+      name: "English",
+      level: "C2",
+      credential: "Cambridge English: Proficiency (CPE) · Cambridge ESOL · 2014",
+    },
+    {
+      name: "German",
+      level: "B2",
+      credential: "Goethe-Zertifikat B2 · Goethe-Institut Barcelona · 2019",
+    },
+    {
+      name: "French",
+      level: "B2",
+      credential: "DELF B2 — Diplôme d'Études en Langue Française · Institut français · 2020",
+    },
   ],
   writing: {
     intro: "I write about AI infrastructure and LLM internals.",
