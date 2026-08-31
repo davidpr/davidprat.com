@@ -3,6 +3,7 @@ import { Stats } from "@/components/Stats";
 import { About } from "@/components/About";
 import { Experience } from "@/components/Experience";
 import { Projects } from "@/components/Projects";
+import { Education } from "@/components/Education";
 import { Writing } from "@/components/Writing";
 import { Contact } from "@/components/Contact";
 
@@ -16,6 +17,7 @@ export default function Page() {
         <About />
         <Experience />
         <Projects />
+        <Education />
         <Writing />
         <Contact />
       </main>

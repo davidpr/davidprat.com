@@ -2,12 +2,14 @@ export type LinkItem = { label: string; href: string };
 export type ExperienceItem = { period: string; org: string; role: string; points: string[] };
 export type ProjectItem = {
   name: string;
-  role: string;
+  byline: string;
   period: string;
   description: string;
-  stack: string;
-  href: string;
+  stack?: string;
+  href?: string;
+  linkLabel?: string;
 };
+export type EducationItem = { period: string; school: string; degree: string };
 export type ArticleItem = { title: string; href: string };
 export type StatItem = { value: string; label: string };
 export type SiteContent = {
@@ -21,6 +23,8 @@ export type SiteContent = {
   experience: ExperienceItem[];
   experienceVisibleCount: number;
   projects: ProjectItem[];
+  projectsVisibleCount: number;
+  education: EducationItem[];
   writing: {
     intro: string;
     articles: ArticleItem[];
@@ -135,13 +139,83 @@ export const site: SiteContent = {
   projects: [
     {
       name: "Finlooker.io",
-      role: "Founder",
+      byline: "Founder",
       period: "Jun 2026 — present",
       description:
         "A macroeconomic-intelligence platform: a bird's-eye view over financial markets, macroeconomics and liquidity worldwide, built for people who want the signal without the noise.",
       stack:
-        "Next.js on Vercel and Render · GitHub Actions CI/CD · Storybook and Chromatic for visual regression · PostHog product analytics",
+        "Next.js on Vercel and Render · GitHub Actions CI/CD · Storybook and Chromatic for visual regression · PostHog product analytics · built with Claude Code",
       href: "https://finlooker.io",
+      linkLabel: "Visit Finlooker.io",
+    },
+    {
+      name: "GPT-OSS 10B (Blackstar)",
+      byline: "Multiverse Computing",
+      period: "Apr 2026",
+      description:
+        "Compressed GPT-OSS 20B to half its size while preserving up to 98% accuracy, halving model utilisation costs; improved Spanish, coding and tool calling, and served the model over API with vLLM.",
+      href: "https://huggingface.co/MultiverseComputingCAI",
+      linkLabel: "View on Hugging Face",
+    },
+    {
+      name: "Qwen3 0.3B (LittleLamb)",
+      byline: "Multiverse Computing",
+      period: "Feb — Mar 2026",
+      description:
+        "Compressed Qwen3 0.6B to half its size at up to 98% accuracy; enhanced Spanish and Android-friendly tool calling, shipped in the CompactifAI mobile app via llama.cpp and released on Hugging Face.",
+      href: "https://huggingface.co/MultiverseComputingCAI",
+      linkLabel: "View on Hugging Face",
+    },
+    {
+      name: "Whisper Large V3 Turbo Slim",
+      byline: "Multiverse Computing",
+      period: "Jan — Mar 2026",
+      description:
+        "Halved the size of Whisper Large V3 Turbo at up to 98% accuracy with better resilience to background noise; served via vLLM API to healthcare-insurance and banking clients.",
+      href: "https://huggingface.co/MultiverseComputingCAI",
+      linkLabel: "View on Hugging Face",
+    },
+    {
+      name: "ASIST",
+      byline: "IAG",
+      period: "Sep 2024 — Jan 2026",
+      description:
+        "Real-time AI assistant for aircraft maintenance operations — LangGraph and pgvector RAG with streaming responses and reasoning visualization — reducing turnaround times and AOG incidents, with £20M+ in annual savings across the group.",
+    },
+    {
+      name: "Engine Optimisation System (EOS)",
+      byline: "IAG",
+      period: "Sep 2024 — Jan 2026",
+      description:
+        "Genetic-algorithm system optimizing engine maintenance schedules, delivering €40M in measurable cost savings.",
+    },
+  ],
+  projectsVisibleCount: 3,
+  education: [
+    {
+      period: "2025 — 2026",
+      school: "EAE Business School",
+      degree: "Executive MBA, Business Administration and Management",
+    },
+    {
+      period: "2014 — 2016",
+      school: "La Salle BCN",
+      degree: "MSc Project Management (PMI-accredited)",
+    },
+    {
+      period: "2012 — 2014",
+      school: "Universitat Politècnica de Catalunya",
+      degree: "MSc Innovation and Research — High Performance Computing",
+    },
+    {
+      period: "2007 — 2011",
+      school: "Universitat Politècnica de Catalunya",
+      degree: "BSc Computer Science — High Performance Architectures",
+    },
+    {
+      period: "2004 — 2007",
+      school: "Universitat Politècnica de Catalunya",
+      degree: "Associate Degree, Computer Systems — Embedded Systems and Software Engineering",
     },
   ],
   writing: {

@@ -51,11 +51,22 @@ describe("site content", () => {
     expect(site.experienceVisibleCount).toBe(3);
   });
 
-  it("lists Finlooker as a project", () => {
-    expect(site.projects.map((p) => p.name)).toContain("Finlooker.io");
+  it("lists Finlooker and the model releases as projects", () => {
+    const names = site.projects.map((p) => p.name);
+    expect(names).toContain("Finlooker.io");
+    expect(names.join(" ")).toMatch(/Blackstar/);
     for (const p of site.projects) {
-      expect(p.href).toMatch(/^https:\/\//);
+      if (p.href) expect(p.href).toMatch(/^https:\/\//);
       expect(p.description).toBeTruthy();
+      expect(p.byline).toBeTruthy();
     }
+    expect(site.projectsVisibleCount).toBe(3);
+  });
+
+  it("has the full education history", () => {
+    expect(site.education.length).toBeGreaterThanOrEqual(4);
+    const schools = site.education.map((e) => e.school).join(" ");
+    expect(schools).toMatch(/EAE/);
+    expect(schools).toMatch(/Politècnica de Catalunya/);
   });
 });

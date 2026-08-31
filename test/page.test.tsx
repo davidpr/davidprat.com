@@ -8,6 +8,13 @@ describe("Page", () => {
     render(<Page />);
     expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(site.name);
     const h2s = screen.getAllByRole("heading", { level: 2 }).map((h) => h.textContent);
-    expect(h2s).toEqual(["About", "Experience", "Projects", "Writing", site.contact.heading]);
+    expect(h2s).toEqual([
+      "About",
+      "Experience",
+      "Projects",
+      "Education",
+      "Writing",
+      site.contact.heading,
+    ]);
   });
 });
