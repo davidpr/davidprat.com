@@ -2,8 +2,113 @@
 
 :root {
   color-scheme: light dark;
+  --accent-a: #7c3aed;
+  --accent-b: #06b6d4;
 }
 
 body {
   font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+/* Fixed ambient backdrop: gradient glows + faint grid */
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(640px 440px at 82% -8%, rgba(124, 58, 237, 0.1), transparent 70%),
+    radial-gradient(520px 380px at 8% 14%, rgba(6, 182, 212, 0.08), transparent 70%);
+}
+.backdrop::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, rgba(100, 116, 139, 0.07) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(100, 116, 139, 0.07) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: radial-gradient(120% 60% at 50% 0%, black 30%, transparent 75%);
+}
+@media (prefers-color-scheme: dark) {
+  .backdrop {
+    background:
+      radial-gradient(640px 440px at 82% -8%, rgba(124, 58, 237, 0.22), transparent 70%),
+      radial-gradient(520px 380px at 8% 14%, rgba(6, 182, 212, 0.14), transparent 70%);
+  }
+  .backdrop::after {
+    background-image:
+      linear-gradient(to right, rgba(148, 163, 184, 0.06) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(148, 163, 184, 0.06) 1px, transparent 1px);
+  }
+}
+
+.gradient-text {
+  background: linear-gradient(92deg, var(--accent-a), var(--accent-b));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.card {
+  border-radius: 1rem;
+  border: 1px solid rgba(100, 116, 139, 0.2);
+  background: rgba(255, 255, 255, 0.6);
+  transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+.card:hover {
+  border-color: rgba(124, 58, 237, 0.45);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(124, 58, 237, 0.08);
+}
+@media (prefers-color-scheme: dark) {
+  .card {
+    border-color: rgba(148, 163, 184, 0.14);
+    background: rgba(255, 255, 255, 0.03);
+  }
+  .card:hover {
+    border-color: rgba(124, 58, 237, 0.55);
+    box-shadow: 0 8px 30px rgba(124, 58, 237, 0.15);
+  }
+}
+
+.eyebrow {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.fade-up {
+  animation: fade-up 0.6s ease-out both;
+}
+.delay-1 { animation-delay: 0.08s; }
+.delay-2 { animation-delay: 0.16s; }
+.delay-3 { animation-delay: 0.24s; }
+.delay-4 { animation-delay: 0.32s; }
+.delay-5 { animation-delay: 0.4s; }
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+.pulse-dot {
+  animation: pulse-dot 2.4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fade-up,
+  .pulse-dot {
+    animation: none;
+  }
 }

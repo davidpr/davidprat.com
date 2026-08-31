@@ -1,10 +1,13 @@
 export type LinkItem = { label: string; href: string };
 export type ExperienceItem = { org: string; role: string; points: string[] };
 export type ArticleItem = { title: string; href: string };
+export type StatItem = { value: string; label: string };
 export type SiteContent = {
   name: string;
   headline: string;
   location: string;
+  availability: string;
+  stats: StatItem[];
   heroLinks: LinkItem[];
   about: string[];
   experience: ExperienceItem[];
@@ -22,6 +25,13 @@ export const site: SiteContent = {
   name: "David Prat Robles",
   headline: "Engineering leader — AI Infrastructure & LLM Platforms",
   location: "Barcelona · remote EU",
+  availability: "Open to Head of Engineering and Director roles",
+  stats: [
+    { value: "15+", label: "years in engineering" },
+    { value: "30+", label: "ML engineers led" },
+    { value: "4", label: "teams managed" },
+    { value: "50%+", label: "LLM size reduction shipped" },
+  ],
   heroLinks: [
     { label: "LinkedIn", href: "https://www.linkedin.com/in/davidpratrobles/" },
     { label: "Finlooker.io", href: "https://finlooker.io" },

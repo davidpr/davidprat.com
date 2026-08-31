@@ -27,6 +27,15 @@ describe("site content", () => {
     expect(JSON.stringify(site)).not.toMatch(/@gmail|mailto:/i);
   });
 
+  it("has an availability line and stats", () => {
+    expect(site.availability.length).toBeGreaterThan(10);
+    expect(site.stats.length).toBeGreaterThanOrEqual(3);
+    for (const s of site.stats) {
+      expect(s.value).toBeTruthy();
+      expect(s.label).toBeTruthy();
+    }
+  });
+
   it("has experience highlights with points", () => {
     expect(site.experience.length).toBeGreaterThanOrEqual(3);
     for (const e of site.experience) {
