@@ -6,19 +6,20 @@ import { Certifications } from "@/components/Certifications";
 import { site } from "@/content/site";
 
 describe("Certifications", () => {
-  it("renders every certification area with logo and detail", () => {
+  it("renders every certification with its own badge image, name and issuer", () => {
     render(<Certifications />);
     expect(screen.getByRole("heading", { name: /certifications/i })).toBeInTheDocument();
     for (const c of site.certifications) {
-      expect(screen.getByRole("heading", { name: c.area })).toBeInTheDocument();
-      expect(screen.getByText(c.detail)).toBeInTheDocument();
-      expect(screen.getByRole("img", { name: c.logoAlt })).toBeInTheDocument();
+      expect(screen.getByText(c.name)).toBeInTheDocument();
+      expect(screen.getByRole("img", { name: `${c.name} badge` })).toBeInTheDocument();
     }
   });
 
-  it("references badge files that exist in public/", () => {
-    for (const c of site.certifications) {
-      expect(existsSync(join(process.cwd(), "public", c.logo)), `${c.logo} missing`).toBe(true);
+  it("uses a distinct badge file per certification, present in public/", () => {
+    const badges = site.certifications.map((c) => c.badge);
+    expect(new Set(badges).size).toBe(badges.length);
+    for (const b of badges) {
+      expect(existsSync(join(process.cwd(), "public", b)), `${b} missing`).toBe(true);
     }
   });
 });

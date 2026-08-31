@@ -12,10 +12,9 @@ export type ProjectItem = {
 export type EducationItem = { period: string; school: string; degree: string };
 export type HighlightItem = { title: string; text: string };
 export type CertificationItem = {
-  area: string;
-  logo: string;
-  logoAlt: string;
-  detail: string;
+  name: string;
+  issuer: string;
+  badge: string;
 };
 export type ArticleItem = { title: string; href: string };
 export type StatItem = { value: string; label: string };
@@ -248,33 +247,33 @@ export const site: SiteContent = {
       degree: "Associate Degree, Computer Systems — Embedded Systems and Software Engineering",
     },
   ],
-  // TODO(user): replace the Kubernetes / AWS / Terraform detail lines with the
-  // exact certification titles (LinkedIn only renders the first 10 of 139).
+  // TODO(user): name the exact Kubernetes / AWS / Terraform certifications so
+  // each can be added here with its own official badge image in public/badges/.
   certifications: [
     {
-      area: "Kubernetes",
-      logo: "/badges/kubernetes.svg",
-      logoAlt: "Kubernetes logo",
-      detail: "Kubernetes administration and operations, including OpenShift 4.",
+      name: "Certified SAFe® 6 Product Owner/Product Manager",
+      issuer: "Scaled Agile, Inc.",
+      badge: "/badges/safe6-popm.png",
     },
     {
-      area: "AWS",
-      logo: "/badges/aws.svg",
-      logoAlt: "Amazon Web Services logo",
-      detail: "AWS cloud architecture, including AWS Databricks Platform Architect.",
+      name: "Certified SAFe® 6 Scrum Master",
+      issuer: "Scaled Agile, Inc.",
+      badge: "/badges/safe6-scrum-master.png",
     },
     {
-      area: "Terraform",
-      logo: "/badges/terraform.svg",
-      logoAlt: "Terraform logo",
-      detail: "Infrastructure as code with Terraform across production cloud platforms.",
+      name: "Certified SAFe® 6 Agilist — Leading SAFe®",
+      issuer: "Scaled Agile, Inc.",
+      badge: "/badges/safe6-agilist.png",
     },
     {
-      area: "SAFe",
-      logo: "/badges/safe.svg",
-      logoAlt: "Scaled Agile logo",
-      detail:
-        "Certified SAFe® 6 Product Owner/Product Manager · Certified SAFe® 6 Scrum Master · Leading SAFe®.",
+      name: "Microsoft Certified: Azure Data Fundamentals",
+      issuer: "Microsoft",
+      badge: "/badges/azure-data-fundamentals.png",
+    },
+    {
+      name: "Microsoft Certified: Azure AI Fundamentals",
+      issuer: "Microsoft",
+      badge: "/badges/azure-ai-fundamentals.png",
     },
   ],
   writing: {

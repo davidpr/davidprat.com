@@ -8,28 +8,22 @@ export function Certifications() {
       <h2 id="certifications-heading" className="mt-1 text-2xl font-semibold tracking-tight">
         Certifications
       </h2>
-      <div className="mt-6 grid gap-4 sm:grid-cols-2">
+      <ul className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3">
         {site.certifications.map((c) => (
-          <article key={c.area} className="card flex items-start gap-4 p-5">
-            <span className="flex h-14 min-w-14 shrink-0 items-center justify-center rounded-xl bg-white px-2 ring-1 ring-neutral-200">
-              <Image
-                src={c.logo}
-                alt={c.logoAlt}
-                width={96}
-                height={40}
-                unoptimized
-                className="h-9 w-auto max-w-24 object-contain"
-              />
-            </span>
-            <span>
-              <h3 className="font-semibold">{c.area}</h3>
-              <p className="mt-1 text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">
-                {c.detail}
-              </p>
-            </span>
-          </article>
+          <li key={c.name} className="card flex flex-col items-center p-5 text-center">
+            <Image
+              src={c.badge}
+              alt={`${c.name} badge`}
+              width={112}
+              height={112}
+              unoptimized
+              className="h-28 w-28 object-contain"
+            />
+            <h3 className="mt-4 text-sm leading-snug font-medium">{c.name}</h3>
+            <p className="mt-1 text-xs text-neutral-500 dark:text-neutral-400">{c.issuer}</p>
+          </li>
         ))}
-      </div>
+      </ul>
     </section>
   );
 }
