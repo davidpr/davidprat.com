@@ -224,6 +224,22 @@ export const site: SiteContent = {
         "Genetic-algorithm system optimizing engine maintenance schedules, delivering €40M in measurable cost savings.",
     },
     {
+      name: "Finlooker.com (v1)",
+      byline: "Datapta",
+      period: "Dec 2021 — Sep 2024",
+      description:
+        "Architect and team lead for the first version of Finlooker — an online platform giving a bird's-eye view over financial markets, macroeconomics and liquidity — delivered as web and mobile apps on hybrid infrastructure with an ArgoCD-based DevSecOps pipeline.",
+    },
+    {
+      name: "Fincoach",
+      byline: "Personal project",
+      period: "Jan 2024",
+      description:
+        "RAG-based financial Q&A agent answering tail-risk questions from ingested books — a LlamaIndex PoC exposed through a FastAPI server, running a small local LLM (~1.5 GB) with answers remarkably coherent for its size.",
+      href: "https://github.com/davidpr/fincoach-chatbot-server",
+      linkLabel: "View on GitHub",
+    },
+    {
       name: "Universal Data Catalog in AWS",
       byline: "Assefy · Zürich",
       period: "Dec 2022",
@@ -240,6 +256,13 @@ export const site: SiteContent = {
         "Big-data system on AWS processing daily electricity consumption for Red Eléctrica de España — AWS Glue, EMR, Lambda, PySpark, Redshift and Spectrum — running on-demand transient clusters that cut costs by up to 80%.",
       image: "/projects/aseme-aws-architecture.jpg",
       imageAlt: "AWS architecture diagram of the electricity consumption analytics pipeline",
+    },
+    {
+      name: "Estabanell Energia — Electric Consumption Measurements Automation",
+      byline: "Simig Solutions · Barcelona",
+      period: "2019 — 2020",
+      description:
+        "Automation of daily electric-consumption measurement processing for the utility Estabanell Energia — a Cloudera CDH ETL platform with Hive, Impala, Kudu and Spark, migrating analytical workloads from SQL Server to the Hadoop ecosystem.",
     },
     {
       name: "Genomics Data Catalog for Diseases",

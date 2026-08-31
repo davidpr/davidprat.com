@@ -67,10 +67,14 @@ describe("site content", () => {
   });
 
   it("keeps projects in chronological order with portfolio imports and existing images", () => {
+    expect(site.projects.length).toBeGreaterThanOrEqual(12);
     const names = site.projects.map((p) => p.name).join(" | ");
     expect(names).toMatch(/Universal Data Catalog/);
     expect(names).toMatch(/Electricity Consumption/);
     expect(names).toMatch(/Genomics Data Catalog/);
+    expect(names).toMatch(/Finlooker\.com \(v1\)/);
+    expect(names).toMatch(/Fincoach/);
+    expect(names).toMatch(/Estabanell/);
     const years = site.projects.map((p) => {
       const m = p.period.match(/(\d{4})(?!.*\d{4})/);
       return p.period.includes("present") ? 9999 : Number(m![1]);
