@@ -1,5 +1,15 @@
 @import "tailwindcss";
 
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
 :root {
   color-scheme: light dark;
   --accent-a: #7c3aed;

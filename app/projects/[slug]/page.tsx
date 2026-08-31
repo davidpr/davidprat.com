@@ -38,10 +38,10 @@ export default async function ProjectPage({
       <header className="pt-14 sm:pt-20">
         <p className="eyebrow">
           <Link
-            href="/#projects-heading"
+            href="/#portfolio"
             className="text-neutral-500 hover:text-violet-500 dark:text-neutral-400"
           >
-            ← Projects
+            ← Portfolio
           </Link>
         </p>
         <h1 className="mt-4 text-3xl font-bold tracking-tight sm:text-4xl">{page.title}</h1>

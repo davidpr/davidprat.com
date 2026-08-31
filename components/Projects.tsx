@@ -11,10 +11,10 @@ export function Projects() {
   const hiddenCount = site.projects.length - site.projectsVisibleCount;
 
   return (
-    <section aria-labelledby="projects-heading" className="py-10">
+    <section id="portfolio" aria-labelledby="projects-heading" className="scroll-mt-16 py-10">
       <p className="eyebrow text-violet-600 dark:text-violet-400">03</p>
       <h2 id="projects-heading" className="mt-1 text-2xl font-semibold tracking-tight">
-        Projects
+        Portfolio
       </h2>
       <div className="mt-6 space-y-5">
         {visible.map((p) => (

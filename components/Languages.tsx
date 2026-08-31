@@ -9,7 +9,7 @@ const defaultLevelStyle =
 
 export function Languages() {
   return (
-    <section aria-labelledby="languages-heading" className="py-10">
+    <section id="languages" aria-labelledby="languages-heading" className="scroll-mt-16 py-10">
       <p className="eyebrow text-violet-600 dark:text-violet-400">06</p>
       <h2 id="languages-heading" className="mt-1 text-2xl font-semibold tracking-tight">
         Languages

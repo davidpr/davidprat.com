@@ -11,7 +11,7 @@ export function Experience() {
   const hiddenCount = site.experience.length - site.experienceVisibleCount;
 
   return (
-    <section aria-labelledby="experience-heading" className="py-10">
+    <section id="experience" aria-labelledby="experience-heading" className="scroll-mt-16 py-10">
       <p className="eyebrow text-violet-600 dark:text-violet-400">02</p>
       <h2 id="experience-heading" className="mt-1 text-2xl font-semibold tracking-tight">
         Experience

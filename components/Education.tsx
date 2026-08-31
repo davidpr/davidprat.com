@@ -2,7 +2,7 @@ import { site } from "@/content/site";
 
 export function Education() {
   return (
-    <section aria-labelledby="education-heading" className="py-10">
+    <section id="education" aria-labelledby="education-heading" className="scroll-mt-16 py-10">
       <p className="eyebrow text-violet-600 dark:text-violet-400">04</p>
       <h2 id="education-heading" className="mt-1 text-2xl font-semibold tracking-tight">
         Education

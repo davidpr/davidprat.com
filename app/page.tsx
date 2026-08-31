@@ -1,3 +1,4 @@
+import { Nav } from "@/components/Nav";
 import { Hero } from "@/components/Hero";
 import { Skills } from "@/components/Skills";
 import { About } from "@/components/About";
@@ -13,6 +14,7 @@ export default function Page() {
   return (
     <>
       <div aria-hidden="true" className="backdrop" />
+      <Nav />
       <main className="mx-auto max-w-3xl px-4 pb-24 sm:px-6 lg:max-w-4xl">
         <Hero />
         <Skills />

@@ -7,10 +7,10 @@ export function Writing() {
   const { intro, channels } = site.writing;
   const latest = getFeed(site.externalArticles).slice(0, 3);
   return (
-    <section aria-labelledby="writing-heading" className="py-10">
+    <section id="articles" aria-labelledby="writing-heading" className="scroll-mt-16 py-10">
       <p className="eyebrow text-violet-600 dark:text-violet-400">07</p>
       <h2 id="writing-heading" className="mt-1 text-2xl font-semibold tracking-tight">
-        Writing
+        Articles
       </h2>
       <p className="mt-4 leading-relaxed text-neutral-700 dark:text-neutral-300">{intro}</p>
       <div className="mt-5 space-y-4">

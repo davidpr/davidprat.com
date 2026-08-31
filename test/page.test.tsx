@@ -11,11 +11,11 @@ describe("Page", () => {
     expect(h2s).toEqual([
       "About",
       "Experience",
-      "Projects",
+      "Portfolio",
       "Education",
       "Certifications",
       "Languages",
-      "Writing",
+      "Articles",
       site.contact.heading,
     ]);
   });

@@ -2,7 +2,7 @@ import { site } from "@/content/site";
 
 export function Contact() {
   return (
-    <section aria-labelledby="contact-heading" className="py-10">
+    <section id="contact" aria-labelledby="contact-heading" className="scroll-mt-16 py-10">
       <div className="card reveal p-6 text-center sm:p-12">
         <p className="eyebrow text-violet-600 dark:text-violet-400">08</p>
         <h2 id="contact-heading" className="mt-1 text-2xl font-semibold tracking-tight">

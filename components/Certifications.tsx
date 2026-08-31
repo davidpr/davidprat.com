@@ -12,7 +12,7 @@ export function Certifications() {
   const hiddenCount = site.certifications.length - site.certificationsVisibleCount;
 
   return (
-    <section aria-labelledby="certifications-heading" className="py-10">
+    <section id="certifications" aria-labelledby="certifications-heading" className="scroll-mt-16 py-10">
       <p className="eyebrow text-violet-600 dark:text-violet-400">05</p>
       <h2 id="certifications-heading" className="mt-1 text-2xl font-semibold tracking-tight">
         Certifications
