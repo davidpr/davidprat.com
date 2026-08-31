@@ -14,9 +14,11 @@ const expected = [
 ];
 
 describe("Nav", () => {
-  it("links every section anchor in order", () => {
+  it("shows the brand mark and links every section anchor in order", () => {
     render(<Nav />);
-    const links = screen.getAllByRole("link");
+    const brand = screen.getByRole("link", { name: /back to top/i });
+    expect(brand).toHaveTextContent("DAVID PRAT");
+    const links = screen.getAllByRole("link").filter((l) => l !== brand);
     expect(links).toHaveLength(expected.length);
     links.forEach((link, i) => {
       expect(link).toHaveTextContent(expected[i][0]);
