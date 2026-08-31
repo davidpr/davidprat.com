@@ -13,6 +13,7 @@ describe("Page", () => {
       "Experience",
       "Projects",
       "Education",
+      "Certifications",
       "Writing",
       site.contact.heading,
     ]);

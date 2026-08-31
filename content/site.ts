@@ -11,6 +11,12 @@ export type ProjectItem = {
 };
 export type EducationItem = { period: string; school: string; degree: string };
 export type HighlightItem = { title: string; text: string };
+export type CertificationItem = {
+  area: string;
+  logo: string;
+  logoAlt: string;
+  detail: string;
+};
 export type ArticleItem = { title: string; href: string };
 export type StatItem = { value: string; label: string };
 export type SiteContent = {
@@ -28,6 +34,7 @@ export type SiteContent = {
   projects: ProjectItem[];
   projectsVisibleCount: number;
   education: EducationItem[];
+  certifications: CertificationItem[];
   writing: {
     intro: string;
     articles: ArticleItem[];
@@ -239,6 +246,35 @@ export const site: SiteContent = {
       period: "2004 — 2007",
       school: "Universitat Politècnica de Catalunya",
       degree: "Associate Degree, Computer Systems — Embedded Systems and Software Engineering",
+    },
+  ],
+  // TODO(user): replace the Kubernetes / AWS / Terraform detail lines with the
+  // exact certification titles (LinkedIn only renders the first 10 of 139).
+  certifications: [
+    {
+      area: "Kubernetes",
+      logo: "/badges/kubernetes.svg",
+      logoAlt: "Kubernetes logo",
+      detail: "Kubernetes administration and operations, including OpenShift 4.",
+    },
+    {
+      area: "AWS",
+      logo: "/badges/aws.svg",
+      logoAlt: "Amazon Web Services logo",
+      detail: "AWS cloud architecture, including AWS Databricks Platform Architect.",
+    },
+    {
+      area: "Terraform",
+      logo: "/badges/terraform.svg",
+      logoAlt: "Terraform logo",
+      detail: "Infrastructure as code with Terraform across production cloud platforms.",
+    },
+    {
+      area: "SAFe",
+      logo: "/badges/safe.svg",
+      logoAlt: "Scaled Agile logo",
+      detail:
+        "Certified SAFe® 6 Product Owner/Product Manager · Certified SAFe® 6 Scrum Master · Leading SAFe®.",
     },
   ],
   writing: {
