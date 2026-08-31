@@ -1,5 +1,13 @@
 export type LinkItem = { label: string; href: string };
 export type ExperienceItem = { period: string; org: string; role: string; points: string[] };
+export type ProjectItem = {
+  name: string;
+  role: string;
+  period: string;
+  description: string;
+  stack: string;
+  href: string;
+};
 export type ArticleItem = { title: string; href: string };
 export type StatItem = { value: string; label: string };
 export type SiteContent = {
@@ -11,6 +19,8 @@ export type SiteContent = {
   heroLinks: LinkItem[];
   about: string[];
   experience: ExperienceItem[];
+  experienceVisibleCount: number;
+  projects: ProjectItem[];
   writing: {
     intro: string;
     articles: ArticleItem[];
@@ -42,14 +52,6 @@ export const site: SiteContent = {
     "Executive MBA (EAE, 2026). I write about AI infrastructure and LLM internals.",
   ],
   experience: [
-    {
-      period: "2026 — present",
-      org: "Finlooker.io",
-      role: "Founder",
-      points: [
-        "Building a macroeconomic-intelligence platform solo: Next.js on Vercel and Render, GitHub Actions CI/CD, Storybook and Chromatic for visual regression, PostHog for product analytics.",
-      ],
-    },
     {
       period: "2026",
       org: "Multiverse Computing",
@@ -127,6 +129,19 @@ export const site: SiteContent = {
       points: [
         "Technology lead for an educational content platform, from infrastructure to client campaign tooling.",
       ],
+    },
+  ],
+  experienceVisibleCount: 3,
+  projects: [
+    {
+      name: "Finlooker.io",
+      role: "Founder",
+      period: "Jun 2026 — present",
+      description:
+        "A macroeconomic-intelligence platform: a bird's-eye view over financial markets, macroeconomics and liquidity worldwide, built for people who want the signal without the noise.",
+      stack:
+        "Next.js on Vercel and Render · GitHub Actions CI/CD · Storybook and Chromatic for visual regression · PostHog product analytics",
+      href: "https://finlooker.io",
     },
   ],
   writing: {

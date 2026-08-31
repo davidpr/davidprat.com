@@ -4,7 +4,7 @@ export function Writing() {
   const { intro, articles, channels } = site.writing;
   return (
     <section aria-labelledby="writing-heading" className="py-10">
-      <p className="eyebrow text-violet-600 dark:text-violet-400">03</p>
+      <p className="eyebrow text-violet-600 dark:text-violet-400">04</p>
       <h2 id="writing-heading" className="mt-1 text-2xl font-semibold tracking-tight">
         Writing
       </h2>

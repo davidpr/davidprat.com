@@ -46,6 +46,16 @@ describe("site content", () => {
     }
     const orgs = site.experience.map((e) => e.org);
     expect(orgs).toContain("BNP Paribas Fortis");
-    expect(orgs[0]).toBe("Finlooker.io");
+    expect(orgs).not.toContain("Finlooker.io");
+    expect(orgs[0]).toBe("Multiverse Computing");
+    expect(site.experienceVisibleCount).toBe(3);
+  });
+
+  it("lists Finlooker as a project", () => {
+    expect(site.projects.map((p) => p.name)).toContain("Finlooker.io");
+    for (const p of site.projects) {
+      expect(p.href).toMatch(/^https:\/\//);
+      expect(p.description).toBeTruthy();
+    }
   });
 });
