@@ -220,24 +220,26 @@ body {
   }
 }
 
+/* Animate `translate`/`scale` (not `transform`) so the filled scroll-driven
+   animation composes with the cards' hover transform instead of overriding it. */
 @keyframes reveal-up {
   from {
     opacity: 0;
-    transform: translateY(28px);
+    translate: 0 16px;
   }
   to {
     opacity: 1;
-    transform: none;
+    translate: 0 0;
   }
 }
 
 @keyframes reveal-pop {
   from {
-    transform: scale(0.3);
+    scale: 0.3;
     opacity: 0;
   }
   to {
-    transform: scale(1);
+    scale: 1;
     opacity: 1;
   }
 }

@@ -16,7 +16,7 @@ export function About() {
       </div>
       <dl className="mt-6 space-y-5">
         {site.aboutHighlights.map((h) => (
-          <div key={h.title} className="border-l-2 border-cyan-500/40 pl-5">
+          <div key={h.title} className="reveal border-l-2 border-cyan-500/40 pl-5">
             <dt className="font-medium">{h.title}</dt>
             <dd className="mt-1 leading-relaxed text-neutral-700 dark:text-neutral-300">
               {h.text}

@@ -16,7 +16,7 @@ export function Languages() {
       </h2>
       <ul className="mt-6 flex flex-wrap gap-3">
         {site.languages.map((l) => (
-          <li key={l.name} className="card px-5 py-3">
+          <li key={l.name} className="card reveal px-5 py-3">
             <span className="flex items-center gap-3">
               <span className="font-medium">{l.name}</span>
               <span

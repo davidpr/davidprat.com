@@ -4,7 +4,7 @@ import type { FeedItem } from "@/lib/posts";
 export function PostCard({ item }: { item: FeedItem }) {
   const Wrapper = item.external ? "a" : Link;
   return (
-    <article className="card p-5">
+    <article className="card reveal p-5">
       <Wrapper href={item.href} className="block">
         <div className="flex flex-wrap items-baseline justify-between gap-2">
           <h3 className="font-semibold">{item.title}</h3>

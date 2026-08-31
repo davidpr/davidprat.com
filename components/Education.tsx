@@ -11,7 +11,7 @@ export function Education() {
         {site.education.map((e) => (
           <li
             key={`${e.school}-${e.degree}`}
-            className="flex flex-col gap-1 border-l-2 border-violet-500/40 pl-5 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4"
+            className="reveal flex flex-col gap-1 border-l-2 border-violet-500/40 pl-5 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4"
           >
             <div>
               <p className="font-medium">{e.school}</p>
