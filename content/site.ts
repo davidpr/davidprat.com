@@ -11,6 +11,7 @@ export type ProjectItem = {
 };
 export type EducationItem = { period: string; school: string; degree: string };
 export type HighlightItem = { title: string; text: string };
+export type LanguageItem = { name: string; level: string };
 export type CertificationItem = {
   name: string;
   issuer: string;
@@ -35,6 +36,7 @@ export type SiteContent = {
   education: EducationItem[];
   certifications: CertificationItem[];
   certificationsVisibleCount: number;
+  languages: LanguageItem[];
   writing: {
     intro: string;
     articles: ArticleItem[];
@@ -336,6 +338,13 @@ export const site: SiteContent = {
     },
   ],
   certificationsVisibleCount: 6,
+  languages: [
+    { name: "Spanish", level: "Native" },
+    { name: "Catalan", level: "Native" },
+    { name: "English", level: "C2" },
+    { name: "German", level: "B2" },
+    { name: "French", level: "B2" },
+  ],
   writing: {
     intro: "I write about AI infrastructure and LLM internals.",
     articles: [

@@ -14,6 +14,7 @@ describe("Page", () => {
       "Projects",
       "Education",
       "Certifications",
+      "Languages",
       "Writing",
       site.contact.heading,
     ]);
