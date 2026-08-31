@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { site } from "@/content/site";
+import { Footer } from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: `${site.name} — ${site.headline}`,
@@ -18,6 +19,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html lang="en">
       <body className="bg-white text-neutral-900 antialiased dark:bg-neutral-950 dark:text-neutral-100">
         {children}
+        <Footer />
       </body>
     </html>
   );
