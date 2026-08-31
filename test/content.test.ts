@@ -27,6 +27,17 @@ describe("site content", () => {
     expect(JSON.stringify(site)).not.toMatch(/@gmail|mailto:/i);
   });
 
+  it("carries the LinkedIn About substance", () => {
+    expect(site.aboutHighlights.length).toBeGreaterThanOrEqual(4);
+    const all = JSON.stringify(site.aboutHighlights);
+    expect(all).toMatch(/€20M/);
+    expect(all).toMatch(/€40M/);
+    expect(site.writing.channels.map((c) => c.href)).toContain(
+      "https://www.youtube.com/@davidpratr",
+    );
+    expect(site.writing.articles.length).toBeGreaterThanOrEqual(1);
+  });
+
   it("has an availability line and stats", () => {
     expect(site.availability.length).toBeGreaterThan(10);
     expect(site.stats.length).toBeGreaterThanOrEqual(3);

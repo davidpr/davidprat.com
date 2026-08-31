@@ -14,6 +14,23 @@ export function About() {
           </p>
         ))}
       </div>
+      <dl className="mt-6 space-y-5">
+        {site.aboutHighlights.map((h) => (
+          <div key={h.title} className="border-l-2 border-cyan-500/40 pl-5">
+            <dt className="font-medium">{h.title}</dt>
+            <dd className="mt-1 leading-relaxed text-neutral-700 dark:text-neutral-300">
+              {h.text}
+            </dd>
+          </div>
+        ))}
+      </dl>
+      <div className="mt-6 space-y-3">
+        {site.aboutClosing.map((p) => (
+          <p key={p} className="leading-relaxed text-neutral-700 dark:text-neutral-300">
+            {p}
+          </p>
+        ))}
+      </div>
     </section>
   );
 }

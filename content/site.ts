@@ -10,6 +10,7 @@ export type ProjectItem = {
   linkLabel?: string;
 };
 export type EducationItem = { period: string; school: string; degree: string };
+export type HighlightItem = { title: string; text: string };
 export type ArticleItem = { title: string; href: string };
 export type StatItem = { value: string; label: string };
 export type SiteContent = {
@@ -20,6 +21,8 @@ export type SiteContent = {
   stats: StatItem[];
   heroLinks: LinkItem[];
   about: string[];
+  aboutHighlights: HighlightItem[];
+  aboutClosing: string[];
   experience: ExperienceItem[];
   experienceVisibleCount: number;
   projects: ProjectItem[];
@@ -51,9 +54,29 @@ export const site: SiteContent = {
     { label: "Finlooker.io", href: "https://finlooker.io" },
   ],
   about: [
-    "Engineering leader with 15+ years building AI-driven products, most recently as Senior Engineering Manager at Multiverse Computing, leading 4 teams (30+ ML engineers and tech leads) delivering custom LLMs and SLMs to enterprise clients in healthcare, banking and energy.",
-    "Before that: Interim Head of Infrastructure and Engineering Manager at IAG, senior cloud and SRE consulting for AUDI AG, and founder of Finlooker, a macroeconomic-intelligence platform.",
-    "Executive MBA (EAE, 2026). I write about AI infrastructure and LLM internals.",
+    "Engineering leader with over 15 years of experience leading cross-functional teams to build AI-driven products. My expertise spans product strategy, cloud infrastructure, and execution across fintech, aviation, and large language models — bridging engineering, design and data science to drive outcomes that serve both user needs and business goals.",
+  ],
+  aboutHighlights: [
+    {
+      title: "Enterprise AI — Multiverse Computing",
+      text: "Led cross-industry AI initiatives solving foundational problems for clients in healthcare, banking and energy, resulting in €20M+ in new revenue — and roughly 50% average budget savings for clients through quantum-inspired LLM pruning and healing techniques.",
+    },
+    {
+      title: "Aviation innovation — IAG",
+      text: "Directed the development of technical products that optimized aircraft maintenance workflows, generating over €40M in measurable cost savings.",
+    },
+    {
+      title: "Entrepreneurship — Datapta & Finlooker",
+      text: "Founded Datapta, a consulting company delivering cloud and data-platform engagements for AUDI AG, Antimetal and Nebula Strategy, and built Finlooker — a macroeconomic-intelligence platform — with a rotating team of 40+ interns and junior engineers. Relaunched Finlooker.io in 2026 on an AI-native stack.",
+    },
+    {
+      title: "Knowledge sharing",
+      text: "I regularly author tutorials on big data, AI and DevSecOps, and break down complex technical concepts on my YouTube channel.",
+    },
+  ],
+  aboutClosing: [
+    "Since July 2026 I have been building Finlooker.io independently — while completing my Executive MBA at EAE and exploring my next Head of Engineering or Director role.",
+    "Outside of work, I cultivate balance through therapeutic practices and support nonprofits that promote societal wellness and conscious living.",
   ],
   experience: [
     {
@@ -61,7 +84,7 @@ export const site: SiteContent = {
       org: "Multiverse Computing",
       role: "Senior Engineering Manager — AI",
       points: [
-        "Managed 4 teams (30+ ML engineers, 4 tech leads) building custom LLMs and SLMs for enterprise clients in healthcare, banking and energy.",
+        "Managed 4 teams (30+ ML engineers, 4 tech leads) building custom LLMs and SLMs for enterprise clients in healthcare, banking and energy — around €20M in delivered revenue.",
         "Cut model size 50%+ at 2–3% benchmark cost with CompactifAI, saving clients roughly half their inference budget on average.",
         "Co-led the cross-department LLM pipeline from research to production API serving and on-device deployment; open releases on Hugging Face.",
         "Partnered with the CTPO on roadmap and OKRs; owned GPU allocation across teams.",
@@ -220,11 +243,20 @@ export const site: SiteContent = {
   ],
   writing: {
     intro: "I write about AI infrastructure and LLM internals.",
-    articles: [],
+    articles: [
+      {
+        title: "Guide to AI Infrastructure: Understanding LLM GPUs",
+        href: "https://www.linkedin.com/pulse/001-guide-ai-infrastructure-understanding-llm-gpu-david-prat-robles-hr5te/",
+      },
+    ],
     channels: [
       {
         label: "Articles on LinkedIn",
         href: "https://www.linkedin.com/in/davidpratrobles/recent-activity/articles/",
+      },
+      {
+        label: "YouTube — @davidpratr",
+        href: "https://www.youtube.com/@davidpratr",
       },
     ],
   },
