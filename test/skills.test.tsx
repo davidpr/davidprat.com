@@ -4,9 +4,9 @@ import { Skills } from "@/components/Skills";
 import { site } from "@/content/site";
 
 describe("Skills", () => {
-  it("renders the five LinkedIn top skills", () => {
+  it("renders the LinkedIn top skills", () => {
     render(<Skills />);
-    expect(site.topSkills).toHaveLength(5);
+    expect(site.topSkills).toHaveLength(9);
     for (const s of site.topSkills) {
       expect(screen.getByText(s)).toBeInTheDocument();
     }

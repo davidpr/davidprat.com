@@ -60,6 +60,10 @@ export const site: SiteContent = {
     "Artificial Intelligence (AI)",
     "Big Data",
     "DevSecOps",
+    "Team Building & Hiring",
+    "AWS Architecture",
+    "K8s",
+    "Observability",
   ],
   heroLinks: [
     { label: "LinkedIn", href: "https://www.linkedin.com/in/davidpratrobles/" },

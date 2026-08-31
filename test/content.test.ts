@@ -44,7 +44,7 @@ describe("site content", () => {
 
   it("has an availability line and top skills", () => {
     expect(site.availability.length).toBeGreaterThan(10);
-    expect(site.topSkills.length).toBe(5);
+    expect(site.topSkills.length).toBe(9);
     for (const s of site.topSkills) {
       expect(s).toBeTruthy();
     }
