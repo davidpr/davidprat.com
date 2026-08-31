@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "test": "vitest run",
-    "import:posts": "node scripts/import-posts.mjs"
+    "import:posts": "node scripts/import-posts.mjs",
+    "import:project-pages": "node scripts/import-project-pages.mjs"
   },
   "dependencies": {
     "next": "16.3.3",

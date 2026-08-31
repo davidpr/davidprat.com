@@ -25,7 +25,7 @@ describe("Projects", () => {
     for (const p of site.projects) {
       expect(screen.getByText(p.name)).toBeInTheDocument();
       expect(screen.getByText(p.description)).toBeInTheDocument();
-      if (p.image) {
+      if (p.image && !p.page) {
         expect(screen.getByRole("img", { name: p.imageAlt })).toBeInTheDocument();
       }
       expect(screen.getAllByText(p.period).length).toBeGreaterThan(0);

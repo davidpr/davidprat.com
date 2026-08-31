@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { site } from "@/content/site";
 
 export function Projects() {
@@ -26,7 +27,7 @@ export function Projects() {
             <p className="mt-4 leading-relaxed text-neutral-700 dark:text-neutral-300">
               {p.description}
             </p>
-            {p.image && (
+            {p.image && !p.page && (
               <Image
                 src={p.image}
                 alt={p.imageAlt ?? `${p.name} diagram`}
@@ -39,14 +40,24 @@ export function Projects() {
             {p.stack && (
               <p className="mt-3 text-sm text-neutral-500 dark:text-neutral-400">{p.stack}</p>
             )}
-            {p.href && (
-              <p className="mt-5">
-                <a
-                  href={p.href}
-                  className="rounded-lg border border-neutral-300 px-5 py-2.5 text-sm font-medium transition-colors hover:border-violet-500/60 dark:border-neutral-700"
-                >
-                  {p.linkLabel ?? `Visit ${p.name}`}
-                </a>
+            {(p.href || p.page) && (
+              <p className="mt-5 flex flex-wrap gap-3">
+                {p.page && (
+                  <Link
+                    href={p.page}
+                    className="rounded-lg bg-neutral-900 px-5 py-2.5 text-sm font-medium text-white transition-opacity hover:opacity-85 dark:bg-white dark:text-neutral-900"
+                  >
+                    Case study
+                  </Link>
+                )}
+                {p.href && (
+                  <a
+                    href={p.href}
+                    className="rounded-lg border border-neutral-300 px-5 py-2.5 text-sm font-medium transition-colors hover:border-violet-500/60 dark:border-neutral-700"
+                  >
+                    {p.linkLabel ?? `Visit ${p.name}`}
+                  </a>
+                )}
               </p>
             )}
           </article>

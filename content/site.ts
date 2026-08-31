@@ -10,6 +10,7 @@ export type ProjectItem = {
   linkLabel?: string;
   image?: string;
   imageAlt?: string;
+  page?: string;
 };
 export type EducationItem = { period: string; school: string; degree: string };
 export type HighlightItem = { title: string; text: string };
@@ -241,6 +242,7 @@ export const site: SiteContent = {
     },
     {
       name: "Universal Data Catalog in AWS",
+      page: "/projects/assefy-data-catalog",
       byline: "Assefy · Zürich",
       period: "Dec 2022",
       description:
@@ -250,6 +252,7 @@ export const site: SiteContent = {
     },
     {
       name: "Electricity Consumption Analytics",
+      page: "/projects/aseme",
       byline: "ASEME · Barcelona",
       period: "2020 — 2021",
       description:
@@ -259,6 +262,7 @@ export const site: SiteContent = {
     },
     {
       name: "Estabanell Energia — Electric Consumption Measurements Automation",
+      page: "/projects/estabanell-energia",
       byline: "Simig Solutions · Barcelona",
       period: "2019 — 2020",
       description:
@@ -266,6 +270,7 @@ export const site: SiteContent = {
     },
     {
       name: "Genomics Data Catalog for Diseases",
+      page: "/projects/imidomics",
       byline: "IMIDomics · Barcelona / California",
       period: "2017 — 2019",
       description:
@@ -275,6 +280,7 @@ export const site: SiteContent = {
     },
     {
       name: "International Project Management Environments",
+      page: "/projects/international-project-management",
       byline: "La Salle BCN",
       period: "Jun 2016",
       description:
@@ -282,6 +288,7 @@ export const site: SiteContent = {
     },
     {
       name: "Runtime-Guided Hardware Reconfiguration for the IBM POWER7",
+      page: "/projects/power7-reconfiguration",
       byline: "Universitat Politècnica de Catalunya",
       period: "2015",
       description:
