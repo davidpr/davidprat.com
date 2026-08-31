@@ -66,6 +66,20 @@ describe("site content", () => {
     expect(site.experienceVisibleCount).toBe(3);
   });
 
+  it("keeps projects in chronological order with portfolio imports and existing images", () => {
+    const names = site.projects.map((p) => p.name).join(" | ");
+    expect(names).toMatch(/Universal Data Catalog/);
+    expect(names).toMatch(/Electricity Consumption/);
+    expect(names).toMatch(/Genomics Data Catalog/);
+    const years = site.projects.map((p) => {
+      const m = p.period.match(/(\d{4})(?!.*\d{4})/);
+      return p.period.includes("present") ? 9999 : Number(m![1]);
+    });
+    for (let i = 1; i < years.length; i++) {
+      expect(years[i - 1] >= years[i], `order at ${site.projects[i].name}`).toBe(true);
+    }
+  });
+
   it("lists Finlooker and the model releases as projects", () => {
     const names = site.projects.map((p) => p.name);
     expect(names).toContain("Finlooker.io");

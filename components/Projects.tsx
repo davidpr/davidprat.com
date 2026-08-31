@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { site } from "@/content/site";
 
 export function Projects() {
@@ -25,6 +26,16 @@ export function Projects() {
             <p className="mt-4 leading-relaxed text-neutral-700 dark:text-neutral-300">
               {p.description}
             </p>
+            {p.image && (
+              <Image
+                src={p.image}
+                alt={p.imageAlt ?? `${p.name} diagram`}
+                width={1400}
+                height={800}
+                unoptimized
+                className="mt-4 h-auto w-full rounded-lg bg-white"
+              />
+            )}
             {p.stack && (
               <p className="mt-3 text-sm text-neutral-500 dark:text-neutral-400">{p.stack}</p>
             )}

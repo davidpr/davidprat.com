@@ -25,6 +25,9 @@ describe("Projects", () => {
     for (const p of site.projects) {
       expect(screen.getByText(p.name)).toBeInTheDocument();
       expect(screen.getByText(p.description)).toBeInTheDocument();
+      if (p.image) {
+        expect(screen.getByRole("img", { name: p.imageAlt })).toBeInTheDocument();
+      }
       expect(screen.getAllByText(p.period).length).toBeGreaterThan(0);
       if (p.href) {
         const label = p.linkLabel ?? `Visit ${p.name}`;

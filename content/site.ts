@@ -8,6 +8,8 @@ export type ProjectItem = {
   stack?: string;
   href?: string;
   linkLabel?: string;
+  image?: string;
+  imageAlt?: string;
 };
 export type EducationItem = { period: string; school: string; degree: string };
 export type HighlightItem = { title: string; text: string };
@@ -220,6 +222,33 @@ export const site: SiteContent = {
       period: "Sep 2024 — Jan 2026",
       description:
         "Genetic-algorithm system optimizing engine maintenance schedules, delivering €40M in measurable cost savings.",
+    },
+    {
+      name: "Universal Data Catalog in AWS",
+      byline: "Assefy · Zürich",
+      period: "Dec 2022",
+      description:
+        "Design and implementation of a data-catalog PoC built on Amundsen, Apache Atlas and Apache Ranger, ingesting metadata from relational databases, data warehouses, files and media such as video, audio and images.",
+      image: "/projects/data-catalog-assefy.png",
+      imageAlt: "Architecture diagram of the Amundsen-based data catalog on AWS",
+    },
+    {
+      name: "Electricity Consumption Analytics",
+      byline: "ASEME · Barcelona",
+      period: "2020 — 2021",
+      description:
+        "Big-data system on AWS processing daily electricity consumption for Red Eléctrica de España — AWS Glue, EMR, Lambda, PySpark, Redshift and Spectrum — running on-demand transient clusters that cut costs by up to 80%.",
+      image: "/projects/aseme-aws-architecture.jpg",
+      imageAlt: "AWS architecture diagram of the electricity consumption analytics pipeline",
+    },
+    {
+      name: "Genomics Data Catalog for Diseases",
+      byline: "IMIDomics · Barcelona / California",
+      period: "2017 — 2019",
+      description:
+        "Online platform for clinical and molecular data retrieval and analysis in a biomedicine company, giving clients a tool to explore available cohort data in the cloud.",
+      image: "/projects/imidomics-dashboard.png",
+      imageAlt: "React dashboard of the genomics data platform",
     },
   ],
   projectsVisibleCount: 3,
