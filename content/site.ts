@@ -300,6 +300,16 @@ export const site: SiteContent = {
       badge: "/badges/lpic1.png",
     },
     {
+      name: "AWS Databricks Platform Architect",
+      issuer: "Databricks",
+      badge: "/badges/databricks-aws-platform-architect.png",
+    },
+    {
+      name: "Generative AI Fundamentals",
+      issuer: "Databricks",
+      badge: "/badges/databricks-genai-fundamentals.png",
+    },
+    {
       name: "Certified SAFe® 6 Product Owner/Product Manager",
       issuer: "Scaled Agile, Inc.",
       badge: "/badges/safe6-popm.png",
