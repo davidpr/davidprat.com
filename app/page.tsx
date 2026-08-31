@@ -12,7 +12,7 @@ export default function Page() {
   return (
     <>
       <div aria-hidden="true" className="backdrop" />
-      <main className="mx-auto max-w-3xl px-4 pb-24 sm:px-6">
+      <main className="mx-auto max-w-3xl px-4 pb-24 sm:px-6 lg:max-w-4xl">
         <Hero />
         <Stats />
         <About />
