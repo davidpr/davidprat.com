@@ -34,6 +34,7 @@ export type SiteContent = {
   projectsVisibleCount: number;
   education: EducationItem[];
   certifications: CertificationItem[];
+  certificationsVisibleCount: number;
   writing: {
     intro: string;
     articles: ArticleItem[];
@@ -247,9 +248,57 @@ export const site: SiteContent = {
       degree: "Associate Degree, Computer Systems — Embedded Systems and Software Engineering",
     },
   ],
-  // TODO(user): name the exact Kubernetes / AWS / Terraform certifications so
-  // each can be added here with its own official badge image in public/badges/.
   certifications: [
+    {
+      name: "CKA: Certified Kubernetes Administrator",
+      issuer: "The Linux Foundation / CNCF",
+      badge: "/badges/cka.png",
+    },
+    {
+      name: "CKAD: Certified Kubernetes Application Developer",
+      issuer: "The Linux Foundation / CNCF",
+      badge: "/badges/ckad.png",
+    },
+    {
+      name: "CKS: Certified Kubernetes Security Specialist",
+      issuer: "The Linux Foundation / CNCF",
+      badge: "/badges/cks.png",
+    },
+    {
+      name: "AWS Certified DevOps Engineer — Professional",
+      issuer: "Amazon Web Services",
+      badge: "/badges/aws-devops-professional.png",
+    },
+    {
+      name: "AWS Certified Solutions Architect — Associate",
+      issuer: "Amazon Web Services",
+      badge: "/badges/aws-solutions-architect-associate.png",
+    },
+    {
+      name: "AWS Certified Security — Specialty",
+      issuer: "Amazon Web Services",
+      badge: "/badges/aws-security-specialty.jpg",
+    },
+    {
+      name: "AWS Certified SysOps Administrator — Associate",
+      issuer: "Amazon Web Services",
+      badge: "/badges/aws-sysops-associate.png",
+    },
+    {
+      name: "HashiCorp Certified: Terraform Associate",
+      issuer: "HashiCorp",
+      badge: "/badges/terraform-associate.png",
+    },
+    {
+      name: "PCA: Prometheus Certified Associate",
+      issuer: "The Linux Foundation / CNCF",
+      badge: "/badges/pca.png",
+    },
+    {
+      name: "LPIC-1: Linux Administrator",
+      issuer: "Linux Professional Institute",
+      badge: "/badges/lpic1.png",
+    },
     {
       name: "Certified SAFe® 6 Product Owner/Product Manager",
       issuer: "Scaled Agile, Inc.",
@@ -276,6 +325,7 @@ export const site: SiteContent = {
       badge: "/badges/azure-ai-fundamentals.png",
     },
   ],
+  certificationsVisibleCount: 6,
   writing: {
     intro: "I write about AI infrastructure and LLM internals.",
     articles: [
