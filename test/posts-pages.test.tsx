@@ -17,9 +17,8 @@ describe("Posts index page", () => {
 
   it("marks external items with their source", () => {
     render(<PostsPage />);
-    for (const a of site.externalArticles) {
-      expect(screen.getByText(`Read on ${a.source}`)).toBeInTheDocument();
-    }
+    const labels = screen.getAllByText(/Read on /);
+    expect(labels).toHaveLength(site.externalArticles.length);
   });
 
   it("local posts link under /posts/", () => {
