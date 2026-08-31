@@ -10,6 +10,7 @@ describe("Footer", () => {
     const year = new Date().getFullYear();
     const line = screen.getByText(new RegExp(`© 2018–${year}`));
     expect(line).toHaveTextContent("All rights reserved");
-    expect(line).toHaveTextContent(/Last updated: \d{1,2} \w+ \d{4}/);
+    expect(line).toHaveTextContent(/Last updated: \w+ \d{4}/);
+    expect(line).not.toHaveTextContent(/Last updated: \d/);
   });
 });

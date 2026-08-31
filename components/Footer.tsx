@@ -2,7 +2,6 @@ import { site } from "@/content/site";
 
 // Evaluated once at build time — the static export bakes in the deploy date.
 const buildDate = new Date().toLocaleDateString("en-GB", {
-  day: "numeric",
   month: "long",
   year: "numeric",
 });
