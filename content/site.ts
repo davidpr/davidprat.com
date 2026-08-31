@@ -287,12 +287,14 @@ export const site: SiteContent = {
         "Master's thesis providing project managers with tools for cross-cultural teams and international stakeholders — seeing the big picture of multiculturalism and bridging distant issues such as globalization.",
     },
     {
-      name: "Runtime-Guided Hardware Reconfiguration for the IBM POWER7",
+      name: "Runtime-Guided Hardware Prefetcher Reconfiguration on the IBM POWER7",
       page: "/projects/power7-reconfiguration",
-      byline: "Universitat Politècnica de Catalunya",
+      byline: "UPC · Barcelona Supercomputing Center",
       period: "2015",
       description:
-        "Research project on adaptive, application-dependent runtime-guided hardware reconfiguration for the IBM POWER7 processor.",
+        "Adaptive, application-dependent runtime-guided reconfiguration of the IBM POWER7 hardware prefetcher, published at the ADAPT'15 workshop with BSC co-authors.",
+      href: "https://arxiv.org/abs/1501.02282",
+      linkLabel: "Paper on arXiv",
     },
     {
       name: "Automatic Venipuncture Using a Peripheral Venous Catheter",
@@ -307,6 +309,8 @@ export const site: SiteContent = {
       period: "2011 — 2012",
       description:
         "Degree thesis building the first cluster in the world to use Nvidia Tegra 2 boards for scientific computing, exploiting the power-efficient ARM architecture and analysing the integration of parallel programming models.",
+      href: "https://hdl.handle.net/2099.1/11490",
+      linkLabel: "Thesis on UPCommons",
     },
     {
       name: "Microcontroller System for Data Acquisition with USB",
@@ -314,6 +318,8 @@ export const site: SiteContent = {
       period: "2008 — 2009",
       description:
         "Design and build of a microcontroller-based data-acquisition system with USB connectivity.",
+      href: "https://hdl.handle.net/2099.1/5830",
+      linkLabel: "Thesis on UPCommons",
     },
   ],
   projectsVisibleCount: 3,

@@ -29,7 +29,7 @@ const MAPPING = [
   {
     old: "adaptive-reconfiguration-for-power7",
     slug: "power7-reconfiguration",
-    name: "Runtime-Guided Hardware Reconfiguration for the IBM POWER7",
+    name: "Runtime-Guided Hardware Prefetcher Reconfiguration on the IBM POWER7",
   },
 ];
 
