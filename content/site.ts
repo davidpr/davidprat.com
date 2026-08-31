@@ -53,7 +53,7 @@ export const site: SiteContent = {
   name: "David Prat Robles",
   headline: "Engineering leader — AI Infrastructure & LLM Platforms",
   location: "Barcelona · remote EU",
-  availability: "Open to Head of Engineering and Director roles",
+  availability: "Open to senior engineering leadership roles",
   topSkills: [
     "Technology Management",
     "Cross-functional Team Leadership",
@@ -91,7 +91,7 @@ export const site: SiteContent = {
     },
   ],
   aboutClosing: [
-    "Since July 2026 I have been building Finlooker.io independently — while completing my Executive MBA at EAE and exploring my next Head of Engineering or Director role.",
+    "Since July 2026 I have been building Finlooker.io independently — while completing my Executive MBA at EAE and exploring my next senior engineering leadership role.",
     "Outside of work, I cultivate balance through therapeutic practices and support nonprofits that promote societal wellness and conscious living.",
   ],
   experience: [
