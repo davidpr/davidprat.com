@@ -20,7 +20,13 @@ export type CertificationItem = {
   issuer: string;
   badge: string;
 };
-export type ExternalArticle = { title: string; date: string; href: string; source: string };
+export type ExternalArticle = {
+  title: string;
+  date: string;
+  href: string;
+  source: string;
+  topics?: string[];
+};
 export type SiteContent = {
   name: string;
   headline: string;
@@ -480,12 +486,14 @@ export const site: SiteContent = {
       date: "2026-05-06",
       href: "https://www.linkedin.com/pulse/001-guide-ai-infrastructure-understanding-llm-gpu-david-prat-robles-hr5te/",
       source: "LinkedIn",
+      topics: ["AI & LLMs"],
     },
     {
       title: "AI 2026-2030: Bubble or Golden Era?",
       date: "2026-04-04",
       href: "https://www.linkedin.com/pulse/ai-2026-2030-bubble-golden-era-david-prat-robles-wonre/",
       source: "LinkedIn",
+      topics: ["AI & LLMs"],
     },
   ],
   contact: {

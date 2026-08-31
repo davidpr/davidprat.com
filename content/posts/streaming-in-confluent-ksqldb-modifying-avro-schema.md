@@ -2,6 +2,7 @@
 title: "Streaming in Confluent KsqlDB: Modifying AVRO Schema"
 date: "2020-12-01T15:00:55"
 excerpt: "Streaming in Confluent KsqlDB: Modifying AVRO Schema In the context of streaming applications Kafka has been a very used technology to solve real time and exactly-once-processing problems by many big and medium companies"
+topics: ["Data & Streaming"]
 cover: "/posts/streaming-in-confluent-ksqldb-modifying-avro-schema/ksqldb-squared.png"
 ---
 ## Streaming in Confluent KsqlDB: Modifying AVRO Schema

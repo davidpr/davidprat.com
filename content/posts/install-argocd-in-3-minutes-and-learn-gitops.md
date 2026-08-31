@@ -2,6 +2,7 @@
 title: "Install ArgoCD in 3 minutes and learn GitOps"
 date: "2023-05-19T08:54:07"
 excerpt: "Install ArgoCD in 3 minutes and learn GitOps In today s post we are going to see how to install ArgoCD in a straightforward way and explain what s the function of ArgoCD in a GitOps setup. First we ll be going though a t"
+topics: ["Kubernetes","DevOps & CI/CD"]
 cover: "/posts/install-argocd-in-3-minutes-and-learn-gitops/argocd2.jpg"
 ---
 ## Install ArgoCD in 3 minutes and learn GitOps

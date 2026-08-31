@@ -2,6 +2,7 @@
 title: "Presto Cluster on Kubernetes"
 date: "2020-02-03T11:06:13"
 excerpt: "Presto Cluster on Kubernetes This tutorial is the continuation of the tutorial Data Federation with Presto on Docker. After having acquired some understanding and experience of Docker now it is turn to deploy these Docke"
+topics: ["Kubernetes","Data & Streaming"]
 cover: "/posts/presto-cluster-on-kubernetes/presto-db2.jpeg"
 ---
 ## Presto Cluster on Kubernetes

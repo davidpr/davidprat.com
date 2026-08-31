@@ -22,6 +22,18 @@ export function PostCard({ item }: { item: FeedItem }) {
             Read on {item.source}
           </p>
         )}
+        {item.topics.length > 0 && (
+          <p className="mt-3 flex flex-wrap gap-2">
+            {item.topics.map((t) => (
+              <span
+                key={t}
+                className="rounded-full border border-neutral-300/60 px-2.5 py-0.5 text-xs text-neutral-500 dark:border-neutral-700 dark:text-neutral-400"
+              >
+                {t}
+              </span>
+            ))}
+          </p>
+        )}
       </Wrapper>
     </article>
   );

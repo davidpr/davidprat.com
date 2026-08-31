@@ -2,6 +2,7 @@
 title: "Build your own production RAG with Llamaindex, Chroma, Ollama and FastAPI"
 date: "2023-12-06T08:14:16"
 excerpt: "In this post we are going to see how to use the Llamaindex Python library to build our own RAG. We well be ingesting finance literacy books in form of pdf and epub in a Vector index. In the second part, we ll be exposing"
+topics: ["AI & LLMs"]
 cover: "/posts/build-production-rag-llamaindex/Evaluate-RAG-with-LlamaIndex.jpg"
 ---
 ## Build your own production RAG with Llamaindex, Chroma, Ollama and FastAPI

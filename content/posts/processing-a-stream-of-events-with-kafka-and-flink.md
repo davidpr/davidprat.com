@@ -2,6 +2,7 @@
 title: "Processing a stream of events with Kafka and Flink"
 date: "2020-11-12T15:01:46"
 excerpt: "Processing a stream of events with Kafka and Flink Dear reader, in this post you ll learn how to deploy a Kafka cluster and a Flink cluster. You ll also learn how to make a simple application in Flink to process a stream"
+topics: ["Data & Streaming"]
 cover: "/posts/processing-a-stream-of-events-with-kafka-and-flink/flink-dashboard3.png"
 ---
 ## Processing a stream of events with Kafka and Flink

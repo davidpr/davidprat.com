@@ -2,6 +2,7 @@
 title: "Evaluate production RAG with Trulens"
 date: "2023-12-25T17:31:00"
 excerpt: "In this post we are going to see how to use the Llamaindex Python library"
+topics: ["AI & LLMs"]
 cover: "/posts/evaulate-production-rag-with-truelens/trulens.png"
 ---
 ## Evaluate your Llamaindex RAG with Trulens

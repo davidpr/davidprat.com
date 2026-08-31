@@ -2,6 +2,7 @@
 title: "Install K3s, Prometheus and Grafana in 5 minutes"
 date: "2023-04-01T10:15:39"
 excerpt: "Install K3s, Prometheus and Grafana in 5 minutes I m excited to announce that I will be creating a tutorial on how to install k3s with Prometheus and Grafana. As you may already know, setting up and configuring these too"
+topics: ["Kubernetes"]
 cover: "/posts/install-k3s-prometheus-and-grafana-in-5-minutes/node-exporter-grafana-dashboard.png"
 ---
 # Install K3s, Prometheus and Grafana in 5 minutes

@@ -2,6 +2,7 @@
 title: "Microbatch ingestion using Spark Streaming and Cassandra"
 date: "2020-11-22T09:30:45"
 excerpt: "Microbatch ingestion using Spark Streaming and Cassandra In this post you ll learn how to ingest data files in near real time using Spark Structured Streaming framework and storing them in Cassandra database. Spark Struc"
+topics: ["Data & Streaming"]
 cover: "/posts/microbatch-ingestion-using-spark-streaming-and-cassandra/sparkUI-2.png"
 ---
 ## Microbatch ingestion using Spark Streaming and Cassandra

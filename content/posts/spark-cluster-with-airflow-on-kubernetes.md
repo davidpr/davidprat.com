@@ -2,6 +2,7 @@
 title: "Spark cluster with Airflow on Kubernetes"
 date: "2020-02-14T17:43:07"
 excerpt: "Spark cluster with Airflow on Kubernetes Architecture diagram In this tutorial Kubernetes will be used to create a Spark cluster from which parallel jobs will be launched. The launch of the jobs won t be done directly th"
+topics: ["Kubernetes","DevOps & CI/CD","Data & Streaming"]
 cover: "/posts/spark-cluster-with-airflow-on-kubernetes/spark-cluster-1.png"
 ---
 ## Spark cluster with Airflow on Kubernetes

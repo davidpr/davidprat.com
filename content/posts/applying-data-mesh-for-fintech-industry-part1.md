@@ -2,6 +2,7 @@
 title: "Applying Data Mesh for Fintech Industry (Part1)"
 date: "2022-03-03T16:45:41"
 excerpt: "Applying Data Mesh for Fintech Industry (Part1) If you are working in the area of data and specially if you are a data engineer or data architect you probably have heard about Data Mesh as a paradigm shift or improvement"
+topics: ["Data & Streaming"]
 cover: "/posts/applying-data-mesh-for-fintech-industry-part1/data-mesh-datamesh.jpg"
 ---
 ## Applying Data Mesh for Fintech Industry (Part1)

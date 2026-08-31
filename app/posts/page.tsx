@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { getFeed } from "@/lib/posts";
 import { site } from "@/content/site";
-import { PostCard } from "@/components/PostCard";
+import { PostsExplorer } from "@/components/PostsExplorer";
 
 export const metadata: Metadata = {
   title: `Posts — ${site.name}`,
@@ -28,11 +28,7 @@ export default function PostsPage() {
           from 2018 to today.
         </p>
       </header>
-      <div className="mt-10 space-y-5">
-        {feed.map((item) => (
-          <PostCard key={item.href} item={item} />
-        ))}
-      </div>
+      <PostsExplorer feed={feed} />
     </main>
   );
 }

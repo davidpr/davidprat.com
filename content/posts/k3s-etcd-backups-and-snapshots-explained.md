@@ -2,6 +2,7 @@
 title: "K3s etcd backups and snapshots explained"
 date: "2023-05-03T14:27:57"
 excerpt: "K3s etcd backups and snapshots explained In today s world of technology, ensuring data protection and business continuity is more important than ever before. This is especially true for Kubernetes environments, where the"
+topics: ["Kubernetes"]
 cover: "/posts/k3s-etcd-backups-and-snapshots-explained/K3s-logo.png"
 ---
 ## K3s etcd backups and snapshots explained

@@ -7,6 +7,7 @@ export type PostMeta = {
   title: string;
   date: string;
   excerpt: string;
+  topics: string[];
   cover?: string;
 };
 
@@ -22,6 +23,7 @@ export function getAllPosts(): PostMeta[] {
         title: String(data.title),
         date: String(data.date),
         excerpt: String(data.excerpt ?? ""),
+        topics: Array.isArray(data.topics) ? data.topics.map(String) : [],
         ...(data.cover ? { cover: String(data.cover) } : {}),
       };
     })
@@ -35,10 +37,11 @@ export type FeedItem = {
   href: string;
   external: boolean;
   source?: string;
+  topics: string[];
 };
 
 export function getFeed(
-  external: { title: string; date: string; href: string; source: string }[],
+  external: { title: string; date: string; href: string; source: string; topics?: string[] }[],
 ): FeedItem[] {
   const local: FeedItem[] = getAllPosts().map((p) => ({
     title: p.title,
@@ -46,6 +49,7 @@ export function getFeed(
     excerpt: p.excerpt,
     href: `/posts/${p.slug}`,
     external: false,
+    topics: p.topics,
   }));
   const ext: FeedItem[] = external.map((a) => ({
     title: a.title,
@@ -53,6 +57,7 @@ export function getFeed(
     href: a.href,
     external: true,
     source: a.source,
+    topics: a.topics ?? [],
   }));
   return [...local, ...ext].sort((a, b) => (a.date < b.date ? 1 : -1));
 }
@@ -67,6 +72,7 @@ export function getPost(slug: string): { meta: PostMeta; body: string } | null {
       title: String(data.title),
       date: String(data.date),
       excerpt: String(data.excerpt ?? ""),
+      topics: Array.isArray(data.topics) ? data.topics.map(String) : [],
       ...(data.cover ? { cover: String(data.cover) } : {}),
     },
     body: content,

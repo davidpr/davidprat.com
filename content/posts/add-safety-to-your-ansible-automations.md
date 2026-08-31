@@ -2,6 +2,7 @@
 title: "Add Safety to your Ansible Automations"
 date: "2022-04-26T12:58:37"
 excerpt: "Add Safety to your Ansible Automations Using Ansible for automation really makes the work of systems administrators scalable as it gives to the sysadmin the power to launch sets of commands on groups of machines. While s"
+topics: ["DevOps & CI/CD"]
 cover: "/posts/add-safety-to-your-ansible-automations/ansible-1.jpeg"
 ---
 ## Add Safety to your Ansible Automations

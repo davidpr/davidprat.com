@@ -2,6 +2,7 @@
 title: "Data Federation in Presto with Docker"
 date: "2020-01-12T12:45:35"
 excerpt: "Data Federation with Presto on Docker Introduction This post is about describing how to set a Presto installation in the form of a cluster on top of Docker containers. On the process of setting up the cluster several use"
+topics: ["Data & Streaming"]
 cover: "/posts/data-federation-with-presto-on-docker/presto-db2.jpeg"
 ---
 ## Data Federation with Presto on Docker

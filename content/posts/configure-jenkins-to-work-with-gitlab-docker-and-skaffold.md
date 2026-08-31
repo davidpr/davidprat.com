@@ -2,6 +2,7 @@
 title: "Configure Jenkins to work with Gitlab, Docker and Skaffold"
 date: "2023-08-05T12:48:25"
 excerpt: "Configure Jenkins to work with Gitlab, Docker and Skaffold In today s post we are going to see how to install Jenkins in a straightforward way in a bare metal server and explain what s the function of Jenkins in a GitOps"
+topics: ["DevOps & CI/CD"]
 cover: "/posts/configure-jenkins-to-work-with-gitlab-docker-and-skaffold/jenkins-agent-logo.jpg"
 ---
 ## Configure Jenkins to work with Gitlab, Docker and Skaffold

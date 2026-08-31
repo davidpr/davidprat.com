@@ -17,6 +17,28 @@ const OUT_MD = join(process.cwd(), "content", "posts");
 const OUT_IMG = join(process.cwd(), "public", "posts");
 const td = makeTurndown();
 
+// WP categories → curated site topics
+const CAT_TOPICS = {
+  "AI & LLMs": ["LLM", "RAG", "MLOps", "ML"],
+  Kubernetes: ["Kubernetes", "K3s", "Grafana"],
+  "DevOps & CI/CD": [
+    "Automation", "DevOps", "Docker", "Gitlab", "Jenkins",
+    "Skaffold", "Kustomize", "Ansible", "ArgoCD",
+  ],
+  "Data & Streaming": [
+    "Big Data", "Data Mesh", "Kafka", "KsqlDB", "Streaming", "Cassandra",
+    "Databases", "Spark Streaming", "Spark", "Flink", "Presto", "Airflow", "OrientDB",
+  ],
+};
+
+function topicsFor(categories) {
+  const topics = [];
+  for (const [topic, cats] of Object.entries(CAT_TOPICS)) {
+    if (categories.some((c) => cats.includes(c))) topics.push(topic);
+  }
+  return topics.length ? topics : ["Data & Streaming"];
+}
+
 const res = await fetch(`${ORIGIN}/wp-json/wp/v2/posts?per_page=100&_embed`);
 const posts = await res.json();
 console.log(`Fetched ${posts.length} posts`);
@@ -54,12 +76,18 @@ for (const post of posts) {
   const md = toMarkdown(td, html);
   const excerpt = plainText(post.excerpt.rendered).slice(0, 220);
   const cover = featured && urlMap.get(featured) ? urlMap.get(featured) : undefined;
+  const categories = (post._embedded?.["wp:term"] ?? [])
+    .flat()
+    .filter((t) => t.taxonomy === "category")
+    .map((t) => t.name);
+  const topics = topicsFor(categories);
 
   const fm = [
     "---",
     `title: ${JSON.stringify(plainText(post.title.rendered))}`,
     `date: ${JSON.stringify(post.date)}`,
     `excerpt: ${JSON.stringify(excerpt)}`,
+    `topics: ${JSON.stringify(topics)}`,
     ...(cover ? [`cover: ${JSON.stringify(cover)}`] : []),
     "---",
     "",
