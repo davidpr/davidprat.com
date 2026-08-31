@@ -372,9 +372,15 @@ export const site: SiteContent = {
   },
   externalArticles: [
     {
-      title: "Guide to AI Infrastructure: Understanding LLM GPUs",
-      date: "2026-07-15",
+      title: "The 0.01% Guide to AI Infrastructure: Understanding LLM Internals and GPU Execution",
+      date: "2026-05-06",
       href: "https://www.linkedin.com/pulse/001-guide-ai-infrastructure-understanding-llm-gpu-david-prat-robles-hr5te/",
+      source: "LinkedIn",
+    },
+    {
+      title: "AI 2026-2030: Bubble or Golden Era?",
+      date: "2026-04-04",
+      href: "https://www.linkedin.com/pulse/ai-2026-2030-bubble-golden-era-david-prat-robles-wonre/",
       source: "LinkedIn",
     },
   ],
