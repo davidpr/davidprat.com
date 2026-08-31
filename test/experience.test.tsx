@@ -8,8 +8,9 @@ describe("Experience", () => {
     render(<Experience />);
     expect(screen.getByRole("heading", { name: /experience/i })).toBeInTheDocument();
     for (const e of site.experience) {
-      expect(screen.getByText(e.org)).toBeInTheDocument();
-      expect(screen.getByText(e.role)).toBeInTheDocument();
+      expect(screen.getAllByText(e.org).length).toBeGreaterThan(0);
+      expect(screen.getAllByText(e.role).length).toBeGreaterThan(0);
+      expect(screen.getAllByText(e.period).length).toBeGreaterThan(0);
     }
   });
 

@@ -1,5 +1,5 @@
 export type LinkItem = { label: string; href: string };
-export type ExperienceItem = { org: string; role: string; points: string[] };
+export type ExperienceItem = { period: string; org: string; role: string; points: string[] };
 export type ArticleItem = { title: string; href: string };
 export type StatItem = { value: string; label: string };
 export type SiteContent = {
@@ -43,8 +43,17 @@ export const site: SiteContent = {
   ],
   experience: [
     {
+      period: "2026 — present",
+      org: "Finlooker.io",
+      role: "Founder",
+      points: [
+        "Building a macroeconomic-intelligence platform solo: Next.js on Vercel and Render, GitHub Actions CI/CD, Storybook and Chromatic for visual regression, PostHog for product analytics.",
+      ],
+    },
+    {
+      period: "2026",
       org: "Multiverse Computing",
-      role: "Senior Engineering Manager",
+      role: "Senior Engineering Manager — AI",
       points: [
         "Managed 4 teams (30+ ML engineers, 4 tech leads) building custom LLMs and SLMs for enterprise clients in healthcare, banking and energy.",
         "Cut model size 50%+ at 2–3% benchmark cost with CompactifAI, saving clients roughly half their inference budget on average.",
@@ -53,25 +62,70 @@ export const site: SiteContent = {
       ],
     },
     {
+      period: "2025 — 2026",
       org: "IAG",
-      role: "Interim Head of Infrastructure · Engineering Manager",
+      role: "Senior Tech Lead · Interim Head of Infrastructure",
       points: [
-        "Led DevSecOps architecture across the MRO department.",
+        "Led DevSecOps architecture and ways of working across the MRO department; guided new tech leads and hiring.",
         "Led technical delivery of an aircraft-maintenance AI assistant (RAG, hierarchical agents, serverless ingestion) within a €40M cost-savings programme.",
       ],
     },
     {
-      org: "AUDI AG",
-      role: "Senior Cloud / DevSecOps / SRE Consultant",
+      period: "2024 — 2025",
+      org: "IAG",
+      role: "Tech Lead · Engineering Manager (two squads)",
       points: [
-        "Senior cloud, DevSecOps and SRE consulting for global automotive platforms.",
+        "Led two development squads, bridging engineering with product and business; interviewed around 70 candidates for the new teams.",
+        "Designed cloud architectures and data pipelines with AWS, Azure, Snowflake and ClickHouse for big data, AI and web services; accountable for software quality and security.",
       ],
     },
     {
-      org: "Finlooker.io",
-      role: "Founder",
+      period: "2021 — 2024",
+      org: "AUDI AG",
+      role: "Senior Cloud DevSecOps SRE Consultant",
       points: [
-        "Building a macroeconomic-intelligence platform solo: Next.js on Vercel and Render, GitHub Actions CI/CD, Storybook and Chromatic for visual regression, PostHog for product analytics.",
+        "Ran big-data platform infrastructure on AWS and Cloudera CDP: production Kubernetes clusters, Terraform and Ansible automation, MLOps support and FinOps cost optimization.",
+      ],
+    },
+    {
+      period: "2021 — 2024",
+      org: "Datapta",
+      role: "Founder & Principal Consultant",
+      points: [
+        "Delivered cloud and data-platform engagements for AUDI AG, Antimetal and Nebula Strategy; built Finlooker v1 with a rotating team of 40+ interns and junior engineers.",
+      ],
+    },
+    {
+      period: "2020 — 2022",
+      org: "BNP Paribas Fortis",
+      role: "Senior Big Data & DevOps Consultant",
+      points: [
+        "Managed the software release lifecycle for the bank's data hub: CI/CD with Jenkins, Ansible and Kubernetes across Spark, Flink and Kafka clusters.",
+        "Built streaming jobs in Scala with Flink and Kafka feeding internal client clusters and BI tooling in a lambda architecture.",
+      ],
+    },
+    {
+      period: "2019 — 2021",
+      org: "Simig Solutions",
+      role: "Big Data & Cloud Architect Consultant",
+      points: [
+        "Designed and built AWS big-data systems processing daily electricity consumption for the Spanish grid, plus Cloudera and Airflow ETL platforms for energy clients.",
+      ],
+    },
+    {
+      period: "2017 — 2019",
+      org: "IMIDomics",
+      role: "Big Data Technical Lead · Interim Engineering Manager",
+      points: [
+        "Accountable for company data governance and IT; led the architecture of a GCP big-data platform for biomedical patient data analysis.",
+      ],
+    },
+    {
+      period: "2016 — 2017",
+      org: "FILMCLUB",
+      role: "CTO — EdTech Startup",
+      points: [
+        "Technology lead for an educational content platform, from infrastructure to client campaign tooling.",
       ],
     },
   ],

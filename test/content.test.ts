@@ -36,12 +36,16 @@ describe("site content", () => {
     }
   });
 
-  it("has experience highlights with points", () => {
-    expect(site.experience.length).toBeGreaterThanOrEqual(3);
+  it("has the full career timeline with periods", () => {
+    expect(site.experience.length).toBeGreaterThanOrEqual(8);
     for (const e of site.experience) {
+      expect(e.period).toMatch(/^\d{4}/);
       expect(e.org).toBeTruthy();
       expect(e.role).toBeTruthy();
       expect(e.points.length).toBeGreaterThan(0);
     }
+    const orgs = site.experience.map((e) => e.org);
+    expect(orgs).toContain("BNP Paribas Fortis");
+    expect(orgs[0]).toBe("Finlooker.io");
   });
 });
