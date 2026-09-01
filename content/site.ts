@@ -249,6 +249,60 @@ export const site: SiteContent = {
         "Ran client marketing campaigns with Mailchimp, Bitly and Google Analytics.",
       ],
     },
+    {
+      period: "2014 — 2016",
+      org: "Hewlett-Packard",
+      logo: "/experience/hewlett-packard/logo.png",
+      role: "Firmware Engineer",
+      points: [
+        "Negotiated feature scope and integration for new printer functionality across customer experience, front-end, SWQA and mechanical/electrical engineering teams.",
+        "Designed and implemented C++ firmware for Latex-technology printers with resistive printheads.",
+        "Identified and drove improvements for the Latex 300 series printer line.",
+      ],
+    },
+    {
+      period: "2014",
+      org: "Barcelona Supercomputing Center",
+      logo: "/experience/bsc/logo.png",
+      role: "HPC Research Engineer — Master's Thesis",
+      points: [
+        "Designed and evaluated performance experiments in Python/Matplotlib for next-generation HPC processors, reporting results to IBM's Thomas J. Watson Research Center.",
+        "Published a first paper in the ROMOL group on adaptive hardware-prefetcher reconfiguration for the IBM POWER7.",
+        "Built real-time C++ mechanisms to speed up IBM POWER7 microprocessor performance.",
+      ],
+    },
+    {
+      period: "2012 — 2014",
+      org: "Telefónica I+D",
+      logo: "/experience/telefonica-id/logo.png",
+      role: "Distributed Systems Research Engineer — Internship",
+      points: [
+        "Proposed new computer architectures for streaming mobile-computing data using a mesh processor topology, as part of a European research project.",
+        "Built an Android app visualizing crowd-sourced WiFi signal quality on a digital map.",
+        "Parallelized machine-learning algorithm kernels and built a Java Storm, MongoDB and AWS EC2 pipeline to ingest massive mobile telemetry data.",
+      ],
+    },
+    {
+      period: "2011 — 2012",
+      org: "Universitat Politècnica de Catalunya",
+      logo: "/experience/upc/logo.png",
+      role: "HPC Systems Engineer & Lab IT Lead",
+      points: [
+        "Ran IT for a 12-person research lab and HPC support for a computational-mechanics group.",
+        "Cut 3D mesh generation time from hours to seconds using the PETSc library.",
+        "Built a Perl-based image-segmentation pipeline for a life-sciences computing project, and extended the group's toolset with external HPC libraries.",
+      ],
+    },
+    {
+      period: "2010 — 2011",
+      org: "Universitat Politècnica de Catalunya",
+      logo: "/experience/upc/logo.png",
+      role: "IT Operations Engineer & Departmental Helpdesk — Grant-Funded",
+      points: [
+        "Provided IT helpdesk support for the applied mathematics department's staff.",
+        "Deployed the department's IT renewal plan — workstations, laptops and network configuration.",
+      ],
+    },
   ],
   experienceVisibleCount: 3,
   projects: [
