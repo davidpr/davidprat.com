@@ -14,6 +14,11 @@ describe("Writing", () => {
     }
   });
 
+  it("does not show the YouTube channel link (it now lives in the Videos section)", () => {
+    render(<Writing />);
+    expect(screen.queryByRole("link", { name: site.youtubeChannel.label })).not.toBeInTheDocument();
+  });
+
   it("shows the four newest feed items", () => {
     render(<Writing />);
     const latest = getFeed(site.externalArticles).slice(0, 4);

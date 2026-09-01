@@ -31,9 +31,7 @@ describe("site content", () => {
     const all = JSON.stringify(site.aboutHighlights);
     expect(all).toMatch(/€20M/);
     expect(all).toMatch(/€40M/);
-    expect(site.writing.channels.map((c) => c.href)).toContain(
-      "https://www.youtube.com/@davidpratr",
-    );
+    expect(site.youtubeChannel.href).toBe("https://www.youtube.com/@davidpratr");
     expect(site.externalArticles.length).toBeGreaterThanOrEqual(1);
     for (const a of site.externalArticles) {
       expect(a.href).toMatch(/^https:\/\//);

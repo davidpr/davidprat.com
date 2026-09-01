@@ -56,6 +56,7 @@ export type SiteContent = {
   externalArticles: ExternalArticle[];
   videos: VideoItem[];
   videosVisibleCount: number;
+  youtubeChannel: LinkItem;
   contact: { heading: string; body: string; links: LinkItem[] };
 };
 
@@ -526,10 +527,6 @@ export const site: SiteContent = {
         label: "Articles on LinkedIn",
         href: "https://www.linkedin.com/in/davidpratrobles/recent-activity/articles/",
       },
-      {
-        label: "YouTube — @davidpratr",
-        href: "https://www.youtube.com/@davidpratr",
-      },
     ],
   },
   externalArticles: [
@@ -562,6 +559,7 @@ export const site: SiteContent = {
     { title: "k3s backups and snapshots", youtubeId: "wrLJ0U_ey4g", duration: "9:00" },
   ],
   videosVisibleCount: 6,
+  youtubeChannel: { label: "YouTube — @davidpratr", href: "https://www.youtube.com/@davidpratr" },
   contact: {
     heading: "Contact",
     body: "The fastest way to reach me is a LinkedIn message.",

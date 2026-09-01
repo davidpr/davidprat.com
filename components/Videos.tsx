@@ -23,16 +23,24 @@ export function Videos() {
           <VideoCard key={v.youtubeId} video={v} />
         ))}
       </div>
-      {hiddenCount > 0 && (
-        <button
-          type="button"
-          aria-expanded={showAll}
-          onClick={() => setShowAll((v) => !v)}
-          className="mt-6 rounded-lg border border-neutral-300 px-5 py-2.5 text-sm font-medium transition-colors hover:border-violet-500/60 dark:border-neutral-700"
+      <p className="mt-6 flex flex-wrap gap-3">
+        {hiddenCount > 0 && (
+          <button
+            type="button"
+            aria-expanded={showAll}
+            onClick={() => setShowAll((v) => !v)}
+            className="rounded-lg border border-neutral-300 px-5 py-2.5 text-sm font-medium transition-colors hover:border-violet-500/60 dark:border-neutral-700"
+          >
+            {showAll ? "Show less" : `Show all videos (${hiddenCount} more)`}
+          </button>
+        )}
+        <a
+          href={site.youtubeChannel.href}
+          className="rounded-lg border border-neutral-300 px-5 py-2.5 text-sm font-medium transition-colors hover:border-violet-500/60 dark:border-neutral-700"
         >
-          {showAll ? "Show less" : `Show all videos (${hiddenCount} more)`}
-        </button>
-      )}
+          {site.youtubeChannel.label}
+        </a>
+      </p>
     </section>
   );
 }

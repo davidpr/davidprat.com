@@ -25,6 +25,15 @@ describe("Videos", () => {
     }
   });
 
+  it("shows a link to the YouTube channel alongside the show-all toggle", () => {
+    render(<Videos />);
+    expect(screen.getByRole("button", { name: /show all videos/i })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: site.youtubeChannel.label })).toHaveAttribute(
+      "href",
+      site.youtubeChannel.href,
+    );
+  });
+
   it("links each video to its YouTube watch page with a distinct id", () => {
     const ids = site.videos.map((v) => v.youtubeId);
     expect(new Set(ids).size).toBe(ids.length);
