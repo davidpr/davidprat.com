@@ -38,10 +38,18 @@ export type FeedItem = {
   external: boolean;
   source?: string;
   topics: string[];
+  cover?: string;
 };
 
 export function getFeed(
-  external: { title: string; date: string; href: string; source: string; topics?: string[] }[],
+  external: {
+    title: string;
+    date: string;
+    href: string;
+    source: string;
+    topics?: string[];
+    cover?: string;
+  }[],
 ): FeedItem[] {
   const local: FeedItem[] = getAllPosts().map((p) => ({
     title: p.title,
@@ -50,6 +58,7 @@ export function getFeed(
     href: `/posts/${p.slug}`,
     external: false,
     topics: p.topics,
+    ...(p.cover ? { cover: p.cover } : {}),
   }));
   const ext: FeedItem[] = external.map((a) => ({
     title: a.title,
@@ -58,6 +67,7 @@ export function getFeed(
     external: true,
     source: a.source,
     topics: a.topics ?? [],
+    ...(a.cover ? { cover: a.cover } : {}),
   }));
   return [...local, ...ext].sort((a, b) => (a.date < b.date ? 1 : -1));
 }

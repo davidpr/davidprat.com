@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 export default function PostsPage() {
   const feed = getFeed(site.externalArticles);
   return (
-    <main className="mx-auto max-w-3xl px-4 pb-24 sm:px-6 lg:max-w-4xl">
+    <main className="mx-auto max-w-3xl px-4 pb-24 sm:px-6 lg:max-w-6xl">
       <header className="pt-14 sm:pt-24">
         <p className="eyebrow">
           <Link href="/" className="text-neutral-500 hover:text-violet-500 dark:text-neutral-400">

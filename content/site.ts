@@ -27,6 +27,7 @@ export type ExternalArticle = {
   href: string;
   source: string;
   topics?: string[];
+  cover?: string;
 };
 export type SiteContent = {
   name: string;
@@ -535,6 +536,7 @@ export const site: SiteContent = {
       href: "https://www.linkedin.com/pulse/001-guide-ai-infrastructure-understanding-llm-gpu-david-prat-robles-hr5te/",
       source: "LinkedIn",
       topics: ["AI & LLMs"],
+      cover: "/posts/linkedin-ai-infrastructure-guide/cover.jpg",
     },
     {
       title: "AI 2026-2030: Bubble or Golden Era?",
@@ -542,6 +544,7 @@ export const site: SiteContent = {
       href: "https://www.linkedin.com/pulse/ai-2026-2030-bubble-golden-era-david-prat-robles-wonre/",
       source: "LinkedIn",
       topics: ["AI & LLMs"],
+      cover: "/posts/linkedin-ai-bubble-golden-era/cover.jpg",
     },
   ],
   contact: {
