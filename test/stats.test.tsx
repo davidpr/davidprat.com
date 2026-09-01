@@ -16,4 +16,18 @@ describe("Stats", () => {
   it("hero links include GitHub", () => {
     expect(site.heroLinks.map((l) => l.href)).toContain("https://github.com/davidpr");
   });
+
+  it("links the experience, articles, videos and certifications cards to their sections", () => {
+    render(<Stats />);
+    const linked = site.stats.filter((s) => s.href);
+    expect(linked.map((s) => s.href).sort()).toEqual(
+      ["#articles", "#certifications", "#experience", "#videos"].sort(),
+    );
+    for (const s of linked) {
+      expect(screen.getByRole("link", { name: `Go to ${s.label} section` })).toHaveAttribute(
+        "href",
+        s.href,
+      );
+    }
+  });
 });
