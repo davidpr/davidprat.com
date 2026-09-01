@@ -8,6 +8,7 @@ const items = [
   { label: "Certifications", href: "#certifications" },
   { label: "Languages", href: "#languages" },
   { label: "Articles", href: "#articles" },
+  { label: "Videos", href: "#videos" },
   { label: "Contact", href: "#contact" },
 ];
 

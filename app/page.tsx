@@ -9,6 +9,7 @@ import { Education } from "@/components/Education";
 import { Certifications } from "@/components/Certifications";
 import { Languages } from "@/components/Languages";
 import { Writing } from "@/components/Writing";
+import { Videos } from "@/components/Videos";
 import { Contact } from "@/components/Contact";
 
 const personJsonLd = {
@@ -53,6 +54,7 @@ export default function Page() {
         <Certifications />
         <Languages />
         <Writing />
+        <Videos />
         <Contact />
       </main>
     </>

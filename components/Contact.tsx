@@ -4,7 +4,7 @@ export function Contact() {
   return (
     <section id="contact" aria-labelledby="contact-heading" className="scroll-mt-16 py-10">
       <div className="card reveal p-6 text-center sm:p-12">
-        <p className="eyebrow text-violet-600 dark:text-violet-400">08</p>
+        <p className="eyebrow text-violet-600 dark:text-violet-400">09</p>
         <h2 id="contact-heading" className="mt-1 text-2xl font-semibold tracking-tight">
           {site.contact.heading}
         </h2>

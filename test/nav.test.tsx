@@ -10,6 +10,7 @@ const expected = [
   ["Certifications", "#certifications"],
   ["Languages", "#languages"],
   ["Articles", "#articles"],
+  ["Videos", "#videos"],
   ["Contact", "#contact"],
 ];
 

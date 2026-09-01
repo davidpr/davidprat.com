@@ -16,6 +16,7 @@ describe("Page", () => {
       "Certifications",
       "Languages",
       "Articles",
+      "Videos",
       site.contact.heading,
     ]);
   });

@@ -29,6 +29,7 @@ export type ExternalArticle = {
   topics?: string[];
   cover?: string;
 };
+export type VideoItem = { title: string; youtubeId: string; duration: string };
 export type SiteContent = {
   name: string;
   headline: string;
@@ -53,6 +54,8 @@ export type SiteContent = {
     channels: LinkItem[];
   };
   externalArticles: ExternalArticle[];
+  videos: VideoItem[];
+  videosVisibleCount: number;
   contact: { heading: string; body: string; links: LinkItem[] };
 };
 
@@ -86,7 +89,7 @@ export const site: SiteContent = {
     { value: "40+", label: "junior engineers mentored" },
     { value: "30+", label: "senior engineers mentored" },
     { value: "20", label: "technical articles published" },
-    { value: "6", label: "video tutorials produced" },
+    { value: "9", label: "video tutorials produced" },
     { value: "17", label: "professional certifications" },
   ],
   about: [
@@ -547,6 +550,18 @@ export const site: SiteContent = {
       cover: "/posts/linkedin-ai-bubble-golden-era/cover.jpg",
     },
   ],
+  videos: [
+    { title: "How to pass the CKS exam", youtubeId: "2CnZarRBBBE", duration: "14:03" },
+    { title: "How to pass the CKAD exam", youtubeId: "Dv-PdB-v5ls", duration: "15:08" },
+    { title: "How to pass the CKA exam", youtubeId: "TUzi5dNO6wU", duration: "11:49" },
+    { title: "Grafana operator explained and installation", youtubeId: "Vo4nylLCFnQ", duration: "21:14" },
+    { title: "Kustomize explained and tutorial", youtubeId: "P13TzWOXvLQ", duration: "8:26" },
+    { title: "Learn Skaffold and how is it used in GitOps", youtubeId: "xf-Ph1SW4j8", duration: "15:39" },
+    { title: "Jenkins webhook with Gitlab and Docker", youtubeId: "peo-Cc6qPOM", duration: "11:30" },
+    { title: "Install ArgoCD in 3 minutes and learn GitOps", youtubeId: "gTLHH05Y4NU", duration: "20:22" },
+    { title: "k3s backups and snapshots", youtubeId: "wrLJ0U_ey4g", duration: "9:00" },
+  ],
+  videosVisibleCount: 6,
   contact: {
     heading: "Contact",
     body: "The fastest way to reach me is a LinkedIn message.",
