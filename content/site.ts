@@ -14,6 +14,7 @@ export type ProjectItem = {
 };
 export type EducationItem = { period: string; school: string; degree: string };
 export type HighlightItem = { title: string; text: string };
+export type StatItem = { value: string; label: string };
 export type LanguageItem = { name: string; level: string; credential?: string };
 export type CertificationItem = {
   name: string;
@@ -33,6 +34,7 @@ export type SiteContent = {
   location: string;
   availability: string;
   topSkills: string[];
+  stats: StatItem[];
   heroLinks: LinkItem[];
   about: string[];
   aboutHighlights: HighlightItem[];
@@ -74,6 +76,17 @@ export const site: SiteContent = {
   heroLinks: [
     { label: "LinkedIn", href: "https://www.linkedin.com/in/davidpratrobles/" },
     { label: "Finlooker.io", href: "https://finlooker.io" },
+    { label: "GitHub", href: "https://github.com/davidpr" },
+  ],
+  stats: [
+    { value: "15+", label: "years in engineering" },
+    { value: "€40M+", label: "cost savings architected" },
+    { value: "4", label: "teams led in parallel" },
+    { value: "40+", label: "junior engineers mentored" },
+    { value: "30+", label: "senior engineers mentored" },
+    { value: "20", label: "technical articles published" },
+    { value: "6", label: "video tutorials produced" },
+    { value: "17", label: "professional certifications" },
   ],
   about: [
     "Engineering leader with over 15 years of experience leading cross-functional teams to build AI-driven products. My expertise spans product strategy, cloud infrastructure, and execution across fintech, aviation, and large language models — bridging engineering, design and data science to drive outcomes that serve both user needs and business goals.",
