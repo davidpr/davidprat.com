@@ -13,7 +13,7 @@ export function Writing() {
         Articles
       </h2>
       <p className="mt-4 leading-relaxed text-neutral-700 dark:text-neutral-300">{intro}</p>
-      <div className="mt-5 space-y-4">
+      <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2">
         {latest.map((item) => (
           <PostCard key={item.href} item={item} />
         ))}
