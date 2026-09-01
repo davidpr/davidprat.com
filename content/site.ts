@@ -119,10 +119,11 @@ export const site: SiteContent = {
       org: "Multiverse Computing",
       role: "Senior Engineering Manager — AI",
       points: [
-        "Managed 4 teams (30+ ML engineers, 4 tech leads) building custom LLMs and SLMs for enterprise clients in healthcare, banking and energy — around €20M in delivered revenue.",
-        "Cut model size 50%+ at 2–3% benchmark cost with CompactifAI, saving clients roughly half their inference budget on average.",
-        "Co-led the cross-department LLM pipeline from research to production API serving and on-device deployment; open releases on Hugging Face.",
-        "Partnered with the CTPO on roadmap and OKRs; owned GPU allocation across teams.",
+        "Managed 4 teams (30+ ML engineers, 4 tech leads) building custom LLMs and SLMs for enterprise clients — around €20M in delivered revenue, plus open releases to the Hugging Face community.",
+        "Cut model size 50%+ at 2–3% benchmark cost with CompactifAI, saving clients roughly half their inference budget on average; extended model capabilities with tool calling, coding and multilingual support.",
+        "Coached tech leads and ran knowledge-transfer sessions for new team members, building a collaborative, high-performing culture across the teams.",
+        "Co-led the cross-department LLM pipeline from research to production API serving and on-device deployment.",
+        "Partnered with the CTPO on roadmap and OKRs, drove standardisation of data and metadata across departments, and owned GPU allocation across teams.",
       ],
     },
     {
@@ -130,8 +131,9 @@ export const site: SiteContent = {
       org: "IAG",
       role: "Senior Tech Lead · Interim Head of Infrastructure",
       points: [
-        "Led DevSecOps architecture and ways of working across the MRO department; guided new tech leads and hiring.",
-        "Led technical delivery of an aircraft-maintenance AI assistant (RAG, hierarchical agents, serverless ingestion) within a €40M cost-savings programme.",
+        "Led DevSecOps architecture and ways of working across the MRO department, including rolling out AI-assisted code generation and review; guided new tech leads and hiring.",
+        "Led technical delivery of an aircraft-maintenance AI assistant (RAG, hierarchical agents, serverless ingestion) within a €40M cost-savings programme, with DevSecOps and IaC on GitHub Actions and Terraform.",
+        "Partnered with senior leadership on long-term product backlog planning.",
       ],
     },
     {
@@ -139,8 +141,10 @@ export const site: SiteContent = {
       org: "IAG",
       role: "Tech Lead · Engineering Manager (two squads)",
       points: [
-        "Led two development squads, bridging engineering with product and business; interviewed around 70 candidates for the new teams.",
-        "Designed cloud architectures and data pipelines with AWS, Azure, Snowflake and ClickHouse for big data, AI and web services; accountable for software quality and security.",
+        "Led two development squads — task definition, monthly backlog planning and technical/architectural debt management — bridging engineering with product and business; interviewed around 70 candidates for the new teams.",
+        "Owned software quality and security for Python projects with SonarCloud and Snyk, and ran knowledge-transfer sessions across teams.",
+        "Designed cloud architectures and data pipelines with AWS, Azure, Snowflake, ClickHouse and Power BI for big data, AI and web-service projects; applied DevSecOps and IaC with GitHub Actions and Terraform.",
+        "Built Streamlit and FastAPI web apps for HPC workloads (linear optimization, metaheuristics) and AI, and selected the initial technology stack for an aircraft AI assistant using RAG and hierarchical agents.",
       ],
     },
     {
@@ -148,7 +152,11 @@ export const site: SiteContent = {
       org: "AUDI AG",
       role: "Senior Cloud DevSecOps SRE Consultant",
       points: [
-        "Ran big-data platform infrastructure on AWS and Cloudera CDP: production Kubernetes clusters, Terraform and Ansible automation, MLOps support and FinOps cost optimization.",
+        "Rolled out AWS and Cloudera CDP big-data infrastructure — service and policy automation with Terraform, Ansible and Jenkins, plus periodic Kubernetes and CDP upgrades.",
+        "Ran production CDP Kubernetes clusters on AWS EKS with Grafana and Yunikorn; migrated tables from Apache Hive to Apache Iceberg.",
+        "Provided MLOps/DataOps support across Cloudera CDF, CML, CDE and CDW, including data contracts for NiFi flows.",
+        "Built Jenkins pipelines for automated alerting and server software updates, and configured centralized logging across AWS and on-prem servers with Splunk.",
+        "Applied FinOps optimization — including instance right-sizing — to cut infrastructure cost and improve resource efficiency.",
       ],
     },
     {
@@ -156,7 +164,26 @@ export const site: SiteContent = {
       org: "Datapta",
       role: "Founder & Principal Consultant",
       points: [
-        "Delivered cloud and data-platform engagements for AUDI AG, Antimetal and Nebula Strategy; built Finlooker v1 with a rotating team of 40+ interns and junior engineers.",
+        "Delivered cloud and data-platform consulting through Datapta — including a 2.3-year AUDI AG engagement — and built Finlooker v1, a macro-intelligence platform (web, iOS/Android, hybrid infra on ArgoCD) with a rotating team of 40+ interns and junior engineers from IESE, ESADE and other technical universities.",
+        "Set strategic and business planning for the company across B2B and B2C domains.",
+        "Built hybrid infrastructure (fan-less on-prem servers + AWS) with a DevSecOps pipeline on ArgoCD.",
+      ],
+    },
+    {
+      period: "2022",
+      org: "Nebula Strategy",
+      role: "Lead Solutions Architect Consultant — Assefy",
+      points: [
+        "Mentored the startup and selected the technology stack for a new B2B data-catalog product spanning relational databases, data warehouses and unstructured media.",
+        "Designed the architecture and built a proof of concept on Amundsen, swapping its default Neo4J backend for Apache Atlas, deployed with Docker Compose.",
+      ],
+    },
+    {
+      period: "2022",
+      org: "Antimetal",
+      role: "Backend Cloud Consultant",
+      points: [
+        "Built a Flask and MongoDB proof-of-concept backend for automatic AWS resource allocation based on user quotas.",
       ],
     },
     {
@@ -164,8 +191,10 @@ export const site: SiteContent = {
       org: "BNP Paribas Fortis",
       role: "Senior Big Data & DevOps Consultant",
       points: [
-        "Managed the software release lifecycle for the bank's data hub: CI/CD with Jenkins, Ansible and Kubernetes across Spark, Flink and Kafka clusters.",
-        "Built streaming jobs in Scala with Flink and Kafka feeding internal client clusters and BI tooling in a lambda architecture.",
+        "Managed the software release lifecycle for the bank's data hub — CI/CD with Jenkins, Ansible, Kubernetes, Artifactory and GitLab, plus runbook creation and release testing against the Swagger API.",
+        "Supervised ETL and resolved incidents across Spark, Flink, Kafka and HDP/CDP clusters, with workflows orchestrated in Autosys.",
+        "Configured and administered the on-prem HDP/CDP platform (Hive, Tez, HDFS) and monitored Kafka/Flink clusters with Splunk.",
+        "Built streaming jobs in Scala with Flink and Kafka, feeding internal client clusters (Kafka, IBM MQ, Cassandra DB) and BI tooling in a lambda architecture.",
       ],
     },
     {
@@ -173,7 +202,9 @@ export const site: SiteContent = {
       org: "Simig Solutions",
       role: "Big Data & Cloud Architect Consultant",
       points: [
-        "Designed and built AWS big-data systems processing daily electricity consumption for the Spanish grid, plus Cloudera and Airflow ETL platforms for energy clients.",
+        "Designed and built an AWS big-data system processing daily electricity consumption for Red Eléctrica de España, using Glue, EMR, Lambda, PySpark, Zeppelin, Redshift Spectrum, SFTP and S3.",
+        "Built data models and ETL for an electricity marketer's forecasting and analytics on Cloudera CDH (on AWS) with Apache Airflow.",
+        "Led ETL migration from SQL Server to an on-prem Hadoop environment (Cloudera CDH, Hive, Impala, Kudu, Spark Core and Spark SQL), including client training.",
       ],
     },
     {
@@ -181,7 +212,9 @@ export const site: SiteContent = {
       org: "IMIDomics",
       role: "Big Data Technical Lead · Interim Engineering Manager",
       points: [
-        "Accountable for company data governance and IT; led the architecture of a GCP big-data platform for biomedical patient data analysis.",
+        "Owned data governance for clinical databases (MySQL, SQLAlchemy, PDI Kettle) and terabyte-scale raw data files, plus IT vendor selection and relationship management.",
+        "Led the architecture of a GCP big-data platform (OrientDB, GraphQL, Node.js, React, BigQuery, R, Cloud SQL, Kubernetes, Helm, Docker) for biomedical patient-data retrieval and analysis.",
+        "Ran IT procurement and administration — desktop and server hardware, Active Directory, ELK and LAMP stacks, Jenkins — and budget control across GCP and Azure.",
       ],
     },
     {
@@ -189,7 +222,9 @@ export const site: SiteContent = {
       org: "FILMCLUB",
       role: "CTO — EdTech Startup",
       points: [
-        "Technology lead for an educational content platform, from infrastructure to client campaign tooling.",
+        "Acted as CTO for the educational content platform, owning infrastructure and IT while advising on HR and business-model strategy.",
+        "Defined the funding-research and client-dealing process for the startup.",
+        "Ran client marketing campaigns with Mailchimp, Bitly and Google Analytics.",
       ],
     },
   ],
