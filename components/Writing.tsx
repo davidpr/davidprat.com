@@ -5,7 +5,7 @@ import { PostCard } from "@/components/PostCard";
 
 export function Writing() {
   const { intro, channels } = site.writing;
-  const latest = getFeed(site.externalArticles).slice(0, 3);
+  const latest = getFeed(site.externalArticles).slice(0, 4);
   return (
     <section id="articles" aria-labelledby="writing-heading" className="scroll-mt-16 py-10">
       <p className="eyebrow text-violet-600 dark:text-violet-400">07</p>

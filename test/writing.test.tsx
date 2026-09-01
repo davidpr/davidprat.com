@@ -14,10 +14,10 @@ describe("Writing", () => {
     }
   });
 
-  it("shows the three newest feed items", () => {
+  it("shows the four newest feed items", () => {
     render(<Writing />);
-    const latest = getFeed(site.externalArticles).slice(0, 3);
-    expect(latest).toHaveLength(3);
+    const latest = getFeed(site.externalArticles).slice(0, 4);
+    expect(latest).toHaveLength(4);
     for (const item of latest) {
       expect(screen.getByText(item.title)).toBeInTheDocument();
     }
