@@ -128,7 +128,7 @@ export const site: SiteContent = {
     {
       period: "2026",
       org: "Multiverse Computing",
-      logo: "/experience/multiverse-computing/logo.png",
+      logo: "/experience/multiverse-computing/logo.svg",
       role: "Senior Engineering Manager — AI",
       points: [
         "Managed 4 teams (30+ ML engineers, 4 tech leads) building custom LLMs and SLMs for enterprise clients — around €20M in delivered revenue, plus open releases to the Hugging Face community.",
@@ -141,7 +141,7 @@ export const site: SiteContent = {
     {
       period: "2025 — 2026",
       org: "IAG",
-      logo: "/experience/iag/logo.png",
+      logo: "/experience/iag/logo.svg",
       role: "Senior Tech Lead · Interim Head of Infrastructure",
       points: [
         "Led DevSecOps architecture and ways of working across the MRO department, including rolling out AI-assisted code generation and review; guided new tech leads and hiring.",
@@ -152,7 +152,7 @@ export const site: SiteContent = {
     {
       period: "2024 — 2025",
       org: "IAG",
-      logo: "/experience/iag/logo.png",
+      logo: "/experience/iag/logo.svg",
       role: "Tech Lead · Engineering Manager (two squads)",
       points: [
         "Led two development squads — task definition, monthly backlog planning and technical/architectural debt management — bridging engineering with product and business; interviewed around 70 candidates for the new teams.",
@@ -164,7 +164,7 @@ export const site: SiteContent = {
     {
       period: "2021 — 2024",
       org: "AUDI AG",
-      logo: "/experience/audi-ag/logo.png",
+      logo: "/experience/audi-ag/logo.svg",
       role: "Senior Cloud DevSecOps SRE Consultant",
       points: [
         "Rolled out AWS and Cloudera CDP big-data infrastructure — service and policy automation with Terraform, Ansible and Jenkins, plus periodic Kubernetes and CDP upgrades.",
