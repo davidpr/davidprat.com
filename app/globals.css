@@ -262,36 +262,11 @@ body {
   animation: pulse-dot 2.4s ease-in-out infinite;
 }
 
-/* Stat-card icons: normalize path length to 1 via the SVG `pathLength`
-   attribute so a single dasharray/dashoffset pair draws in any shape,
-   regardless of its real geometry. Per-shape stagger is set inline via
-   animation-delay on each element. */
-@keyframes icon-draw {
-  to {
-    stroke-dashoffset: 0;
-  }
-}
-.stat-icon path,
-.stat-icon circle,
-.stat-icon rect,
-.stat-icon polyline {
-  stroke-dasharray: 1;
-  stroke-dashoffset: 1;
-  animation: icon-draw 0.45s 0.9s ease-out both;
-}
-
 @media (prefers-reduced-motion: reduce) {
   .fade-up,
   .pulse-dot,
   .reveal,
   .reveal .timeline-dot {
     animation: none;
-  }
-  .stat-icon path,
-  .stat-icon circle,
-  .stat-icon rect,
-  .stat-icon polyline {
-    animation: none;
-    stroke-dashoffset: 0;
   }
 }
