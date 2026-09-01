@@ -1,5 +1,11 @@
 export type LinkItem = { label: string; href: string };
-export type ExperienceItem = { period: string; org: string; role: string; points: string[] };
+export type ExperienceItem = {
+  period: string;
+  org: string;
+  role: string;
+  points: string[];
+  logo?: string;
+};
 export type ProjectItem = {
   name: string;
   byline: string;
@@ -122,6 +128,7 @@ export const site: SiteContent = {
     {
       period: "2026",
       org: "Multiverse Computing",
+      logo: "/experience/multiverse-computing/logo.png",
       role: "Senior Engineering Manager — AI",
       points: [
         "Managed 4 teams (30+ ML engineers, 4 tech leads) building custom LLMs and SLMs for enterprise clients — around €20M in delivered revenue, plus open releases to the Hugging Face community.",
@@ -134,6 +141,7 @@ export const site: SiteContent = {
     {
       period: "2025 — 2026",
       org: "IAG",
+      logo: "/experience/iag/logo.png",
       role: "Senior Tech Lead · Interim Head of Infrastructure",
       points: [
         "Led DevSecOps architecture and ways of working across the MRO department, including rolling out AI-assisted code generation and review; guided new tech leads and hiring.",
@@ -144,6 +152,7 @@ export const site: SiteContent = {
     {
       period: "2024 — 2025",
       org: "IAG",
+      logo: "/experience/iag/logo.png",
       role: "Tech Lead · Engineering Manager (two squads)",
       points: [
         "Led two development squads — task definition, monthly backlog planning and technical/architectural debt management — bridging engineering with product and business; interviewed around 70 candidates for the new teams.",
@@ -155,6 +164,7 @@ export const site: SiteContent = {
     {
       period: "2021 — 2024",
       org: "AUDI AG",
+      logo: "/experience/audi-ag/logo.png",
       role: "Senior Cloud DevSecOps SRE Consultant",
       points: [
         "Rolled out AWS and Cloudera CDP big-data infrastructure — service and policy automation with Terraform, Ansible and Jenkins, plus periodic Kubernetes and CDP upgrades.",
@@ -194,6 +204,7 @@ export const site: SiteContent = {
     {
       period: "2020 — 2022",
       org: "BNP Paribas Fortis",
+      logo: "/experience/bnp-paribas-fortis/logo.png",
       role: "Senior Big Data & DevOps Consultant",
       points: [
         "Managed the software release lifecycle for the bank's data hub — CI/CD with Jenkins, Ansible, Kubernetes, Artifactory and GitLab, plus runbook creation and release testing against the Swagger API.",

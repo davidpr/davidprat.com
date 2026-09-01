@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { site } from "@/content/site";
 
 export function Experience() {
@@ -27,8 +28,24 @@ export function Experience() {
             />
             <p className="eyebrow text-neutral-500 dark:text-neutral-400">{e.period}</p>
             <div className="card mt-2 p-4 sm:p-6">
-              <h3 className="text-lg font-semibold">{e.org}</h3>
-              <p className="eyebrow mt-1 text-cyan-700 dark:text-cyan-400">{e.role}</p>
+              <div className="flex items-start gap-3">
+                {e.logo && (
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-white p-1.5">
+                    <Image
+                      src={e.logo}
+                      alt={`${e.org} logo`}
+                      width={32}
+                      height={32}
+                      unoptimized
+                      className="h-full w-full object-contain"
+                    />
+                  </span>
+                )}
+                <div>
+                  <h3 className="text-lg font-semibold">{e.org}</h3>
+                  <p className="eyebrow mt-1 text-cyan-700 dark:text-cyan-400">{e.role}</p>
+                </div>
+              </div>
               <ul className="mt-4 space-y-2">
                 {e.points.map((p) => (
                   <li

@@ -40,4 +40,14 @@ describe("Experience", () => {
       expect(screen.queryByText(e.role)).not.toBeInTheDocument();
     }
   });
+
+  it("shows a company logo only for entries that have one", () => {
+    render(<Experience />);
+    fireEvent.click(screen.getByRole("button", { name: /show full timeline/i }));
+    const withLogo = site.experience.filter((e) => e.logo);
+    expect(withLogo.length).toBeGreaterThan(0);
+    for (const e of withLogo) {
+      expect(screen.getAllByRole("img", { name: `${e.org} logo` }).length).toBeGreaterThan(0);
+    }
+  });
 });
