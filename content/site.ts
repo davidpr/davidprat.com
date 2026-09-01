@@ -74,7 +74,7 @@ export const site: SiteContent = {
     "Big Data",
     "DevSecOps",
     "Team Building & Hiring",
-    "AWS Architecture",
+    "Cloud Architecture",
     "K8s",
     "Observability",
   ],
