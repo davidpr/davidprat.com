@@ -4,7 +4,7 @@ import { LogoMark } from "@/components/Logo";
 
 export function Hero() {
   return (
-    <header className="pt-14 pb-12 sm:pt-24 sm:pb-14">
+    <header className="pt-14 pb-8 sm:pt-24 sm:pb-10">
       <div className="flex flex-col-reverse items-start justify-between gap-8 sm:flex-row sm:items-center">
         <div>
           <p className="fade-up flex items-center gap-3">

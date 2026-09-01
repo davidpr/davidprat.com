@@ -2,7 +2,7 @@ import { site } from "@/content/site";
 
 export function Stats() {
   return (
-    <section aria-label="Career highlights" className="fade-up delay-4 pb-6">
+    <section aria-label="Career highlights" className="fade-up delay-4 pb-10 sm:pb-12">
       <dl className="grid grid-cols-2 gap-2.5 sm:grid-cols-4">
         {site.stats.map((s) => (
           <div key={s.label} className="card flex flex-col px-3 py-3.5 text-center">
