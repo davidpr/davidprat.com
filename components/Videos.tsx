@@ -1,13 +1,29 @@
 "use client";
 
-import { useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import { site } from "@/content/site";
 import { VideoCard } from "@/components/VideoCard";
+import { scrollToSectionTop } from "@/lib/scrollToSectionTop";
 
 export function Videos() {
   const [showAll, setShowAll] = useState(false);
+  const shouldScrollToTop = useRef(false);
   const visible = showAll ? site.videos : site.videos.slice(0, site.videosVisibleCount);
   const hiddenCount = site.videos.length - site.videosVisibleCount;
+
+  useLayoutEffect(() => {
+    if (shouldScrollToTop.current) {
+      shouldScrollToTop.current = false;
+      scrollToSectionTop("videos");
+    }
+  }, [showAll]);
+
+  const toggle = () => {
+    if (showAll) {
+      shouldScrollToTop.current = true;
+    }
+    setShowAll((v) => !v);
+  };
 
   return (
     <section id="videos" aria-labelledby="videos-heading" className="scroll-mt-16 py-10">
@@ -28,7 +44,7 @@ export function Videos() {
           <button
             type="button"
             aria-expanded={showAll}
-            onClick={() => setShowAll((v) => !v)}
+            onClick={toggle}
             className="rounded-lg border border-neutral-300 px-5 py-2.5 text-sm font-medium transition-colors hover:border-violet-500/60 dark:border-neutral-700"
           >
             {showAll ? "Show less" : `Show all videos (${hiddenCount} more)`}

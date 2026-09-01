@@ -1,15 +1,31 @@
 "use client";
 
-import { useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { site } from "@/content/site";
+import { scrollToSectionTop } from "@/lib/scrollToSectionTop";
 
 export function Experience() {
   const [showAll, setShowAll] = useState(false);
+  const shouldScrollToTop = useRef(false);
   const visible = showAll
     ? site.experience
     : site.experience.slice(0, site.experienceVisibleCount);
   const hiddenCount = site.experience.length - site.experienceVisibleCount;
+
+  useLayoutEffect(() => {
+    if (shouldScrollToTop.current) {
+      shouldScrollToTop.current = false;
+      scrollToSectionTop("experience");
+    }
+  }, [showAll]);
+
+  const toggle = () => {
+    if (showAll) {
+      shouldScrollToTop.current = true;
+    }
+    setShowAll((v) => !v);
+  };
 
   return (
     <section id="experience" aria-labelledby="experience-heading" className="scroll-mt-16 py-10">
@@ -68,7 +84,7 @@ export function Experience() {
         <button
           type="button"
           aria-expanded={showAll}
-          onClick={() => setShowAll((v) => !v)}
+          onClick={toggle}
           className="mt-8 ml-8 rounded-lg border border-neutral-300 px-5 py-2.5 text-sm font-medium transition-colors hover:border-violet-500/60 sm:ml-10 dark:border-neutral-700"
         >
           {showAll ? "Show less" : `Show full timeline (${hiddenCount} more roles)`}
