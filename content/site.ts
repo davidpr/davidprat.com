@@ -177,6 +177,7 @@ export const site: SiteContent = {
     {
       period: "2021 — 2024",
       org: "Datapta",
+      logo: "/experience/datapta/logo.png",
       role: "Founder & Principal Consultant",
       points: [
         "Delivered cloud and data-platform consulting through Datapta — including a 2.3-year AUDI AG engagement — and built Finlooker v1, a macro-intelligence platform (web, iOS/Android, hybrid infra on ArgoCD) with a rotating team of 40+ interns and junior engineers from IESE, ESADE and other technical universities.",
@@ -216,6 +217,7 @@ export const site: SiteContent = {
     {
       period: "2019 — 2021",
       org: "Simig Solutions",
+      logo: "/experience/simig-solutions/logo.png",
       role: "Big Data & Cloud Architect Consultant",
       points: [
         "Designed and built an AWS big-data system processing daily electricity consumption for Red Eléctrica de España, using Glue, EMR, Lambda, PySpark, Zeppelin, Redshift Spectrum, SFTP and S3.",
@@ -226,6 +228,7 @@ export const site: SiteContent = {
     {
       period: "2017 — 2019",
       org: "IMIDomics",
+      logo: "/experience/imidomics/logo.png",
       role: "Big Data Technical Lead · Interim Engineering Manager",
       points: [
         "Owned data governance for clinical databases (MySQL, SQLAlchemy, PDI Kettle) and terabyte-scale raw data files, plus IT vendor selection and relationship management.",
