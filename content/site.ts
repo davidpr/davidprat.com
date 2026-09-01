@@ -188,6 +188,7 @@ export const site: SiteContent = {
     {
       period: "2022",
       org: "Nebula Strategy",
+      logo: "/experience/nebula-strategy/logo.png",
       role: "Lead Solutions Architect Consultant — Assefy",
       points: [
         "Mentored the startup and selected the technology stack for a new B2B data-catalog product spanning relational databases, data warehouses and unstructured media.",
@@ -197,6 +198,7 @@ export const site: SiteContent = {
     {
       period: "2022",
       org: "Antimetal",
+      logo: "/experience/antimetal/logo.png",
       role: "Backend Cloud Consultant",
       points: [
         "Built a Flask and MongoDB proof-of-concept backend for automatic AWS resource allocation based on user quotas.",
@@ -239,6 +241,7 @@ export const site: SiteContent = {
     {
       period: "2016 — 2017",
       org: "FILMCLUB",
+      logo: "/experience/filmclub/logo.png",
       role: "CTO — EdTech Startup",
       points: [
         "Acted as CTO for the educational content platform, owning infrastructure and IT while advising on HR and business-model strategy.",
