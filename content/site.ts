@@ -604,6 +604,13 @@ export const site: SiteContent = {
   },
   externalArticles: [
     {
+      title: "The Price of Intelligence: What It Really Costs to Train (and Serve) a Frontier AI Model",
+      date: "2026-09-02",
+      href: "https://www.linkedin.com/pulse/price-intelligence-what-really-costs-train-serve-ai-david-prat-robles-u8jve/",
+      source: "LinkedIn",
+      topics: ["AI & LLMs"],
+    },
+    {
       title: "The 0.01% Guide to AI Infrastructure: Understanding LLM Internals and GPU Execution",
       date: "2026-05-06",
       href: "https://www.linkedin.com/pulse/001-guide-ai-infrastructure-understanding-llm-gpu-david-prat-robles-hr5te/",
