@@ -51,6 +51,13 @@ export function Hero() {
             {l.label}
           </a>
         ))}
+        <a
+          href={site.resumeUrl}
+          download
+          className="rounded-lg bg-gradient-to-r from-violet-500 to-cyan-500 px-5 py-2.5 text-sm font-medium text-white transition-opacity hover:opacity-85"
+        >
+          Download Résumé (PDF)
+        </a>
       </nav>
     </header>
   );

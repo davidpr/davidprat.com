@@ -23,4 +23,11 @@ describe("Hero", () => {
       expect(screen.getByRole("link", { name: l.label })).toHaveAttribute("href", l.href);
     }
   });
+
+  it("renders a downloadable résumé link", () => {
+    render(<Hero />);
+    const link = screen.getByRole("link", { name: /download résumé/i });
+    expect(link).toHaveAttribute("href", site.resumeUrl);
+    expect(link).toHaveAttribute("download");
+  });
 });

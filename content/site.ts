@@ -41,6 +41,7 @@ export type SiteContent = {
   headline: string;
   location: string;
   availability: string;
+  resumeUrl: string;
   topSkills: string[];
   stats: StatItem[];
   heroLinks: LinkItem[];
@@ -73,6 +74,7 @@ export const site: SiteContent = {
   headline: "Engineering leader — AI Infrastructure & LLM Platforms",
   location: "Barcelona · remote EU",
   availability: "Open to senior engineering leadership roles",
+  resumeUrl: "/david-prat-robles-resume.pdf",
   topSkills: [
     "Technology Management",
     "Cross-functional Team Leadership",
