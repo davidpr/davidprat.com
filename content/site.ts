@@ -609,6 +609,7 @@ export const site: SiteContent = {
       href: "https://www.linkedin.com/pulse/price-intelligence-what-really-costs-train-serve-ai-david-prat-robles-u8jve/",
       source: "LinkedIn",
       topics: ["AI & LLMs"],
+      cover: "/posts/linkedin-price-of-intelligence/cover.jpg",
     },
     {
       title: "The 0.01% Guide to AI Infrastructure: Understanding LLM Internals and GPU Execution",
