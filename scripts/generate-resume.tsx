@@ -14,8 +14,6 @@ import { renderToBuffer } from "@react-pdf/renderer";
 import { Document, Page, Text, View, Image, StyleSheet } from "@react-pdf/renderer";
 import { site, type ExperienceItem } from "../content/site";
 
-const CONTACT_EMAIL = "david.prat@gmail.com";
-const CONTACT_PHONE = "+34 606 59 14 42";
 // Résumé-only elaboration of the summary, synthesized from site.aboutHighlights
 // and site.aboutClosing — kept out of content/site.ts since a résumé summary
 // reads more compressed/achievement-first than the website's About prose.
@@ -120,9 +118,10 @@ function findLink(label: string): string {
   return site.heroLinks.find((l) => l.label === label)?.href ?? "";
 }
 
+// No email or phone here — this file is publicly downloadable from the
+// site, so contact goes through LinkedIn messaging instead (matches the
+// site's own Contact section).
 const contactItems: { label: string; value: string }[] = [
-  { label: "Email", value: CONTACT_EMAIL },
-  { label: "Phone", value: CONTACT_PHONE },
   { label: "Location", value: site.location },
   { label: "LinkedIn", value: findLink("LinkedIn") },
   { label: "Website", value: "https://davidprat.com" },
