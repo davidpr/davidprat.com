@@ -604,14 +604,6 @@ export const site: SiteContent = {
   },
   externalArticles: [
     {
-      title: "How enterprises are wiring AI in 2026: models, AI gateways, MCP, A2A, LLMOps and DLOps",
-      date: "2026-10-13",
-      href: "https://www.linkedin.com/pulse/how-enterprises-wiring-ai-2026-models-gateways-mcp-a2a-prat-robles-vk2ye/",
-      source: "LinkedIn",
-      topics: ["AI & LLMs"],
-      cover: "/posts/linkedin-enterprise-ai-wiring-2026/cover.jpg",
-    },
-    {
       title: "The Price of Intelligence: What It Really Costs to Train (and Serve) a Frontier AI Model",
       date: "2026-09-02",
       href: "https://www.linkedin.com/pulse/price-intelligence-what-really-costs-train-serve-ai-david-prat-robles-u8jve/",
