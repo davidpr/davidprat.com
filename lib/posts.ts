@@ -88,3 +88,21 @@ export function getPost(slug: string): { meta: PostMeta; body: string } | null {
     body: content,
   };
 }
+
+export type PostSegment =
+  | { kind: "markdown"; text: string }
+  | { kind: "details"; summary: string; text: string };
+
+/** Split a post body on `:::details <summary>` … `:::` blocks, rendered as collapsible sections. */
+export function splitDetails(body: string): PostSegment[] {
+  const re = /^:::details (.+)\n([\s\S]*?)\n:::$/gm;
+  const out: PostSegment[] = [];
+  let last = 0;
+  for (const m of body.matchAll(re)) {
+    if (m.index > last) out.push({ kind: "markdown", text: body.slice(last, m.index) });
+    out.push({ kind: "details", summary: m[1].trim(), text: m[2] });
+    last = m.index + m[0].length;
+  }
+  if (last < body.length) out.push({ kind: "markdown", text: body.slice(last) });
+  return out;
+}

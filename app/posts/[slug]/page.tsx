@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { getAllPosts, getPost } from "@/lib/posts";
+import { getAllPosts, getPost, splitDetails } from "@/lib/posts";
 import { site } from "@/content/site";
 import { MarkdownLink } from "@/components/MarkdownLink";
 
@@ -62,9 +62,20 @@ export default async function PostPage({
         </p>
       </header>
       <article className="post-body mt-8">
-        <ReactMarkdown remarkPlugins={[remarkGfm]} components={{ a: MarkdownLink }}>
-          {post.body}
-        </ReactMarkdown>
+        {splitDetails(post.body).map((seg, i) =>
+          seg.kind === "details" ? (
+            <details key={i} className="post-details">
+              <summary>{seg.summary}</summary>
+              <ReactMarkdown remarkPlugins={[remarkGfm]} components={{ a: MarkdownLink }}>
+                {seg.text}
+              </ReactMarkdown>
+            </details>
+          ) : (
+            <ReactMarkdown key={i} remarkPlugins={[remarkGfm]} components={{ a: MarkdownLink }}>
+              {seg.text}
+            </ReactMarkdown>
+          ),
+        )}
       </article>
     </main>
   );

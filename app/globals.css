@@ -119,6 +119,18 @@ body {
   text-decoration: underline;
   text-underline-offset: 4px;
 }
+.post-details {
+  margin-top: 1rem;
+  border: 1px solid rgba(100, 116, 139, 0.25);
+  border-radius: 0.75rem;
+  padding: 0.6rem 1rem;
+}
+.post-details summary {
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: rgb(124, 58, 237);
+}
 .post-body img {
   margin: 1.5rem auto;
   max-width: 100%;
