@@ -602,32 +602,8 @@ export const site: SiteContent = {
       },
     ],
   },
-  externalArticles: [
-    {
-      title: "The Price of Intelligence: What It Really Costs to Train (and Serve) a Frontier AI Model",
-      date: "2026-09-02",
-      href: "https://www.linkedin.com/pulse/price-intelligence-what-really-costs-train-serve-ai-david-prat-robles-u8jve/",
-      source: "LinkedIn",
-      topics: ["AI & LLMs"],
-      cover: "/posts/linkedin-price-of-intelligence/cover.jpg",
-    },
-    {
-      title: "The 0.01% Guide to AI Infrastructure: Understanding LLM Internals and GPU Execution",
-      date: "2026-05-06",
-      href: "https://www.linkedin.com/pulse/001-guide-ai-infrastructure-understanding-llm-gpu-david-prat-robles-hr5te/",
-      source: "LinkedIn",
-      topics: ["AI & LLMs"],
-      cover: "/posts/linkedin-ai-infrastructure-guide/cover.jpg",
-    },
-    {
-      title: "AI 2026-2030: Bubble or Golden Era?",
-      date: "2026-04-04",
-      href: "https://www.linkedin.com/pulse/ai-2026-2030-bubble-golden-era-david-prat-robles-wonre/",
-      source: "LinkedIn",
-      topics: ["AI & LLMs"],
-      cover: "/posts/linkedin-ai-bubble-golden-era/cover.jpg",
-    },
-  ],
+  // Articles published elsewhere that are not mirrored as posts on this site.
+  externalArticles: [],
   videos: [
     { title: "How to pass the CKS exam", youtubeId: "2CnZarRBBBE", duration: "14:03" },
     { title: "How to pass the CKAD exam", youtubeId: "Dv-PdB-v5ls", duration: "15:08" },

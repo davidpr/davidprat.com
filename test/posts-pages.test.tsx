@@ -17,7 +17,7 @@ describe("Posts index page", () => {
 
   it("marks external items with their source", () => {
     render(<PostsPage />);
-    const labels = screen.getAllByText(/Read on /);
+    const labels = screen.queryAllByText(/Read on /);
     expect(labels).toHaveLength(site.externalArticles.length);
   });
 
