@@ -1,0 +1,5 @@
+# Generated outputs: rebuild them with the generators (see README.md)
+*/png/
+*/wide-v1/
+*/drawio/*.png
+__pycache__/
