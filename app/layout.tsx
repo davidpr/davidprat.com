@@ -9,7 +9,10 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://davidprat.com"),
   title: `${site.name} — ${site.headline}`,
   description: site.about[0],
-  alternates: { canonical: "/" },
+  alternates: {
+    canonical: "/",
+    types: { "application/rss+xml": [{ url: "/feed.xml", title: `${site.name} — articles` }] },
+  },
   keywords: [
     "David Prat",
     "David Prat Robles",

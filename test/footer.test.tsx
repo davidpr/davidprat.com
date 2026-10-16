@@ -13,4 +13,9 @@ describe("Footer", () => {
     expect(line).toHaveTextContent(/Last updated: \w+ \d{4}/);
     expect(line).not.toHaveTextContent(/Last updated: \d/);
   });
+
+  it("links to the RSS feed", () => {
+    render(<Footer />);
+    expect(screen.getByRole("link", { name: "RSS feed" })).toHaveAttribute("href", "/feed.xml");
+  });
 });

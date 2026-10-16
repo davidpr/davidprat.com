@@ -15,6 +15,11 @@ export function Footer() {
         <p className="mt-1">
           © 2018–{buildYear} {site.name}. All rights reserved. · Last updated: {buildDate}
         </p>
+        <p className="mt-1">
+          <a href="/feed.xml" className="underline underline-offset-2 hover:text-neutral-700 dark:hover:text-neutral-200">
+            RSS feed
+          </a>
+        </p>
       </div>
     </footer>
   );

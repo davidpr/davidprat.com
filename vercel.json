@@ -3,6 +3,10 @@
     {
       "source": "/(.*)\\.drawio",
       "headers": [{ "key": "Access-Control-Allow-Origin", "value": "*" }]
+    },
+    {
+      "source": "/feed.xml",
+      "headers": [{ "key": "Content-Type", "value": "application/rss+xml; charset=utf-8" }]
     }
   ]
 }
