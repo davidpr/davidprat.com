@@ -348,6 +348,7 @@ export const site: SiteContent = {
     },
     {
       name: "ASIST",
+      page: "/projects/asist",
       byline: "IAG",
       period: "Sep 2024 — Jan 2026",
       description:

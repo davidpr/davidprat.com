@@ -1,0 +1,1685 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style><title>ASIST release evaluation — David Prat Robles</title>
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://davidprat.com/projects/asist">
+</head><body>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: an engineering task card — single reading column, wide figures break out into scrollable plates */
+:root{
+  --bg:#eef1f4; --paper:#fbfcfd; --ink:#0f1d2b; --muted:#566677; --line:#c9d2db; --soft:#e2e8ee;
+  --accent:#c97d00; --accent-soft:#fbecd2; --accent-ink:#6e4300;
+  --v1:#9aabbc; --v2:#1f5f99; --good:#2f7d4f; --good-soft:#dcefe3; --bad:#b8402f; --bad-soft:#f6dfda;
+  --display:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0c141c; --paper:#132030; --ink:#e3eaf1; --muted:#93a4b4; --line:#2a3c4e; --soft:#1b2b3c;
+  --accent:#f0a73a; --accent-soft:#3a2a12; --accent-ink:#f6c77c;
+  --v1:#5b7186; --v2:#5aa3e6; --good:#56bd7f; --good-soft:#163a26; --bad:#e3755f; --bad-soft:#40201a; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0c141c; --paper:#132030; --ink:#e3eaf1; --muted:#93a4b4; --line:#2a3c4e; --soft:#1b2b3c;
+  --accent:#f0a73a; --accent-soft:#3a2a12; --accent-ink:#f6c77c;
+  --v1:#5b7186; --v2:#5aa3e6; --good:#56bd7f; --good-soft:#163a26; --bad:#e3755f; --bad-soft:#40201a; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:32px 64px}
+.wrap{max-width:1040px;margin:0 auto;display:flex;flex-direction:column;gap:60px}
+h1,h2,h3,h4{font-family:var(--display);text-wrap:balance;line-height:1.05;margin:0;letter-spacing:.01em}
+h1{font-size:clamp(2.6rem,7vw,4.6rem);font-weight:700;text-transform:uppercase}
+h2{font-size:clamp(1.8rem,4vw,2.4rem);font-weight:600;text-transform:uppercase}
+h3{font-size:1.35rem;font-weight:600}
+h4{font-size:1.15rem;font-weight:600}
+p{margin:0;max-width:68ch}
+a{color:var(--v2)}
+.label{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.mono{font-family:var(--mono)}
+code{font-family:var(--mono);font-size:.86em;background:var(--soft);padding:1px 5px;border-radius:3px}
+section{display:flex;flex-direction:column;gap:18px}
+.sec-head{display:flex;gap:16px;align-items:baseline;border-top:2px solid var(--ink);padding-top:12px;flex-wrap:wrap}
+.sec-head .label{min-width:84px}
+.lede{color:var(--muted);font-size:1.05rem}
+.stack{display:flex;flex-direction:column;gap:10px;min-width:0}
+
+.card-strip{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border:1.5px solid var(--ink);background:var(--paper)}
+.card-strip div{padding:8px 12px;border-right:1px solid var(--line);min-width:0}
+.card-strip div:last-child{border-right:0}
+.card-strip b{display:block;font-family:var(--mono);font-weight:500;font-size:.88rem}
+@media (max-width:640px){.card-strip{grid-template-columns:repeat(2,minmax(0,1fr))}.card-strip div:nth-child(2){border-right:0}.card-strip div:nth-child(-n+2){border-bottom:1px solid var(--line)}}
+.hero{display:flex;flex-direction:column;gap:20px}
+.thesis{font-size:1.2rem;max-width:58ch}
+.thesis em{font-style:normal;background:var(--accent-soft);color:var(--accent-ink);padding:0 4px}
+.toc{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:.9rem}
+.toc a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--line)}
+.toc a:hover,.toc a:focus-visible{border-color:var(--accent)}
+
+.plate{background:var(--paper);border:1px solid var(--line);padding:20px;overflow-x:auto}
+.plate svg{display:block;min-width:820px;width:100%;height:auto}
+.plate.narrow svg{min-width:640px}
+.caption{font-size:.85rem;color:var(--muted)}
+.note{border-left:3px solid var(--accent);padding:4px 0 4px 14px;color:var(--ink);font-size:.95rem;max-width:72ch}
+
+/* svg */
+.n-box{fill:var(--paper);stroke:var(--ink);stroke-width:1.5}
+.n-soft{fill:var(--soft);stroke:var(--ink);stroke-width:1.2}
+.n-store{fill:var(--soft);stroke:var(--ink);stroke-width:1.2}
+.n-out{fill:var(--good-soft);stroke:var(--good);stroke-width:1.5}
+.n-esc{fill:var(--bad-soft);stroke:var(--bad);stroke-width:1.5}
+.n-val{fill:var(--paper);stroke:var(--v2);stroke-width:2}
+.n-seal{fill:var(--accent-soft);stroke:var(--accent);stroke-width:2}
+.t-main{font-family:var(--body);font-weight:600;font-size:14px;fill:var(--ink)}
+.t-sub{font-family:var(--mono);font-size:10.5px;fill:var(--muted)}
+.t-edge{font-family:var(--mono);font-size:10.5px;fill:var(--muted)}
+.t-bad{font-family:var(--mono);font-size:10.5px;fill:var(--bad)}
+.edge{stroke:var(--ink);stroke-width:1.4;fill:none}
+.edge.dash{stroke-dasharray:4 4;stroke:var(--muted)}
+.edge.blue{stroke:var(--v2)}
+.edge.amber{stroke:var(--accent)}
+.edge.no{stroke:var(--bad);stroke-dasharray:5 4}
+.badge rect{fill:var(--accent)}
+.badge text{font-family:var(--mono);font-size:10px;fill:#1a1000;font-weight:500}
+.axis{stroke:var(--line);stroke-width:1}
+.t-axis{font-family:var(--mono);font-size:10.5px;fill:var(--muted)}
+.t-val{font-family:var(--mono);font-size:11px;fill:var(--ink)}
+.legend{display:flex;gap:18px;flex-wrap:wrap;font-size:.85rem;color:var(--muted)}
+.legend i{display:inline-block;width:12px;height:12px;margin-right:6px;vertical-align:-1px}
+
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.steps li{background:var(--paper);padding:18px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.steps .num{font-family:var(--display);font-size:2.4rem;font-weight:700;color:var(--accent);line-height:1}
+.steps .where{font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.steps p{font-size:.93rem}
+@media (max-width:820px){.steps{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.steps{grid-template-columns:1fr}}
+
+.two{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:24px;align-items:start}
+@media (max-width:820px){.two{grid-template-columns:1fr}}
+.case{background:var(--ink);color:var(--paper);font-family:var(--mono);font-size:.8rem;line-height:1.55;padding:18px;overflow-x:auto;white-space:pre;margin:0}
+.case .k{color:var(--accent)}
+.case .c{opacity:.6}
+.checklist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.checklist li{display:grid;grid-template-columns:22px minmax(0,1fr);gap:10px;font-size:.95rem}
+.checklist li::before{content:"";width:14px;height:14px;border:1.5px solid var(--ink);margin-top:5px}
+
+.tbl-wrap{overflow-x:auto;border:1px solid var(--line);background:var(--paper)}
+table{border-collapse:collapse;width:100%;min-width:680px;font-size:.92rem}
+th,td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:500;background:var(--soft)}
+tr:last-child td{border-bottom:0}
+td.layer{font-weight:600;white-space:nowrap}
+tr.crit td{background:var(--bad-soft)}
+tr.crit td.layer{color:var(--bad)}
+th.col-val{color:var(--v2)}
+th.col-seal{color:var(--accent-ink)}
+.num-c{font-family:var(--mono);font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}
+.pill{display:inline-block;font-family:var(--mono);font-size:.75rem;padding:1px 8px;border-radius:10px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.pill.up{background:var(--good-soft);color:var(--good)}
+.pill.down{background:var(--bad-soft);color:var(--bad)}
+.pill.flat{background:var(--soft);color:var(--muted)}
+.pill.hard{background:var(--bad);color:var(--paper)}
+.pill.soft{background:var(--soft);color:var(--ink);border:1px solid var(--line)}
+
+/* case anatomy */
+.anat{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr) minmax(0,1fr);border:1px solid var(--line);background:var(--paper)}
+.anat .col{padding:16px;display:flex;flex-direction:column;gap:12px;min-width:0;border-right:1px solid var(--line)}
+.anat .col:last-child{border-right:0}
+.anat .col.exp{background:color-mix(in srgb,var(--good-soft) 55%,var(--paper))}
+.field{display:flex;flex-direction:column;gap:2px}
+.field b{font-family:var(--mono);font-size:.78rem;font-weight:500}
+.field span{font-size:.88rem}
+.field .scored{font-family:var(--mono);font-size:.72rem;color:var(--good)}
+.exp-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 18px}
+@media (max-width:820px){.anat{grid-template-columns:1fr}.anat .col{border-right:0;border-bottom:1px solid var(--line)}.anat .col:last-child{border-bottom:0}}
+@media (max-width:480px){.exp-grid{grid-template-columns:1fr}}
+
+/* kappa / mcnemar mini tables */
+.mini{min-width:0;width:auto;font-size:.88rem}
+.mini th,.mini td{padding:6px 10px;text-align:center}
+.mini td.hi{background:var(--good-soft);font-weight:600}
+.mini td.lo{background:var(--bad-soft)}
+.mini td.key{background:var(--accent-soft);font-weight:600}
+
+/* tiles */
+.tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.tile{background:var(--paper);border:1px solid var(--line);padding:14px 16px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.tile .big{font-family:var(--display);font-size:2.1rem;font-weight:600;font-variant-numeric:tabular-nums;line-height:1.1}
+.tile .big span{color:var(--muted);font-size:1.3rem}
+.tile.pass{border-top:4px solid var(--good)}
+.tile.warn{border-top:4px solid var(--accent)}
+.tile.ok{border-top:4px solid var(--v2)}
+@media (max-width:640px){.tiles{grid-template-columns:1fr}}
+
+/* glossary */
+.gnav{display:flex;flex-wrap:wrap;gap:8px}
+.gnav a{font-family:var(--mono);font-size:.78rem;padding:6px 12px;border:1px solid var(--ink);color:var(--ink);text-decoration:none}
+.gnav a:hover,.gnav a:focus-visible{background:var(--ink);color:var(--paper)}
+.ggroup{display:flex;flex-direction:column;gap:12px;scroll-margin-top:16px}
+.ggroup > h3{display:flex;gap:10px;align-items:baseline}
+.ggroup > h3 .label{font-size:.7rem}
+.gl{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+@media (max-width:760px){.gl{grid-template-columns:1fr}}
+.term{background:var(--paper);border:1px solid var(--line);padding:16px 18px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.term.wide{grid-column:1/-1}
+.term .plain{font-size:.98rem}
+.term .ex{font-size:.9rem;background:var(--soft);padding:10px 12px}
+.term .ex b{font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:2px;font-weight:500}
+.formula{font-family:var(--mono);font-size:.85rem;color:var(--accent-ink);background:var(--accent-soft);padding:6px 10px;align-self:flex-start;max-width:100%;overflow-x:auto}
+.watch{font-size:.86rem;color:var(--muted)}
+.watch::before{content:"Limit: ";font-family:var(--mono);font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:var(--bad)}
+.term-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px;align-items:start}
+@media (max-width:760px){.term-row{grid-template-columns:1fr}}
+
+.rank{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:4px;font-family:var(--mono);font-size:.82rem}
+.rank li{display:grid;grid-template-columns:28px minmax(0,1fr) auto;gap:8px;padding:5px 10px;background:var(--soft);align-items:center}
+.rank li.hit{background:var(--good-soft)}
+.rank li .r{color:var(--muted)}
+.rank li .m{font-size:.75rem;color:var(--good)}
+.rank li.cut{background:transparent;border-top:2px dashed var(--accent);padding:0;height:0}
+
+.cm{border-collapse:collapse;font-family:var(--mono);font-size:.8rem;min-width:0;width:auto}
+.cm th,.cm td{padding:6px 9px;text-align:center;border:1px solid var(--line)}
+.cm th{background:var(--soft);font-size:.7rem}
+.cm td{font-variant-numeric:tabular-nums}
+
+.answer{display:flex;flex-direction:column;gap:6px;font-size:.9rem}
+.answer div{display:grid;grid-template-columns:22px minmax(0,1fr);gap:8px;padding:6px 10px;background:var(--good-soft)}
+.answer div.bad{background:var(--bad-soft)}
+.answer div .why{display:block;font-family:var(--mono);font-size:.72rem;color:var(--muted)}
+.answer .mk{font-family:var(--mono);font-weight:600}
+
+/* rollout */
+.rollout{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;border:1px solid var(--line);background:var(--paper)}
+.stage{padding:16px;border-right:1px solid var(--line);display:flex;flex-direction:column;gap:10px;min-width:0}
+.stage:last-child{border-right:0}
+.meter{height:10px;background:var(--soft);position:relative}
+.meter span{position:absolute;inset:0 auto 0 0;background:var(--v2)}
+.meter.ghost span{background:repeating-linear-gradient(45deg,var(--v2) 0 4px,transparent 4px 8px)}
+.stage p{font-size:.9rem}
+@media (max-width:820px){.rollout{grid-template-columns:repeat(2,minmax(0,1fr))}.stage:nth-child(2){border-right:0}.stage:nth-child(-n+2){border-bottom:1px solid var(--line)}}
+@media (max-width:480px){.rollout{grid-template-columns:1fr}.stage{border-right:0;border-bottom:1px solid var(--line)}.stage:last-child{border-bottom:0}}
+
+.filters{display:flex;flex-wrap:wrap;gap:8px}
+.filters button{font-family:var(--mono);font-size:.78rem;padding:6px 12px;border:1px solid var(--ink);background:transparent;color:var(--ink);cursor:pointer;border-radius:0}
+.filters button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.filters button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.tech{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+@media (max-width:360px){.tech{grid-template-columns:1fr}}
+.tc{background:var(--paper);border:1px solid var(--line);padding:16px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.tc .tag{align-self:flex-start;font-family:var(--mono);font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;padding:2px 8px;background:var(--soft);color:var(--ink)}
+.tc .tag.retrieval{background:var(--v2);color:var(--paper)}
+.tc .tag.generation{background:var(--accent);color:#1a1000}
+.tc .tag.graph{background:var(--ink);color:var(--paper)}
+.tc dl{margin:0;display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 12px;font-size:.88rem}
+.tc dt{font-family:var(--mono);font-size:.72rem;text-transform:uppercase;color:var(--muted);padding-top:2px}
+.tc dd{margin:0}
+.tc p{font-size:.92rem}
+
+.closing{background:var(--ink);color:var(--paper);padding:28px;display:flex;flex-direction:column;gap:12px}
+.closing .label{color:var(--accent)}
+.closing p{font-size:1.15rem;max-width:70ch}
+footer{font-size:.82rem;color:var(--muted)}
+.byline{font-family:var(--mono);font-size:.8rem;color:var(--muted)}
+.acr{margin:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.acr div{background:var(--paper);padding:10px 14px;min-width:0}
+.acr dt{font-family:var(--mono);font-weight:500;font-size:.85rem}
+.acr dd{margin:0;font-size:.9rem;color:var(--muted)}
+@media (max-width:640px){.acr{grid-template-columns:1fr}}
+.disclaimer{border:1.5px solid var(--accent);background:var(--accent-soft);color:var(--ink);padding:12px 16px;font-size:.92rem;max-width:none}
+.disclaimer b{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-ink);display:block;margin-bottom:2px;font-weight:500}
+</style>
+
+<div class="wrap">
+
+<p class="disclaimer" role="note"><b>Disclaimer</b>This page does not make public any confidential information. The material shown is a simplification of the real project, for educational purposes only. All scores, counts and examples are illustrative, not ASIST's real results.</p>
+
+<header class="hero">
+  <div class="card-strip">
+    <div><span class="label">System</span><b>ASIST · AOG assistant</b></div>
+    <div><span class="label">Operator</span><b>IAG · Aer Lingus first</b></div>
+    <div><span class="label">Stack</span><b>LangGraph · pgvector · Langfuse</b></div>
+    <div><span class="label">Doc type</span><b>Release evaluation plan</b></div>
+  </div>
+  <h1>Proving each ASIST release is better</h1>
+  <p class="thesis">A new version only ships when it beats the previous one on <em>a sealed set of real AOGs</em>, scored node by node, with a statistically significant gain, zero safety-critical errors, and confirmation in shadow mode.</p>
+  <p class="byline">David Prat Robles · drawn from the ASIST project for IAG · numbers are illustrative</p>
+  <nav class="toc" aria-label="Contents">
+    <a href="#context">Context</a><a href="#stack">Tech stack</a><a href="#system">1 System</a><a href="#procedure">2 Procedure</a><a href="#datasets">3 Data sets</a><a href="#cases">4 Building cases</a><a href="#metrics">5 Metrics by layer</a><a href="#glossary">6 Glossary</a><a href="#compare">7 Comparison</a><a href="#ablation">8 Ablation</a><a href="#gates">9 Gates</a><a href="#langfuse">10 Langfuse</a><a href="#production">11 Production</a><a href="#techniques">12 Techniques</a>
+  </nav>
+</header>
+
+<!-- context -->
+<section id="context">
+  <div class="sec-head"><span class="label">Context</span><h2>What ASIST is, and why this matters</h2></div>
+  <p class="lede">ASIST is an assistant for aircraft maintenance engineers at IAG airlines, starting with Aer Lingus. When a fault grounds an aircraft, an engineer describes it in plain text. ASIST searches past AOG cases and the fixes engineers recorded, falls back to the Airbus manuals when history is thin, and drafts resolution steps with references.</p>
+  <p>It is built as a LangGraph agent on Amazon Aurora PostgreSQL with pgvector, and this page shows how it would be evaluated with Langfuse. The team keeps improving it: models are retrained on new data, retrieval is tuned, and the agent gains new steps. Each change raises the same question. Is the new version actually better, and is it still safe? This page sets out a way to prove it.</p>
+  <dl class="acr">
+    <div><dt>AOG</dt><dd>Aircraft on Ground: an issue that leaves the aircraft inoperative, so it cannot fly until it is fixed. Every hour costs the airline money.</dd></div>
+    <div><dt>MRO</dt><dd>Maintenance, repair and overhaul.</dd></div>
+    <div><dt>AMM</dt><dd>Aircraft Maintenance Manual: Airbus's approved maintenance procedures.</dd></div>
+    <div><dt>TSM</dt><dd>Troubleshooting Manual: Airbus's fault-isolation procedures.</dd></div>
+    <div><dt>ECAM</dt><dd>The cockpit system that shows fault messages, such as "NWS FAULT".</dd></div>
+    <div><dt>NWS · BSCU</dt><dd>Nose wheel steering, and the brake and steering control unit. Used in the examples.</dd></div>
+    <div><dt>LLM</dt><dd>Large language model, the part that writes the answer.</dd></div>
+    <div><dt>RAG</dt><dd>Retrieval-augmented generation: find relevant documents first, then have the LLM answer from them.</dd></div>
+    <div><dt>LangGraph</dt><dd>A framework for building an LLM agent as a graph of steps, called nodes.</dd></div>
+    <div><dt>pgvector</dt><dd>A PostgreSQL extension that stores text as vectors so similar cases can be found.</dd></div>
+    <div><dt>Langfuse</dt><dd>An open-source platform for tracing and evaluating LLM apps. Here it records every ASIST run and holds the test sets, experiments and scores.</dd></div>
+    <div><dt>Trace</dt><dd>The recorded path of one request through the system, step by step, with timings and costs.</dd></div>
+    <div><dt>Fine-tuning (SFT, LoRA, DPO)</dt><dd>Further training of a model on your own examples or on engineers' preferences.</dd></div>
+    <div><dt>v1, v2</dt><dd>Successive versions of ASIST. v2 is the candidate that must prove it beats v1.</dd></div>
+  </dl>
+</section>
+
+<!-- stack -->
+<section id="stack">
+  <div class="sec-head"><span class="label">Stack</span><h2>Tech stack</h2></div>
+  <p class="lede">Everything runs in AWS. The agent is Python with LangGraph, the chat interface is Next.js, and both run as containers on ECS. An ETL built on AWS Step Functions and Lambda loads the AOG history and the Airbus manuals into Aurora PostgreSQL with pgvector, calling an LLM in Amazon Bedrock to extract the problem and the solution from each AOG record. Langfuse is self-hosted on the same ECS cluster, and the test sets are versioned in S3.</p>
+  <div class="plate">
+    <svg viewBox="0 0 1000 330" role="img" aria-label="Architecture: engineers reach a Next.js chat UI on ECS through a load balancer with SSO; the Python LangGraph API calls the LLM and embedding models and Aurora PostgreSQL with pgvector, and sends traces to self-hosted Langfuse on ECS; an ingestion job loads sources from S3 into Aurora; an evaluation runner in CI runs experiments in Langfuse">
+      <rect class="n-box" x="20" y="20" width="160" height="46" rx="3"/>
+      <text class="t-main" x="100" y="40" text-anchor="middle" style="font-size:13px">Engineers</text>
+      <text class="t-sub" x="100" y="56" text-anchor="middle">browser</text>
+      <path class="edge" d="M180,43 H198" marker-end="url(#ar)"/>
+      <rect class="n-box" x="200" y="20" width="150" height="46" rx="3"/>
+      <text class="t-main" x="275" y="40" text-anchor="middle" style="font-size:13px">ALB · WAF</text>
+      <text class="t-sub" x="275" y="56" text-anchor="middle">SSO login</text>
+      <rect class="n-soft" x="370" y="20" width="300" height="46" rx="3"/>
+      <text class="t-main" x="520" y="40" text-anchor="middle" style="font-size:13px">LLM + embedding models</text>
+      <text class="t-sub" x="520" y="56" text-anchor="middle">Amazon Bedrock · via VPC endpoint</text>
+      <rect class="n-soft" x="690" y="20" width="290" height="46" rx="3"/>
+      <text class="t-main" x="835" y="40" text-anchor="middle" style="font-size:13px">CI/CD · ECR</text>
+      <text class="t-sub" x="835" y="56" text-anchor="middle">build · deploy · run the release gate</text>
+
+      <rect x="20" y="96" width="960" height="114" rx="6" fill="none" stroke="var(--muted)" stroke-dasharray="5 4"/>
+      <text class="t-sub" x="34" y="114" style="fill:var(--ink)">AWS · private VPC</text>
+      <path class="edge" d="M260,66 V90 H120 V124" marker-end="url(#ar)"/>
+      <rect class="n-box" x="40" y="126" width="160" height="68" rx="3"/>
+      <text class="t-main" x="120" y="154" text-anchor="middle" style="font-size:13px">Chat UI</text>
+      <text class="t-sub" x="120" y="172" text-anchor="middle">Next.js · ECS</text>
+      <path class="edge" d="M200,160 H218" marker-end="url(#ar)"/>
+      <rect class="n-box" x="220" y="126" width="190" height="68" rx="3"/>
+      <text class="t-main" x="315" y="154" text-anchor="middle" style="font-size:13px">ASIST API</text>
+      <text class="t-sub" x="315" y="172" text-anchor="middle">Python · LangGraph · ECS</text>
+      <path class="edge" d="M390,126 V68" marker-end="url(#ar)"/>
+      <rect class="n-box" x="430" y="126" width="160" height="68" rx="3"/>
+      <text class="t-main" x="510" y="150" text-anchor="middle" style="font-size:13px">ETL</text>
+      <text class="t-sub" x="510" y="166" text-anchor="middle">Step Functions · Lambda</text>
+      <text class="t-sub" x="510" y="181" text-anchor="middle">Bedrock extraction</text>
+      <rect class="n-seal" x="610" y="126" width="170" height="68" rx="3"/>
+      <text class="t-main" x="695" y="154" text-anchor="middle" style="font-size:13px">Langfuse</text>
+      <text class="t-sub" x="695" y="172" text-anchor="middle">web + worker · ECS</text>
+      <path class="edge" d="M405,126 V112 H695 V124" marker-end="url(#ar)"/>
+      <text class="t-edge" x="560" y="107">traces</text>
+      <rect class="n-box" x="800" y="126" width="160" height="68" rx="3"/>
+      <text class="t-main" x="880" y="154" text-anchor="middle" style="font-size:13px">Eval runner</text>
+      <text class="t-sub" x="880" y="172" text-anchor="middle">Python · datasets from S3</text>
+      <path class="edge" d="M880,66 V124" marker-end="url(#ar)"/>
+      <path class="edge" d="M800,160 H782" marker-end="url(#ar)"/>
+
+      <path class="edge" d="M250,194 V238" marker-end="url(#ar)"/>
+      <path class="edge" d="M470,194 V218 H280 V238" marker-end="url(#ar)"/>
+      <path class="edge" d="M510,240 V196" marker-end="url(#ar)"/>
+      <path class="edge" d="M695,194 V238" marker-end="url(#ar)"/>
+      <rect class="n-store" x="40" y="240" width="250" height="72" rx="3"/>
+      <text class="t-main" x="165" y="264" text-anchor="middle" style="font-size:13px">Aurora PostgreSQL + pgvector</text>
+      <text class="t-sub" x="165" y="282" text-anchor="middle">AOG table · manuals table</text>
+      <text class="t-sub" x="165" y="298" text-anchor="middle">cloned per release</text>
+      <rect class="n-store" x="310" y="240" width="230" height="72" rx="3"/>
+      <text class="t-main" x="425" y="264" text-anchor="middle" style="font-size:13px">Amazon S3</text>
+      <text class="t-sub" x="425" y="282" text-anchor="middle">datasets · manual sources</text>
+      <text class="t-sub" x="425" y="298" text-anchor="middle">reports · versioned</text>
+      <rect class="n-store" x="560" y="240" width="220" height="72" rx="3"/>
+      <text class="t-main" x="670" y="264" text-anchor="middle" style="font-size:13px">Langfuse storage</text>
+      <text class="t-sub" x="670" y="282" text-anchor="middle">Postgres · ClickHouse</text>
+      <text class="t-sub" x="670" y="298" text-anchor="middle">Redis · S3 bucket</text>
+      <rect class="n-store" x="800" y="240" width="160" height="72" rx="3"/>
+      <text class="t-main" x="880" y="264" text-anchor="middle" style="font-size:13px">Secrets Manager</text>
+      <text class="t-sub" x="880" y="282" text-anchor="middle">DB credentials</text>
+      <text class="t-sub" x="880" y="298" text-anchor="middle">model and Langfuse keys</text>
+    </svg>
+  </div>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Layer</th><th>Component</th><th>Role in ASIST</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td class="layer">Agent</td><td>LangGraph, in Python</td><td>The graph in Part 1: classify, retrieve, fall back, draft, check</td><td><span class="pill up">core</span></td></tr>
+        <tr><td class="layer">Chat interface</td><td>Next.js, as a container on ECS</td><td>Where engineers type the fault and read the answer</td><td><span class="pill up">core</span></td></tr>
+        <tr><td class="layer">Agent API</td><td>Python service on ECS (e.g. FastAPI)</td><td>Runs the LangGraph agent behind the chat interface</td><td><span class="pill soft">added</span></td></tr>
+        <tr><td class="layer">Knowledge store</td><td>Amazon Aurora PostgreSQL with pgvector</td><td>AOG table (category column plus resolution vectors) and Airbus manuals table</td><td><span class="pill up">core</span></td></tr>
+        <tr><td class="layer">Index snapshots</td><td>Aurora clone or snapshot per release</td><td>Freezes each version's index, so v1 can be re-run fairly (Part 3)</td><td><span class="pill soft">added</span></td></tr>
+        <tr><td class="layer">Ingestion (ETL)</td><td>AWS Step Functions; each step is a Lambda function</td><td>Loads past AOGs and Airbus manuals into Aurora. Some steps call an LLM in Bedrock to extract parts of each AOG record, such as the problem and the solution engineers found</td><td><span class="pill up">core</span></td></tr>
+        <tr><td class="layer">Models</td><td>Amazon Bedrock, through a VPC endpoint</td><td>Field extraction in the ETL. Drafting, the LLM judge and embeddings would normally use it too; the exact models are to confirm</td><td><span class="pill up">core</span></td></tr>
+        <tr><td class="layer">Fine-tuning</td><td>e.g. SageMaker or Bedrock custom models</td><td>Only if models are fine-tuned on AOG data</td><td><span class="pill flat">to confirm</span></td></tr>
+        <tr><td class="layer">Tracing and evaluation</td><td>Langfuse, self-hosted on ECS as web and worker services</td><td>Traces, datasets, experiments, scores (Part 10)</td><td><span class="pill up">core</span></td></tr>
+        <tr><td class="layer">Langfuse storage</td><td>PostgreSQL, ClickHouse, Redis and an S3 bucket</td><td>Required by a self-hosted Langfuse; can use RDS, ElastiCache and a ClickHouse service</td><td><span class="pill soft">added</span></td></tr>
+        <tr><td class="layer">Datasets</td><td>Amazon S3 with versioning</td><td>Source of truth for the validation, sealed and anchor sets, imported into Langfuse. Sealed and anchor in a bucket only CI and reviewers can read</td><td><span class="pill up">core</span></td></tr>
+        <tr><td class="layer">Access</td><td>Load balancer with WAF; SSO through the airline's identity provider</td><td>Only authorised engineers reach ASIST</td><td><span class="pill soft">added</span></td></tr>
+        <tr><td class="layer">Secrets</td><td>AWS Secrets Manager</td><td>Database credentials, model and Langfuse keys</td><td><span class="pill soft">added</span></td></tr>
+        <tr><td class="layer">CI/CD</td><td>e.g. GitHub Actions or CodePipeline; images in ECR</td><td>Builds and deploys containers and runs the release gate (Part 9)</td><td><span class="pill flat">to confirm</span></td></tr>
+        <tr><td class="layer">Infrastructure as code</td><td>e.g. Terraform or AWS CDK</td><td>Reproducible environments, including Langfuse</td><td><span class="pill soft">added</span></td></tr>
+        <tr><td class="layer">Infrastructure monitoring</td><td>Amazon CloudWatch</td><td>Logs, alarms, container health. Langfuse covers the LLM level</td><td><span class="pill soft">added</span></td></tr>
+        <tr><td class="layer">Statistics</td><td>Python: Langfuse SDK, SciPy or statsmodels</td><td>McNemar, bootstrap and Holm in the CI gate</td><td><span class="pill soft">added</span></td></tr>
+        <tr><td class="layer">Labelling</td><td>Spreadsheet or a labelling tool such as Label Studio</td><td>Double labelling and adjudication before import (Part 4)</td><td><span class="pill soft">added</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="caption"><span class="pill up">core</span> the stack as described for ASIST, including Langfuse for its evaluation · <span class="pill soft">added</span> needed for the evaluation approach on this page · <span class="pill flat">to confirm</span> depends on choices not covered here.</p>
+  <h3>The ETL that fills the knowledge store</h3>
+  <div class="plate">
+    <svg viewBox="0 0 1000 170" role="img" aria-label="ETL: raw AOG records and manuals in S3 go through a Step Functions workflow of Lambda steps: parse and clean, extract fields with a Bedrock LLM, chunk and embed, load into Aurora pgvector">
+      <rect x="180" y="30" width="690" height="100" rx="6" fill="none" stroke="var(--muted)" stroke-dasharray="5 4"/>
+      <text class="t-sub" x="190" y="24" style="fill:var(--ink)">AWS Step Functions · each step is a Lambda function</text>
+      <rect class="n-store" x="10" y="50" width="150" height="60" rx="3"/>
+      <text class="t-main" x="85" y="75" text-anchor="middle" style="font-size:13px">Raw sources</text>
+      <text class="t-sub" x="85" y="93" text-anchor="middle">AOG records · manuals</text>
+      <path class="edge" d="M160,80 H188" marker-end="url(#ar)"/>
+      <rect class="n-box" x="190" y="50" width="150" height="60" rx="3"/>
+      <text class="t-main" x="265" y="75" text-anchor="middle" style="font-size:13px">Parse &amp; clean</text>
+      <text class="t-sub" x="265" y="93" text-anchor="middle">Lambda</text>
+      <path class="edge" d="M340,80 H368" marker-end="url(#ar)"/>
+      <rect class="n-seal" x="370" y="50" width="180" height="60" rx="3"/>
+      <text class="t-main" x="460" y="75" text-anchor="middle" style="font-size:13px">Extract fields</text>
+      <text class="t-sub" x="460" y="93" text-anchor="middle">Lambda + Bedrock LLM</text>
+      <path class="edge" d="M550,80 H578" marker-end="url(#ar)"/>
+      <rect class="n-box" x="580" y="50" width="140" height="60" rx="3"/>
+      <text class="t-main" x="650" y="75" text-anchor="middle" style="font-size:13px">Chunk &amp; embed</text>
+      <text class="t-sub" x="650" y="93" text-anchor="middle">Lambda</text>
+      <path class="edge" d="M720,80 H748" marker-end="url(#ar)"/>
+      <rect class="n-box" x="750" y="50" width="110" height="60" rx="3"/>
+      <text class="t-main" x="805" y="75" text-anchor="middle" style="font-size:13px">Load</text>
+      <text class="t-sub" x="805" y="93" text-anchor="middle">Lambda</text>
+      <path class="edge" d="M860,80 H888" marker-end="url(#ar)"/>
+      <rect class="n-store" x="890" y="50" width="100" height="60" rx="3"/>
+      <text class="t-main" x="940" y="75" text-anchor="middle" style="font-size:13px">Aurora</text>
+      <text class="t-sub" x="940" y="93" text-anchor="middle">pgvector</text>
+      <text class="t-sub" x="85" y="128" text-anchor="middle">in S3</text>
+      <text class="t-sub" x="265" y="150" text-anchor="middle">eval builds: skip post-cutoff AOGs</text>
+      <text class="t-sub" x="460" y="150" text-anchor="middle">problem · solution found</text>
+      <text class="t-sub" x="805" y="150" text-anchor="middle">eval builds: frozen clone</text>
+    </svg>
+  </div>
+  <p class="caption">Step names are illustrative. In production the ETL keeps loading new AOGs into the live index. The notes under the steps apply when it builds a frozen index for evaluation.</p>
+  <div class="gl">
+    <div class="term">
+      <h4>The ETL is part of what is tested</h4>
+      <p class="plain">A new extraction prompt or Bedrock model changes what the index holds, and so changes ASIST's answers. Version the ETL's prompts and models with each release, and rebuild the release's Aurora clone with them.</p>
+    </div>
+    <div class="term">
+      <h4>Check the extraction itself</h4>
+      <p class="plain">Each release, an engineer compares the extracted problem and solution with the raw record on a sample of AOGs. Score it as extraction accuracy.</p>
+      <p class="watch">One badly extracted solution misleads every query that retrieves that AOG.</p>
+    </div>
+    <div class="term">
+      <h4>Respect the cutoff in the ETL</h4>
+      <p class="plain">When building an index for evaluation, the ETL skips AOGs dated after the cutoff, so validation and sealed cases never reach the index.</p>
+    </div>
+    <div class="term">
+      <h4>Keep the answer key independent</h4>
+      <p class="plain">Annotators write reference steps from the raw AOG record, not from the ETL's extracted solution. Otherwise extraction errors are copied into the answer key and become invisible.</p>
+    </div>
+    <div class="term">
+      <h4>What chunk &amp; embed produces</h4>
+      <p class="plain">Chunking splits the text into the pieces search returns: usually one AOG record, or one manual task with its heading. An embedding model turns each chunk into a vector, a list of numbers that captures its meaning. The load step stores the vector in a pgvector column next to the text and its metadata, with an index such as HNSW for fast search.</p>
+      <p class="watch">Queries must be embedded with the same model. A new embedding model means re-embedding everything into a new index.</p>
+    </div>
+    <div class="term">
+      <h4>What to embed for each AOG</h4>
+      <p class="plain">Engineers' queries describe the problem, not the fix. If only the resolution steps are embedded, the query is compared with text that looks quite different. Options: embed problem and solution together, embed only the problem and return the solution with it, or store one vector for each.</p>
+      <p class="watch">Pick by AOG Recall@5 on the validation set, not by intuition.</p>
+    </div>
+    <div class="term wide">
+      <h4>Trace the ETL in Langfuse</h4>
+      <p class="plain">Instrument the Bedrock calls inside the Lambda functions with the Langfuse SDK, and flush before each function returns, so extraction prompts, outputs and costs appear next to ASIST's own traces.</p>
+    </div>
+  </div>
+
+  <p class="note">On ECS the unit of deployment is a task or service; "pod" is the Kubernetes term. A self-hosted Langfuse runs as two services, web and worker, and needs its own PostgreSQL, ClickHouse, Redis and S3 storage, kept separate from ASIST's Aurora database.</p>
+</section>
+
+<!-- 1 system -->
+<section id="system">
+  <div class="sec-head"><span class="label">Part 1</span><h2>The system under test</h2></div>
+  <p class="lede">Every node in the graph gets its own metric (amber tags). An end-to-end score tells you something changed. Per-node scores tell you where.</p>
+  <div class="plate">
+    <svg viewBox="0 0 1030 455" role="img" aria-label="ASIST LangGraph flow: engineer query, classify, retrieve past AOGs, evidence check, fallback to Airbus manuals, draft resolution, guardrail check, answer or abstain; abstain also reached when the query is out of scope or the manuals hold nothing relevant">
+      <defs>
+        <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--ink)"/></marker>
+        <marker id="arm" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--muted)"/></marker>
+        <marker id="arb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--v2)"/></marker>
+        <marker id="ara" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--accent)"/></marker>
+        <marker id="arg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--good)"/></marker>
+      </defs>
+      <path class="edge" d="M140,220 H173" marker-end="url(#ar)"/>
+      <path class="edge" d="M295,220 H328" marker-end="url(#ar)"/>
+      <path class="edge" d="M500,220 H528" marker-end="url(#ar)"/>
+      <path class="edge" d="M585,175 V110 H688" marker-end="url(#ar)"/>
+      <text class="t-edge" x="595" y="102">yes · history</text>
+      <path class="edge" d="M585,265 V350 H678" marker-end="url(#ar)"/>
+      <text class="t-edge" x="595" y="342">no · fallback</text>
+      <path class="edge" d="M760,320 V142" marker-end="url(#ar)"/>
+      <text class="t-edge" x="768" y="235">manual context</text>
+      <path class="edge" d="M830,110 H868" marker-end="url(#ar)"/>
+      <path class="edge" d="M930,140 V228" marker-end="url(#ar)"/>
+      <text class="t-edge" x="938" y="190">pass</text>
+      <path class="edge dash" d="M990,110 H1012 V380 H992" marker-end="url(#arm)"/>
+      <text class="t-edge" x="955" y="68">fail ↘</text>
+      <path class="edge dash" d="M415,250 V300"/>
+      <path class="edge" d="M840,370 H868" marker-end="url(#ar)"/>
+      <text class="t-edge" x="845" y="338">nothing relevant</text>
+      <path class="edge" d="M235,250 V430 H930 V412" marker-end="url(#ar)"/>
+      <text class="t-edge" x="245" y="445">out of scope · no category fits</text>
+
+      <rect class="n-box" x="20" y="190" width="120" height="60" rx="3"/>
+      <text class="t-main" x="80" y="216" text-anchor="middle">Engineer query</text>
+      <text class="t-sub" x="80" y="234" text-anchor="middle">free text · MRO</text>
+      <rect class="n-box" x="175" y="190" width="120" height="60" rx="3"/>
+      <text class="t-main" x="235" y="216" text-anchor="middle">Classify</text>
+      <text class="t-sub" x="235" y="234" text-anchor="middle">AOG category</text>
+      <rect class="n-box" x="330" y="190" width="170" height="60" rx="3"/>
+      <text class="t-main" x="415" y="216" text-anchor="middle">Retrieve past AOGs</text>
+      <text class="t-sub" x="415" y="234" text-anchor="middle">vector + category filter</text>
+      <path class="n-box" d="M585,175 L640,220 L585,265 L530,220 Z"/>
+      <text class="t-main" x="585" y="216" text-anchor="middle" style="font-size:12.5px">Enough</text>
+      <text class="t-main" x="585" y="232" text-anchor="middle" style="font-size:12.5px">evidence?</text>
+      <rect class="n-box" x="690" y="80" width="140" height="60" rx="3"/>
+      <text class="t-main" x="760" y="106" text-anchor="middle">Draft resolution</text>
+      <text class="t-sub" x="760" y="124" text-anchor="middle">LLM · cited steps</text>
+      <rect class="n-box" x="680" y="320" width="160" height="60" rx="3"/>
+      <text class="t-main" x="760" y="346" text-anchor="middle">Retrieve Airbus manuals</text>
+      <text class="t-sub" x="760" y="364" text-anchor="middle">AMM / TSM table</text>
+      <rect class="n-box" x="870" y="80" width="120" height="60" rx="3"/>
+      <text class="t-main" x="930" y="106" text-anchor="middle">Guardrail check</text>
+      <text class="t-sub" x="930" y="124" text-anchor="middle">values traceable?</text>
+      <rect class="n-out" x="870" y="230" width="120" height="60" rx="3"/>
+      <text class="t-main" x="930" y="256" text-anchor="middle">Answer</text>
+      <text class="t-sub" x="930" y="274" text-anchor="middle">with citations</text>
+      <rect class="n-esc" x="870" y="350" width="120" height="60" rx="3"/>
+      <text class="t-main" x="930" y="376" text-anchor="middle">Abstain</text>
+      <text class="t-sub" x="930" y="394" text-anchor="middle">escalate to engineer</text>
+
+      <ellipse class="n-store" cx="415" cy="310" rx="80" ry="10"/>
+      <path class="n-store" d="M335,310 V370 A80,10 0 0 0 495,370 V310"/>
+      <ellipse class="n-store" cx="415" cy="310" rx="80" ry="10"/>
+      <text class="t-main" x="415" y="342" text-anchor="middle" style="font-size:12.5px">Aurora PostgreSQL</text>
+      <text class="t-sub" x="415" y="360" text-anchor="middle">pgvector · AOG + manuals</text>
+
+      <g class="badge"><rect x="181" y="164" width="108" height="18" rx="2"/><text x="235" y="177" text-anchor="middle">macro-F1</text></g>
+      <g class="badge"><rect x="345" y="164" width="140" height="18" rx="2"/><text x="415" y="177" text-anchor="middle">Recall@k · MRR</text></g>
+      <g class="badge"><rect x="600" y="276" width="96" height="18" rx="2"/><text x="648" y="289" text-anchor="middle">fallback P/R</text></g>
+      <g class="badge"><rect x="690" y="52" width="140" height="18" rx="2"/><text x="760" y="65" text-anchor="middle">faithfulness · steps</text></g>
+      <g class="badge"><rect x="870" y="30" width="120" height="18" rx="2"/><text x="930" y="43" text-anchor="middle">critical = 0</text></g>
+      <g class="badge"><rect x="700" y="390" width="120" height="18" rx="2"/><text x="760" y="403" text-anchor="middle">manual Recall@k</text></g>
+      <g class="badge"><rect x="870" y="296" width="120" height="18" rx="2"/><text x="930" y="309" text-anchor="middle">time to resolve</text></g>
+      <g class="badge"><rect x="20" y="164" width="120" height="18" rx="2"/><text x="80" y="177" text-anchor="middle">trajectory · p95</text></g>
+    </svg>
+  </div>
+  <p class="caption">ASIST as a LangGraph graph, simplified. ASIST abstains and escalates to an engineer in three cases: the question is out of scope; neither past AOGs nor the manuals hold anything relevant; or the guardrail check fails. "Nothing relevant" is decided by a relevance threshold, because vector search always returns its nearest results, even irrelevant ones. The abstain path skips the guardrail because it gives no technical content: a fixed message, at most listing the closest AOG references, with no values or steps. Whether ASIST abstains at the right times is measured separately, by correct abstention and over-refusal. The trajectory tag covers the whole run: node path, loops, latency and cost. In Langfuse each run is recorded as a trace with one span per node, which is where these per-node metrics are read (Part 10). Every metric name is explained in the <a href="#glossary">glossary</a>.</p>
+</section>
+
+<!-- 2 procedure -->
+<section id="procedure">
+  <div class="sec-head"><span class="label">Part 2</span><h2>The procedure, in order</h2></div>
+  <ol class="steps">
+    <li><span class="num">1</span><span class="where">Offline · data</span><h3>Build validation and sealed sets</h3><p>The newest Aer Lingus AOGs, held back from training and labelled by mechanical engineers.</p></li>
+    <li><span class="num">2</span><span class="where">Offline · metrics</span><h3>Score every node</h3><p>Classifier, both retrievers, fallback decision, generation, guardrail, trajectory. Run as Langfuse experiments.</p></li>
+    <li><span class="num">3</span><span class="where">Offline · stats</span><h3>Compare v<sub>N</sub> vs v<sub>N+1</sub></h3><p>Both versions on the same new sealed set, same judge, 3–5 repeated runs, paired significance tests, slice by category.</p></li>
+    <li><span class="num">4</span><span class="where">Offline · attribution</span><h3>Ablate each change</h3><p>On the validation set, test the new LLM, embeddings and reranker one at a time to see which one earned the gain.</p></li>
+    <li><span class="num">5</span><span class="where">CI · gate</span><h3>Pass the release gates</h3><p>No metric drop beyond threshold, zero critical safety errors, latency budget held.</p></li>
+    <li><span class="num">6</span><span class="where">Online · production</span><h3>Shadow, canary, roll out</h3><p>Confirm with real engineers, then repeat per airline with its own sets.</p></li>
+  </ol>
+</section>
+
+<!-- 3 datasets -->
+<section id="datasets">
+  <div class="sec-head"><span class="label">Part 3</span><h2>Three kinds of data, three jobs</h2></div>
+  <p class="lede">For every version, v1 included, take a snapshot of all the AOG history available, then split it by date at the training cutoff. Older AOGs build the system. The newest AOGs are labelled by engineers and split again: a validation set the team practises on, and a sealed set used only to decide whether the version ships. Both sets exist before launch.</p>
+
+  <div class="plate">
+    <svg viewBox="0 0 1000 440" role="img" aria-label="Data flow: pre-cutoff AOGs feed fine-tuning, embeddings and the RAG index; post-cutoff AOGs are annotated and split into a validation set used by developers and a sealed set used only by the release gate">
+      <!-- timeline -->
+      <rect x="20" y="38" width="600" height="36" fill="var(--v1)"/>
+      <text class="t-main" x="34" y="61">Build data: older AOGs</text>
+      <rect x="620" y="38" width="360" height="36" fill="var(--accent)"/>
+      <text class="t-main" x="634" y="61" style="fill:#1a1000">Test data: newest AOGs</text>
+      <line x1="620" y1="22" x2="620" y2="86" stroke="var(--ink)" stroke-width="2"/>
+      <text class="t-axis" x="620" y="16" text-anchor="middle">training cutoff (split point)</text>
+      <text class="t-axis" x="20" y="98">one data snapshot, e.g. everything Aer Lingus had when v1 was built</text>
+      <line x1="980" y1="22" x2="980" y2="86" stroke="var(--ink)" stroke-width="2" stroke-dasharray="3 3"/>
+      <text class="t-axis" x="980" y="16" text-anchor="end">snapshot date</text>
+      <text class="t-axis" x="980" y="98" text-anchor="end">time →</text>
+
+      <!-- build side -->
+      <path class="edge" d="M320,76 V118" marker-end="url(#ar)"/>
+      <rect class="n-soft" x="190" y="120" width="260" height="52" rx="3"/>
+      <text class="t-main" x="320" y="142" text-anchor="middle">Training &amp; index pool</text>
+      <text class="t-sub" x="320" y="160" text-anchor="middle">labels = the fix each engineer recorded</text>
+      <path class="edge" d="M260,172 L170,218" marker-end="url(#ar)"/>
+      <path class="edge" d="M320,172 V218" marker-end="url(#ar)"/>
+      <path class="edge" d="M380,172 L470,218" marker-end="url(#ar)"/>
+      <rect class="n-box" x="90" y="220" width="150" height="50" rx="3"/>
+      <text class="t-main" x="165" y="242" text-anchor="middle">LLM fine-tuning</text>
+      <text class="t-sub" x="165" y="259" text-anchor="middle">SFT · LoRA · DPO</text>
+      <rect class="n-box" x="250" y="220" width="140" height="50" rx="3"/>
+      <text class="t-main" x="320" y="242" text-anchor="middle">Embedding tuning</text>
+      <text class="t-sub" x="320" y="259" text-anchor="middle">query → AOG pairs</text>
+      <rect class="n-box" x="400" y="220" width="150" height="50" rx="3"/>
+      <text class="t-main" x="475" y="242" text-anchor="middle">RAG index</text>
+      <text class="t-sub" x="475" y="259" text-anchor="middle">Aurora pgvector</text>
+      <text class="label" x="320" y="300" text-anchor="middle" style="font-family:var(--mono);font-size:11px;letter-spacing:.12em;fill:var(--muted)">USED TO BUILD THE SYSTEM</text>
+
+      <!-- measure side -->
+      <path class="edge" d="M800,76 V118" marker-end="url(#ar)"/>
+      <rect class="n-box" x="680" y="120" width="240" height="52" rx="3"/>
+      <text class="t-main" x="800" y="142" text-anchor="middle">Annotation by engineers</text>
+      <text class="t-sub" x="800" y="160" text-anchor="middle">2 annotators + adjudicator (Part 4)</text>
+      <path class="edge blue" d="M740,172 L700,218" marker-end="url(#arb)"/>
+      <path class="edge amber" d="M860,172 L900,218" marker-end="url(#ara)"/>
+      <text class="t-sub" x="800" y="200" text-anchor="middle">random split</text>
+      <rect class="n-val" x="600" y="220" width="180" height="56" rx="3"/>
+      <text class="t-main" x="690" y="243" text-anchor="middle" style="fill:var(--v2)">Validation set</text>
+      <text class="t-sub" x="690" y="261" text-anchor="middle">~150 cases · practice exam</text>
+      <rect class="n-seal" x="810" y="220" width="180" height="56" rx="3"/>
+      <text class="t-main" x="900" y="243" text-anchor="middle" style="fill:var(--accent-ink)">Sealed golden set</text>
+      <text class="t-sub" x="900" y="261" text-anchor="middle">~350 cases · final exam</text>
+      <!-- lock -->
+      <g transform="translate(966,198)"><rect x="0" y="8" width="16" height="12" rx="2" fill="var(--accent)"/><path d="M3,8 V5 a5,5 0 0 1 10,0 V8" fill="none" stroke="var(--accent)" stroke-width="2"/></g>
+
+      <!-- dev loop -->
+      <rect class="n-box" x="590" y="340" width="200" height="56" rx="3"/>
+      <text class="t-main" x="690" y="363" text-anchor="middle">Developers tune</text>
+      <text class="t-sub" x="690" y="381" text-anchor="middle">prompts · thresholds · models</text>
+      <path class="edge blue" d="M670,278 V338" marker-end="url(#arb)"/>
+      <path class="edge blue" d="M710,338 V280" marker-end="url(#arb)"/>
+      <text class="t-sub" x="610" y="312">many runs</text>
+      <text class="t-sub" x="716" y="312">per day</text>
+
+      <!-- release -->
+      <rect class="n-out" x="820" y="340" width="160" height="56" rx="3"/>
+      <text class="t-main" x="900" y="363" text-anchor="middle">Release gate</text>
+      <text class="t-sub" x="900" y="381" text-anchor="middle">once per release</text>
+      <path class="edge" d="M900,278 V338" marker-end="url(#arg)" style="stroke:var(--good)"/>
+
+      <path class="edge no" d="M792,368 H818"/>
+      <path class="edge no" d="M780,338 L840,282"/>
+      <text class="t-bad" x="812" y="318" text-anchor="middle">✕</text>
+      <text class="t-bad" x="760" y="420" text-anchor="middle">developers never see its cases or tune on it, only aggregate scores</text>
+      <text class="label" x="790" y="300" text-anchor="middle" style="font-family:var(--mono);font-size:11px;letter-spacing:.12em;fill:var(--muted)"></text>
+    </svg>
+  </div>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th></th><th>Training &amp; index data</th><th class="col-val">Validation set</th><th class="col-seal">Sealed golden set</th></tr></thead>
+      <tbody>
+        <tr><td class="layer">Job</td><td>Build the system</td><td>Guide choices during development</td><td>Decide whether a release ships</td></tr>
+        <tr><td class="layer">Analogy</td><td>The textbook</td><td>Practice exams</td><td>The final exam, unseen</td></tr>
+        <tr><td class="layer">Dates</td><td>Before the cutoff</td><td>After the cutoff</td><td>After the cutoff</td></tr>
+        <tr><td class="layer">Who uses it</td><td>Fine-tuning jobs, the RAG index</td><td>Developers, every day</td><td>The release pipeline, plus engineer reviewers checking answers. Developers see only aggregate scores</td></tr>
+        <tr><td class="layer">Labels come from</td><td>The fix recorded in each AOG, no extra work</td><td>Annotators, same process as the sealed set</td><td>Annotators, double-labelled and adjudicated</td></tr>
+        <tr><td class="layer">Typical size</td><td>Thousands of AOGs</td><td>~100–200 cases</td><td>~300–500 cases</td></tr>
+        <tr><td class="layer">If misused</td><td>Test AOGs leak in and inflate scores</td><td>The team overfits to it, which is expected and why it is separate</td><td>Once tuned on, it stops measuring new AOGs and must be replaced</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="two">
+    <div class="stack">
+      <h3>How the terms relate</h3>
+      <div class="plate narrow" style="padding:14px">
+        <svg viewBox="0 0 900 270" role="img" aria-label="Nested diagram: ground truth contains golden-quality cases, which split into validation and sealed sets">
+          <rect x="10" y="10" width="880" height="250" rx="6" fill="var(--soft)" stroke="var(--muted)" stroke-width="1.2"/>
+          <text class="t-main" x="30" y="40">Ground truth</text>
+          <text class="t-sub" x="30" y="60">any data with a known correct answer</text>
+          <text class="t-sub" x="30" y="100">· every historical AOG with its</text>
+          <text class="t-sub" x="30" y="116">  recorded fix</text>
+          <text class="t-sub" x="30" y="136">· answers engineers corrected</text>
+          <text class="t-sub" x="30" y="152">  in production logs</text>
+          <text class="t-sub" x="30" y="192">Most of it is training and</text>
+          <text class="t-sub" x="30" y="208">retrieval data, not a test.</text>
+          <rect x="320" y="56" width="555" height="190" rx="6" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.5"/>
+          <text class="t-main" x="340" y="84">Golden-quality cases</text>
+          <text class="t-sub" x="340" y="102">post-cutoff · curated · annotated · adjudicated</text>
+          <rect x="340" y="120" width="250" height="110" rx="4" fill="var(--paper)" stroke="var(--v2)" stroke-width="2"/>
+          <text class="t-main" x="358" y="148" style="fill:var(--v2)">Validation set</text>
+          <text class="t-sub" x="358" y="170">open to the team</text>
+          <text class="t-sub" x="358" y="188">for tuning and debugging</text>
+          <rect x="605" y="120" width="255" height="110" rx="4" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="2"/>
+          <text class="t-main" x="623" y="148" style="fill:var(--accent-ink)">Sealed golden set</text>
+          <text class="t-sub" x="623" y="170">locked, scoring only</text>
+          <text class="t-sub" x="623" y="188">"the golden set" in the</text>
+          <text class="t-sub" x="623" y="204">narrow sense</text>
+        </svg>
+      </div>
+      <p class="caption">Ground truth is the correct answer for a case. A golden set is a curated, governed collection of cases carrying that ground truth. Sealed describes who may touch it.</p>
+    </div>
+    <div class="stack">
+      <h3>The sets rotate every release</h3>
+      <div class="plate narrow" style="padding:14px">
+        <svg viewBox="0 0 900 200" role="img" aria-label="Rotation: at release N plus one, the old validation and sealed sets become training data and new sets are built from newer AOGs">
+          <text class="t-main" x="10" y="44">Release N</text>
+          <rect x="140" y="26" width="440" height="28" fill="var(--v1)"/>
+          <text class="t-sub" x="150" y="45" style="fill:var(--ink)">training &amp; index</text>
+          <rect x="580" y="26" width="60" height="28" fill="var(--v2)"/>
+          <text class="t-sub" x="610" y="45" text-anchor="middle" style="fill:var(--paper)">val</text>
+          <rect x="640" y="26" width="90" height="28" fill="var(--accent)"/>
+          <text class="t-sub" x="685" y="45" text-anchor="middle" style="fill:#1a1000">sealed</text>
+
+          <text class="t-main" x="10" y="124">Release N+1</text>
+          <rect x="140" y="106" width="440" height="28" fill="var(--v1)"/>
+          <rect x="580" y="106" width="150" height="28" fill="var(--v1)" stroke="var(--ink)" stroke-dasharray="3 3"/>
+          <text class="t-sub" x="150" y="125" style="fill:var(--ink)">training &amp; index</text>
+          <text class="t-sub" x="655" y="125" text-anchor="middle" style="fill:var(--ink)">old sets retired</text>
+          <rect x="730" y="106" width="60" height="28" fill="var(--v2)"/>
+          <text class="t-sub" x="760" y="125" text-anchor="middle" style="fill:var(--paper)">val</text>
+          <rect x="790" y="106" width="90" height="28" fill="var(--accent)"/>
+          <text class="t-sub" x="835" y="125" text-anchor="middle" style="fill:#1a1000">sealed</text>
+          <path class="edge dash" d="M580,56 V104"/>
+          <path class="edge dash" d="M730,56 V104"/>
+          <text class="t-sub" x="730" y="160" text-anchor="middle">new cutoff</text>
+          <text class="t-sub" x="835" y="160" text-anchor="middle">same size, new cases</text>
+          <text class="t-sub" x="140" y="190">time →</text>
+        </svg>
+      </div>
+      <p class="caption">After a release, the old sets can be fed back as training data. New validation and sealed sets come from AOGs after the new cutoff.</p>
+    </div>
+  </div>
+
+  <h3>How ground truth grows from v1 to v2</h3>
+  <p class="lede">Ground truth is never all used to build a version. Each release builds on everything up to its cutoff and holds back the newest slice to test on. While v1 is in service, new ground truth keeps arriving from four sources.</p>
+  <div class="plate">
+    <svg viewBox="0 0 1000 340" role="img" aria-label="Timeline: historical AOGs build v1, the slice after v1's cutoff tests v1, ground truth collected while v1 is in service builds v2, and the slice after v2's cutoff tests v1 against v2">
+      <text class="t-axis" x="360" y="14" text-anchor="middle">v1 cutoff</text>
+      <text class="t-axis" x="820" y="14" text-anchor="middle">v2 cutoff</text>
+      <path class="edge" d="M24,40 V34 H356 V40"/>
+      <text class="t-sub" x="190" y="30" text-anchor="middle" style="fill:var(--ink)">built v1</text>
+      <path class="edge" d="M364,40 V34 H436 V40"/>
+      <text class="t-sub" x="400" y="30" text-anchor="middle" style="fill:var(--ink)">tested v1</text>
+
+      <rect x="20" y="48" width="340" height="36" fill="var(--v1)"/>
+      <text class="t-main" x="32" y="71" style="font-size:13px">historical AOG records</text>
+      <rect x="360" y="48" width="32" height="36" fill="var(--v2)"/>
+      <rect x="392" y="48" width="48" height="36" fill="var(--accent)"/>
+      <text class="t-sub" x="376" y="70" text-anchor="middle" style="fill:var(--paper)">val</text>
+      <text class="t-sub" x="416" y="70" text-anchor="middle" style="fill:#1a1000">sealed</text>
+      <rect x="440" y="48" width="380" height="36" fill="var(--good-soft)" stroke="var(--good)" stroke-width="1.2"/>
+      <text class="t-main" x="630" y="71" text-anchor="middle" style="font-size:13px">new ground truth collected in service</text>
+      <rect x="820" y="48" width="32" height="36" fill="var(--v2)"/>
+      <rect x="852" y="48" width="48" height="36" fill="var(--accent)"/>
+      <text class="t-sub" x="836" y="70" text-anchor="middle" style="fill:var(--paper)">val</text>
+      <text class="t-sub" x="876" y="70" text-anchor="middle" style="fill:#1a1000">sealed</text>
+      <line x1="360" y1="20" x2="360" y2="92" stroke="var(--ink)" stroke-width="2"/>
+      <line x1="820" y1="20" x2="820" y2="92" stroke="var(--ink)" stroke-width="2"/>
+      <text class="t-sub" x="440" y="104" text-anchor="middle">▲ v1 snapshot · tested · deployed</text>
+      <text class="t-sub" x="904" y="104" text-anchor="end">v2 snapshot ▲</text>
+
+      <rect class="n-soft" x="440" y="118" width="380" height="34" rx="3"/>
+      <text class="t-main" x="630" y="140" text-anchor="middle" style="font-size:13px">v1 in service · engineers use ASIST on live AOGs</text>
+      <path class="edge" d="M630,118 V88" marker-end="url(#arg)" style="stroke:var(--good)"/>
+
+      <path class="edge" d="M405,198 L480,154" marker-end="url(#ar)"/>
+      <path class="edge" d="M567,198 L590,154" marker-end="url(#ar)"/>
+      <path class="edge" d="M729,198 L690,154" marker-end="url(#ar)"/>
+      <path class="edge" d="M891,198 L790,154" marker-end="url(#ar)"/>
+      <rect class="n-box" x="330" y="200" width="150" height="50" rx="3"/>
+      <text class="t-main" x="405" y="221" text-anchor="middle" style="font-size:13px">New AOG records</text>
+      <text class="t-sub" x="405" y="238" text-anchor="middle">largest source</text>
+      <rect class="n-box" x="492" y="200" width="150" height="50" rx="3"/>
+      <text class="t-main" x="567" y="221" text-anchor="middle" style="font-size:13px">Human in the loop</text>
+      <text class="t-sub" x="567" y="238" text-anchor="middle">confirm or correct live</text>
+      <rect class="n-box" x="654" y="200" width="150" height="50" rx="3"/>
+      <text class="t-main" x="729" y="221" text-anchor="middle" style="font-size:13px">Offline review</text>
+      <text class="t-sub" x="729" y="238" text-anchor="middle">sample of logged queries</text>
+      <rect class="n-box" x="816" y="200" width="150" height="50" rx="3"/>
+      <text class="t-main" x="891" y="221" text-anchor="middle" style="font-size:13px">Feedback &amp; failures</text>
+      <text class="t-sub" x="891" y="238" text-anchor="middle">thumbs-down · rephrasing</text>
+
+      <text class="t-sub" x="24" y="128">The newest slice before each</text>
+      <text class="t-sub" x="24" y="144">deployment is held back and</text>
+      <text class="t-sub" x="24" y="160">annotated as that version's</text>
+      <text class="t-sub" x="24" y="176">validation and sealed sets.</text>
+
+      <path class="edge" d="M24,280 V288 H816 V280" style="stroke:var(--v1);stroke-width:3"/>
+      <text class="t-sub" x="420" y="308" text-anchor="middle" style="fill:var(--ink)">builds v2 · includes v1's retired validation and sealed sets</text>
+      <path class="edge" d="M824,280 V288 H896 V280" style="stroke:var(--accent);stroke-width:3"/>
+      <text class="t-sub" x="860" y="308" text-anchor="middle" style="fill:var(--ink)">v1 vs v2</text>
+      <text class="t-sub" x="860" y="322" text-anchor="middle" style="fill:var(--ink)">same cases</text>
+      <text class="t-axis" x="980" y="334" text-anchor="end">time →</text>
+    </svg>
+  </div>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Period</th><th>Ground truth available</th><th>Used for</th></tr></thead>
+      <tbody>
+        <tr><td class="layer">Before v1 cutoff</td><td>Historical Aer Lingus AOG records with their recorded fixes</td><td>Builds v1: fine-tuning, embeddings, RAG index</td></tr>
+        <tr><td class="layer">v1 cutoff → v1 deployed</td><td>The newest AOGs before launch, annotated by engineers</td><td>v1's validation and sealed sets</td></tr>
+        <tr><td class="layer">v1 in service, before v2 cutoff</td><td>New AOG records, human-in-the-loop corrections, offline review, flagged failures, plus v1's retired test sets</td><td>Builds v2</td></tr>
+        <tr><td class="layer">After v2 cutoff</td><td>The newest AOGs, annotated by engineers</td><td>v2's validation and sealed sets. v1 and v2 are scored on them side by side</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="gl">
+    <div class="term">
+      <h4>The four sources of new ground truth</h4>
+      <p class="plain"><b>New AOG records</b>: every resolved AOG still produces a recorded fix, whether or not ASIST was used. <b>Human in the loop</b>: an engineer approves or corrects a low-confidence answer as it happens. <b>Offline review</b>: engineers later label a sample of logged queries. <b>Feedback and failures</b>: thumbs-down, rephrased questions and escalations, plus problems found in shadow or canary, are prime candidates for review.</p>
+    </div>
+    <div class="term">
+      <h4>Always hold something back</h4>
+      <p class="plain">If every new labelled item goes into building v2, nothing is left to measure it on. The cutoff splits the new data: everything before it builds v2, everything after it tests v2 against v1.</p>
+    </div>
+    <div class="term">
+      <h4>A correction is not automatically right</h4>
+      <p class="plain">A busy engineer's quick fix on shift should be checked, at least on a sample, before it counts as ground truth.</p>
+      <p class="watch">Unchecked corrections can teach v2 the wrong fix.</p>
+    </div>
+    <div class="term">
+      <h4>Selection bias</h4>
+      <p class="plain">Queries labelled because ASIST asked for help, or because someone rated them, over-represent certain kinds of case. They are good training material, but the sealed set should still come from a representative sample of AOGs.</p>
+      <p class="watch">A sealed set built only from flagged queries over-weights hard or failed cases.</p>
+    </div>
+    <div class="term wide">
+      <h4>If the sealed set changes, how are v1 and v2 compared fairly?</h4>
+      <p class="plain">The rule is that v1 and v2 are scored on exactly the same cases. v1 is frozen and can be run again at any time, so at the v2 release both versions answer v2's new sealed set side by side. Neither has seen those AOGs. The sets stay the same size, around 350 cases; only the cases change.</p>
+      <p class="plain"><b>Frozen means the whole v1 configuration</b>, including the snapshot of its RAG index. A live index that keeps ingesting new AOGs may already contain v2's sealed cases, which would leak the answers. v2's index also holds more history than v1's, so part of v2's gain comes from newer data rather than better techniques. The ablation in Part 8 separates the two.</p>
+      <div class="tbl-wrap">
+        <table style="min-width:560px">
+          <thead><tr><th></th><th>Rotating sealed set</th><th>Fixed anchor set</th></tr></thead>
+          <tbody>
+            <tr><td class="layer">What it is</td><td>Built fresh each release from the newest AOGs</td><td>A small set that never changes: critical safety cases and known past failures</td></tr>
+            <tr><td class="layer">Used for</td><td>The v1-vs-v2 release decision</td><td>Long-term trend across every version, and catching old bugs that come back</td></tr>
+            <tr><td class="layer">Strength</td><td>Stays representative of today's AOGs; old sets can be fed back into training</td><td>Scores are comparable across all releases</td></tr>
+            <tr><td class="layer">Weakness</td><td>Absolute scores across releases are not comparable: 0.80 for v1 on one set and 0.84 for v2 on another proves nothing</td><td>Goes stale, leaks a little with every decision, and its AOGs can never be used for training or put in the RAG index</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="watch">Keeping one sealed set forever looks simpler but fails over time: the team slowly tunes to it, the fleet and fault types change, and its AOGs are lost as training data.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 4 cases -->
+<section id="cases">
+  <div class="sec-head"><span class="label">Part 4</span><h2>How a test case is built</h2></div>
+  <p class="lede">Annotators are qualified mechanical engineers who write down the correct answer for each case. "Annotate" means to add notes; in machine learning the notes are the labels that say what the system should output. They are also called labellers or raters. First, a case writer, often one of the same engineers, turns each AOG record into the question an engineer would have typed.</p>
+
+  <div class="plate">
+    <svg viewBox="0 0 1000 330" role="img" aria-label="Annotation workflow: AOG record, case writer drafts the query, two annotators label independently following guidelines, labels compared, agreement accepted, disagreement goes to a senior adjudicator, agreement rate measured with Cohen's kappa">
+      <!-- guidelines -->
+      <rect class="n-soft" x="185" y="10" width="140" height="46" rx="3"/>
+      <text class="t-main" x="255" y="31" text-anchor="middle" style="font-size:13px">Labelling guidelines</text>
+      <text class="t-sub" x="255" y="47" text-anchor="middle">what counts as relevant</text>
+      <path class="edge dash" d="M325,40 C350,40 360,70 372,82" marker-end="url(#arm)"/>
+      <path class="edge dash" d="M325,48 C345,120 345,200 368,226" marker-end="url(#arm)"/>
+
+      <rect class="n-box" x="20" y="140" width="130" height="60" rx="3"/>
+      <text class="t-main" x="85" y="166" text-anchor="middle">AOG record</text>
+      <text class="t-sub" x="85" y="184" text-anchor="middle">post-cutoff</text>
+      <path class="edge" d="M150,170 H183" marker-end="url(#ar)"/>
+
+      <rect class="n-box" x="185" y="140" width="140" height="60" rx="3"/>
+      <text class="t-main" x="255" y="166" text-anchor="middle">Case writer</text>
+      <text class="t-sub" x="255" y="184" text-anchor="middle">query as typed on shift</text>
+      <path class="edge" d="M325,160 L368,112" marker-end="url(#ar)"/>
+      <path class="edge" d="M325,180 L368,228" marker-end="url(#ar)"/>
+
+      <rect class="n-box" x="370" y="70" width="140" height="60" rx="3"/>
+      <text class="t-main" x="440" y="96" text-anchor="middle">Annotator A</text>
+      <text class="t-sub" x="440" y="114" text-anchor="middle">labels independently</text>
+      <rect class="n-box" x="370" y="210" width="140" height="60" rx="3"/>
+      <text class="t-main" x="440" y="236" text-anchor="middle">Annotator B</text>
+      <text class="t-sub" x="440" y="254" text-anchor="middle">cannot see A's labels</text>
+      <path class="edge" d="M510,100 L566,152" marker-end="url(#ar)"/>
+      <path class="edge" d="M510,240 L566,188" marker-end="url(#ar)"/>
+
+      <path class="n-box" d="M550,170 L600,125 L650,170 L600,215 Z"/>
+      <text class="t-main" x="600" y="166" text-anchor="middle" style="font-size:12.5px">Labels</text>
+      <text class="t-main" x="600" y="182" text-anchor="middle" style="font-size:12.5px">match?</text>
+
+      <path class="edge" d="M650,170 H818" marker-end="url(#ar)"/>
+      <text class="t-edge" x="700" y="162">agree</text>
+      <rect class="n-out" x="820" y="140" width="150" height="60" rx="3"/>
+      <text class="t-main" x="895" y="166" text-anchor="middle">Accepted case</text>
+      <text class="t-sub" x="895" y="184" text-anchor="middle">→ validation or sealed</text>
+
+      <path class="edge" d="M600,215 V258" marker-end="url(#ar)"/>
+      <text class="t-edge" x="608" y="242">disagree</text>
+      <rect class="n-seal" x="520" y="260" width="170" height="56" rx="3"/>
+      <text class="t-main" x="605" y="284" text-anchor="middle">Senior adjudicator</text>
+      <text class="t-sub" x="605" y="302" text-anchor="middle">makes the final call</text>
+      <path class="edge" d="M690,288 H895 V202" marker-end="url(#ar)"/>
+
+      <path class="edge dash" d="M600,125 V32 H327" marker-end="url(#arm)"/>
+      <text class="t-edge" x="612" y="70">agreement rate</text>
+      <text class="t-edge" x="612" y="84">= Cohen's κ</text>
+      <text class="t-edge" x="420" y="26">low κ → rewrite the guidelines</text>
+    </svg>
+  </div>
+
+  <div class="two">
+    <div class="stack">
+      <h3>Why two annotators?</h3>
+      <p>Experts disagree more than expected. One engineer may count a past AOG as relevant and another may not. Labelling twice, blind, shows where the case or the guidelines are ambiguous. A senior engineer resolves each disagreement, a step called adjudication.</p>
+      <p>The agreement rate is measured with <b>Cohen's kappa (κ)</b>, which removes the agreement you would get by chance. Low κ means the instructions are unclear, which you want to know before blaming the model.</p>
+    </div>
+    <div class="stack">
+      <span class="label">Kappa example · 100 "is this past AOG relevant?" judgements</span>
+      <div class="tbl-wrap" style="align-self:flex-start">
+        <table class="mini">
+          <thead><tr><th></th><th>B: relevant</th><th>B: not</th></tr></thead>
+          <tbody>
+            <tr><th>A: relevant</th><td class="hi">42</td><td class="lo">8</td></tr>
+            <tr><th>A: not</th><td class="lo">7</td><td class="hi">43</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="formula">observed agreement = (42+43)/100 = 0.85<br>chance agreement ≈ 0.50<br>κ = (0.85 − 0.50) / (1 − 0.50) = 0.70</p>
+      <p class="caption">Rule of thumb: below 0.4 poor, 0.4–0.6 moderate, 0.6–0.8 substantial, above 0.8 near-perfect.</p>
+    </div>
+  </div>
+
+  <h3>Anatomy of one case</h3>
+  <div class="anat">
+    <div class="col">
+      <span class="label">Input · what ASIST receives</span>
+      <div class="field"><b>query</b><span>"A320 nose gear steering fault after pushback, ECAM NWS FAULT, reset no joy"</span></div>
+      <div class="field"><b>aircraft</b><span>A320-214</span></div>
+      <p class="caption">Written the way engineers really type, with abbreviations. Clean, tidy questions make scores look better than real use.</p>
+    </div>
+    <div class="col exp">
+      <span class="label">Expected outputs · the ground truth</span>
+      <div class="exp-grid">
+        <div class="field"><b>category</b><span>landing_gear</span><span class="scored">→ accuracy · macro-F1</span></div>
+        <div class="field"><b>route</b><span>history (or manual, or abstain)</span><span class="scored">→ fallback P/R · abstention</span></div>
+        <div class="field"><b>expected_aogs</b><span>AOG-1832, AOG-2210</span><span class="scored">→ Recall@5 · MRR · nDCG</span></div>
+        <div class="field"><b>expected_refs</b><span>TSM 32-51-00, AMM 32-51-00</span><span class="scored">→ manual Recall@5 · citation accuracy</span></div>
+        <div class="field"><b>reference_steps</b><span>check BSCU messages → inspect feedback sensor → …</span><span class="scored">→ step coverage · order</span></div>
+        <div class="field"><b>forbidden</b><span>no invented values; any torque or limit must match AMM 32-51-00</span><span class="scored">→ critical errors</span></div>
+      </div>
+    </div>
+    <div class="col">
+      <span class="label">Metadata · for slicing</span>
+      <div class="field"><b>aog_date</b><span>after the cutoff, guards against leakage</span></div>
+      <div class="field"><b>difficulty</b><span>medium</span></div>
+      <div class="field"><b>airline</b><span>Aer Lingus</span></div>
+      <div class="field"><b>annotated_by</b><span>2 engineers, adjudicated: no</span></div>
+    </div>
+  </div>
+  <p class="note">The route is the path through the graph; the reference steps are the procedure given to the engineer. A case can take the right route and still give the wrong procedure, so they are scored separately. Most cases are sampled from real AOGs so the set stays representative. A small share of abstain cases is added on purpose: questions ASIST has no history or manual coverage for.</p>
+
+  <h3>Who fills in each field, and how</h3>
+  <p class="lede">Annotators own every expected output, for every case in both the validation and the sealed set. They rarely start from a blank page: the AOG record already holds much of the answer, so a large part of the work is checking and correcting a pre-filled draft.</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Field</th><th>Starting point</th><th>What the annotator does</th><th>Effort</th></tr></thead>
+      <tbody>
+        <tr><td class="layer"><code>category</code></td><td>Already in the AOG record's classification column</td><td>Checks it is right and consistent with the labelling guidelines</td><td><span class="pill flat">low</span></td></tr>
+        <tr><td class="layer"><code>route</code></td><td>Nothing; the record cannot say this</td><td>Judges whether past AOGs are enough, the Airbus manuals are needed, or ASIST should abstain. Depends on what else exists in the history</td><td><span class="pill soft">medium</span></td></tr>
+        <tr><td class="layer"><code>reference_steps</code></td><td>The resolution the original engineer wrote</td><td>Turns shift notes into clean, ordered steps; removes details specific to that one aircraft; fixes anything incomplete or wrong</td><td><span class="pill down">high</span></td></tr>
+        <tr><td class="layer"><code>expected_refs</code></td><td>AMM/TSM tasks cited in the original resolution</td><td>Checks them against the current manual revision and adds missing ones</td><td><span class="pill soft">medium</span></td></tr>
+        <tr><td class="layer"><code>expected_aogs</code></td><td>A candidate list built by pooling (below)</td><td>Judges each candidate as relevant, partly relevant or not relevant</td><td><span class="pill down">high</span></td></tr>
+        <tr><td class="layer"><code>forbidden</code></td><td>A general rule: no value that is not in a source</td><td>Adds the case-specific critical values to watch, such as the torque or limit for this repair</td><td><span class="pill flat">low</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="two">
+    <div class="stack">
+      <h3>Pooling: finding the expected AOGs</h3>
+      <p>No engineer can read thousands of past AOGs for every case. Instead, several retrievers each return their top results, the lists are merged and de-duplicated, and the annotator judges only that pool. The relevant ones become <code>expected_aogs</code>, with a grade for nDCG.</p>
+      <p>Every version being compared contributes to the pool equally, so neither is favoured. If a later run retrieves an AOG nobody has judged, it goes to an annotator before the scores are final.</p>
+      <p class="watch">An AOG that no retriever finds never enters the pool, so it can never be marked relevant. Using varied retrievers, including plain keyword search, reduces that blind spot.</p>
+    </div>
+    <div class="plate narrow" style="padding:14px">
+      <svg viewBox="0 0 640 250" role="img" aria-label="Pooling: three retrievers return top results, merged into one candidate pool, judged by an annotator, producing the expected AOGs" style="min-width:560px">
+        <rect class="n-box" x="10" y="20" width="170" height="46" rx="3"/>
+        <text class="t-main" x="95" y="40" text-anchor="middle" style="font-size:13px">v1 retriever</text>
+        <text class="t-sub" x="95" y="56" text-anchor="middle">top 10</text>
+        <rect class="n-box" x="10" y="100" width="170" height="46" rx="3"/>
+        <text class="t-main" x="95" y="120" text-anchor="middle" style="font-size:13px">Keyword search</text>
+        <text class="t-sub" x="95" y="136" text-anchor="middle">top 10 · codes, ECAM</text>
+        <rect class="n-box" x="10" y="180" width="170" height="46" rx="3"/>
+        <text class="t-main" x="95" y="200" text-anchor="middle" style="font-size:13px">v2 retriever</text>
+        <text class="t-sub" x="95" y="216" text-anchor="middle">top 10</text>
+        <path class="edge" d="M180,43 L238,108" marker-end="url(#ar)"/>
+        <path class="edge" d="M180,123 H238" marker-end="url(#ar)"/>
+        <path class="edge" d="M180,203 L238,138" marker-end="url(#ar)"/>
+        <rect class="n-soft" x="240" y="92" width="130" height="62" rx="3"/>
+        <text class="t-main" x="305" y="116" text-anchor="middle" style="font-size:13px">Candidate pool</text>
+        <text class="t-sub" x="305" y="134" text-anchor="middle">~20 after dedupe</text>
+        <path class="edge" d="M370,123 H408" marker-end="url(#ar)"/>
+        <rect class="n-box" x="410" y="92" width="100" height="62" rx="3"/>
+        <text class="t-main" x="460" y="116" text-anchor="middle" style="font-size:13px">Annotator</text>
+        <text class="t-sub" x="460" y="134" text-anchor="middle">grades each</text>
+        <path class="edge" d="M510,123 H528" marker-end="url(#arg)" style="stroke:var(--good)"/>
+        <rect class="n-out" x="530" y="92" width="100" height="62" rx="3"/>
+        <text class="t-main" x="580" y="116" text-anchor="middle" style="font-size:13px">expected</text>
+        <text class="t-main" x="580" y="134" text-anchor="middle" style="font-size:13px">_aogs</text>
+      </svg>
+    </div>
+  </div>
+
+  <div class="gl">
+    <div class="term">
+      <h4>Pre-filling with an LLM</h4>
+      <p class="plain">An LLM can draft the fields from the AOG record to save engineer time. The engineer still checks every field.</p>
+      <p class="watch">The draft must not come from the ASIST version being tested, or the labels lean towards its answers and the test favours it.</p>
+    </div>
+    <div class="term">
+      <h4>Where to spend double labelling</h4>
+      <p class="plain">Some teams double-label every field. Others double-label the judgement fields (<code>route</code>, <code>expected_aogs</code>, <code>reference_steps</code>) and have one annotator verify the factual ones (<code>category</code>, <code>expected_refs</code>).</p>
+    </div>
+    <div class="term wide">
+      <h4>What it costs</h4>
+      <p class="plain">Roughly half an hour of engineer time per case, mostly on <code>expected_aogs</code> and <code>reference_steps</code>. A sealed set of a few hundred cases, labelled twice, is a substantial commitment from people who also maintain aircraft. This is the main reason golden sets stay at hundreds of cases rather than thousands.</p>
+    </div>
+  </div>
+  <p class="caption">Effort levels, time per case and pooling are general practice in RAG evaluation, not a record of how ASIST was labelled.</p>
+</section>
+
+<!-- 5 metrics by layer -->
+<section id="metrics">
+  <div class="sec-head"><span class="label">Part 5</span><h2>Metrics by layer</h2></div>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Layer</th><th>Metric</th><th>Checked against</th><th>Why it matters in ASIST</th></tr></thead>
+      <tbody>
+        <tr><td class="layer">Ingestion (ETL)</td><td>Extraction accuracy of the problem and solution fields</td><td>raw AOG record, engineer check on a sample</td><td>A bad extraction misleads every query that retrieves that AOG</td></tr>
+        <tr><td class="layer">Classify</td><td>Accuracy, macro-F1, confusion matrix</td><td><code>category</code></td><td>A wrong category filters pgvector to the wrong AOGs</td></tr>
+        <tr><td class="layer">Retrieve AOGs</td><td>Recall@5, MRR, nDCG</td><td><code>expected_aogs</code></td><td>If the right past AOG is missing, generation cannot recover</td></tr>
+        <tr><td class="layer">Fallback decision</td><td>Precision and recall of "go to manuals"</td><td><code>route</code></td><td>Too eager adds noise; too reluctant misses procedures</td></tr>
+        <tr><td class="layer">Retrieve manuals</td><td>Recall@5 on AMM/TSM tasks</td><td><code>expected_refs</code></td><td>Manuals are the backstop when history is thin</td></tr>
+        <tr><td class="layer">Generate</td><td>Step coverage and order, faithfulness, citation accuracy</td><td><code>reference_steps</code>, <code>expected_refs</code>, retrieved sources</td><td>Usable, grounded instructions an engineer can follow</td></tr>
+        <tr class="crit"><td class="layer">Safety</td><td>Count of invented part numbers, torques, limits or task refs</td><td><code>forbidden</code></td><td>Zero tolerance: one error outweighs any average gain</td></tr>
+        <tr><td class="layer">Abstain</td><td>Correct abstention, over-refusal</td><td><code>route = abstain</code></td><td>Knowing when not to answer</td></tr>
+        <tr><td class="layer">Trajectory</td><td>Node path match, loops, p50/p95 latency, cost</td><td>trace</td><td>Catches agent regressions such as retry loops</td></tr>
+        <tr><td class="layer">Business</td><td>Time to resolve the AOG, escalations, feedback</td><td>production logs</td><td>The outcome the airline pays for</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- 6 glossary -->
+<section id="glossary">
+  <div class="sec-head"><span class="label">Part 6</span><h2>Glossary of metrics and terms</h2></div>
+  <p class="lede">Each term in plain words, with an ASIST example. All example numbers are illustrative.</p>
+  <nav class="gnav" aria-label="Glossary groups">
+    <a href="#g-class">Classification</a><a href="#g-retr">Retrieval</a><a href="#g-gen">Generation</a><a href="#g-safe">Safety &amp; behaviour</a><a href="#g-ops">Speed &amp; cost</a><a href="#g-stats">Statistics &amp; trust</a><a href="#g-rel">Release terms</a>
+  </nav>
+
+  <!-- classification -->
+  <div class="ggroup" id="g-class">
+    <h3>Classification <span class="label">Did the router pick the right AOG category?</span></h3>
+    <div class="gl">
+      <div class="term wide">
+        <h4>Confusion matrix</h4>
+        <div class="term-row">
+          <div class="stack">
+            <p class="plain">A grid of real category (rows) against predicted category (columns). The diagonal is correct; everything off it is a mix-up, and it shows exactly which categories get confused.</p>
+            <div class="ex"><b>ASIST example</b>Landing gear and hydraulics are confused 16 times (four of the seven categories shown). That makes sense, because the gear is hydraulically actuated, and it tells you to add examples or sharpen the category definitions there.</div>
+          </div>
+          <div class="tbl-wrap" style="justify-self:start;border:0;background:transparent">
+            <table class="cm" id="cm"></table>
+          </div>
+        </div>
+      </div>
+      <div class="term">
+        <h4>Accuracy</h4>
+        <p class="plain">The share of cases where the predicted category is correct.</p>
+        <p class="formula">correct ÷ all shown = 211 ÷ 237 = 0.89</p>
+        <p class="watch">If 40% of AOGs are engine-related, a router that is good only at engines can still look accurate.</p>
+      </div>
+      <div class="term">
+        <h4>Precision and recall (per category)</h4>
+        <p class="plain"><b>Precision</b>: when it says "landing gear", how often is it right? <b>Recall</b>: of all real landing-gear AOGs, how many did it catch?</p>
+        <p class="formula">LG precision = 55 ÷ 65 = 0.85<br>LG recall = 55 ÷ 64 = 0.86</p>
+        <p class="watch">Each one alone can be gamed: call everything landing gear and recall is perfect.</p>
+      </div>
+      <div class="term">
+        <h4>F1 score</h4>
+        <p class="plain">One number that combines precision and recall. It is high only when both are high.</p>
+        <p class="formula">F1 = 2 × P × R ÷ (P + R) = 0.85</p>
+      </div>
+      <div class="term">
+        <h4>Macro-F1</h4>
+        <p class="plain">Compute F1 for each category, then average them with equal weight. Rare categories count as much as common ones, so a router that neglects flight controls can't hide behind engines.</p>
+        <p class="formula">mean(F1<sub>LG</sub>, F1<sub>HYD</sub>, F1<sub>ENG</sub>, F1<sub>AVI</sub>)</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- retrieval -->
+  <div class="ggroup" id="g-retr">
+    <h3>Retrieval <span class="label">Did pgvector bring back the right AOGs and manual tasks?</span></h3>
+    <div class="gl">
+      <div class="term wide">
+        <h4>Recall@k and Precision@k</h4>
+        <div class="term-row">
+          <div class="stack">
+            <p class="plain"><b>Recall@5</b>: of the documents that should be found, what share appear in the top 5? <b>Precision@5</b>: of the 5 returned, what share are relevant? k = 5 here assumes the top 5 results are passed to the LLM; anything ranked lower is invisible to it. Set k to the number of chunks the system really sends.</p>
+            <p class="formula">Recall@5 = 2 found ÷ 2 expected = 1.0<br>Precision@5 = 2 relevant ÷ 5 returned = 0.4</p>
+            <p class="watch">Recall ignores order: rank 1 and rank 5 count the same. Retrieval is the ceiling for everything after it.</p>
+          </div>
+          <div class="stack">
+            <span class="label">Top results for the NWS fault query</span>
+            <ol class="rank">
+              <li class="hit"><span class="r">1</span><span>AOG-2210</span><span class="m">relevant</span></li>
+              <li><span class="r">2</span><span>AOG-0954</span><span></span></li>
+              <li><span class="r">3</span><span>AOG-1411</span><span></span></li>
+              <li class="hit"><span class="r">4</span><span>AOG-1832</span><span class="m">relevant</span></li>
+              <li><span class="r">5</span><span>AOG-0377</span><span></span></li>
+              <li class="cut" aria-hidden="true"></li>
+              <li><span class="r">6</span><span>AOG-1120 · not sent to LLM</span><span></span></li>
+            </ol>
+          </div>
+        </div>
+      </div>
+      <div class="term">
+        <h4>MRR (mean reciprocal rank)</h4>
+        <p class="plain">Rewards putting the first relevant result near the top. For each query take 1 ÷ the rank of the first hit, then average across queries.</p>
+        <p class="formula">first hits at ranks 1, 4, 2<br>(1/1 + 1/4 + 1/2) ÷ 3 = 0.58</p>
+        <p class="watch">Only the first hit counts; the second relevant AOG is ignored.</p>
+      </div>
+      <div class="term">
+        <h4>nDCG (normalized discounted cumulative gain)</h4>
+        <p class="plain">Scores the whole ranking. Each relevant result earns points, worth less the lower it sits, and the total is divided by the best possible ordering, giving 0 to 1. It allows graded relevance: a perfect match earns more than a partial one.</p>
+        <p class="formula">grades by rank: [2, 0, 1, 0, 0]<br>DCG = 2/log₂2 + 1/log₂4 = 2.50<br>ideal [2,1,0,0,0] = 2.63 → nDCG = 0.95</p>
+      </div>
+      <div class="term">
+        <h4>Fallback precision and recall</h4>
+        <p class="plain">Scores the "enough evidence?" decision. <b>Precision</b>: of cases sent to the Airbus manuals, how many needed them? <b>Recall</b>: of cases that needed the manuals, how many were sent?</p>
+        <p class="watch">Low precision adds noisy manual text; low recall leaves engineers with thin AOG history.</p>
+      </div>
+      <div class="term">
+        <h4>Manual Recall@5</h4>
+        <p class="plain">Same as Recall@5, measured on the Airbus manuals table against the expected AMM/TSM task references.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- generation -->
+  <div class="ggroup" id="g-gen">
+    <h3>Generation <span class="label">Is the written answer correct, grounded and usable?</span></h3>
+    <div class="gl">
+      <div class="term wide">
+        <h4>Faithfulness (groundedness)</h4>
+        <div class="term-row">
+          <div class="stack">
+            <p class="plain">The share of claims in the answer that are supported by the retrieved documents. It measures whether the LLM is inventing things beyond what it was given.</p>
+            <p class="formula">3 supported claims ÷ 4 claims = 0.75</p>
+            <p class="watch">Faithful is not the same as correct. A faithful answer built on the wrong retrieved AOG is still wrong, which is why retrieval is scored separately.</p>
+          </div>
+          <div class="answer" aria-label="Example answer split into claims">
+            <div><span class="mk">✓</span><span>Check the BSCU for NWS fault messages (TSM 32-51-00).<span class="why">supported by TSM chunk</span></span></div>
+            <div><span class="mk">✓</span><span>Inspect the steering feedback sensor connector for corrosion.<span class="why">supported by AOG-1832</span></span></div>
+            <div class="bad"><span class="mk">✕</span><span>Torque the connector to 25 in-lb.<span class="why">in no source · also a critical error</span></span></div>
+            <div><span class="mk">✓</span><span>Do an NWS operational test per AMM 32-51-00.<span class="why">supported by AMM chunk</span></span></div>
+          </div>
+        </div>
+      </div>
+      <div class="term">
+        <h4>Step coverage and order</h4>
+        <p class="plain">Coverage: what share of the reference resolution steps appear in the answer. Order: whether they appear in a safe sequence, for example inspection before replacement.</p>
+        <p class="formula">4 of 5 reference steps present = 0.80</p>
+      </div>
+      <div class="term">
+        <h4>Citation accuracy</h4>
+        <p class="plain">Of the references the answer cites, the share that exist, are correct, and actually support the step they are attached to.</p>
+        <p class="formula">2 valid ÷ 3 cited = 0.67</p>
+      </div>
+      <div class="term">
+        <h4>Answer correctness</h4>
+        <p class="plain">The overall verdict: would an experienced engineer accept this answer as right for this AOG? Usually graded on a rubric by an LLM judge, checked against engineer reviews.</p>
+      </div>
+      <div class="term">
+        <h4>LLM-as-judge</h4>
+        <p class="plain">A separate LLM grades answers using a written rubric, so hundreds of cases can be scored per run. In <b>pairwise</b> mode it sees the v1 and v2 answers side by side and picks the better one.</p>
+        <p class="watch">Judges have biases, such as preferring the first or the longer answer. Pin the judge model version, randomize the order, and check agreement with engineers using kappa. Langfuse can run such judges automatically on every experiment.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- safety -->
+  <div class="ggroup" id="g-safe">
+    <h3>Safety &amp; behaviour <span class="label">Does the agent act safely and sensibly?</span></h3>
+    <div class="gl">
+      <div class="term">
+        <h4>Critical error</h4>
+        <p class="plain">An answer that contains a part number, torque value, limit or AMM/TSM reference that appears in no approved source, or that contradicts the manual. Counted, not averaged; the target is zero.</p>
+        <div class="ex"><b>ASIST example</b>"Torque to 25 in-lb" when no retrieved document says so. On a grounded aircraft this can cause a wrong repair.</div>
+      </div>
+      <div class="term">
+        <h4>Abstention and over-refusal</h4>
+        <p class="plain"><b>Correct abstention</b>: on cases that should not be answered, how often ASIST declines and escalates. <b>Over-refusal</b>: on answerable cases, how often it declines anyway.</p>
+        <p class="watch">Strict guardrails cut critical errors but can raise over-refusal. Track both.</p>
+      </div>
+      <div class="term">
+        <h4>Trajectory</h4>
+        <p class="plain">The path the agent took through the LangGraph graph: which nodes ran, in what order, how many retries. Compared against the expected route.</p>
+        <div class="ex"><b>ASIST example</b>A case labelled "history" that went to the manuals and then looped twice is a trajectory error, even if the final answer was fine.</div>
+      </div>
+      <div class="term">
+        <h4>Slice</h4>
+        <p class="plain">A subset of the golden set, such as one category or one aircraft type. Overall averages can hide a regression in one slice.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ops -->
+  <div class="ggroup" id="g-ops">
+    <h3>Speed &amp; cost <span class="label">How long does an engineer wait, and what does it cost?</span></h3>
+    <div class="gl">
+      <div class="term wide">
+        <h4>p50 and p95 latency</h4>
+        <div class="term-row">
+          <div class="stack">
+            <p class="plain">Sort all response times. <b>p50</b> (the median) is the middle one: half the queries are faster. <b>p95</b> is the one 95% of the way along: only 1 query in 20 is slower. p50 is the typical wait; p95 is the slow tail engineers remember.</p>
+            <p class="plain">The average is pulled up by a few slow queries and describes almost nobody's experience. Release gates use p95.</p>
+            <p class="caption" id="lat-caption"></p>
+          </div>
+          <div style="overflow-x:auto;min-width:0">
+            <svg id="hist" viewBox="0 0 460 230" role="img" aria-label="Histogram of 1000 simulated response times with p50, mean and p95 marked" style="display:block;width:100%;min-width:360px;height:auto"></svg>
+          </div>
+        </div>
+      </div>
+      <div class="term">
+        <h4>p99</h4>
+        <p class="plain">The response time only 1 query in 100 exceeds. Used for stricter systems; p50 and p95 are usually enough for an internal tool.</p>
+      </div>
+      <div class="term">
+        <h4>Cost per query</h4>
+        <p class="plain">Model tokens plus database and reranker calls for one answer. A reranker or retry loop can improve quality while raising cost.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- stats -->
+  <div class="ggroup" id="g-stats">
+    <h3>Statistics &amp; trust <span class="label">Is the gain real, or luck?</span></h3>
+    <div class="gl">
+      <div class="term">
+        <h4>Confidence interval (95% CI)</h4>
+        <p class="plain">The range of values consistent with the data. "+0.05 (95% CI +0.02 to +0.08)" means the real gain is very likely between 2 and 8 points. If the range includes zero, you cannot claim an improvement.</p>
+      </div>
+      <div class="term">
+        <h4>Repeated runs</h4>
+        <p class="plain">The same LLM can answer the same question differently each time. Running each version 3–5 times and averaging stops one lucky run from deciding the release.</p>
+      </div>
+      <div class="term">
+        <h4>McNemar's test</h4>
+        <p class="plain">Compares two versions on the same cases using only the cases where they disagree. If v2 fixes many more cases than it breaks, the gain is unlikely to be chance.</p>
+        <div class="tbl-wrap" style="align-self:flex-start">
+          <table class="mini">
+            <thead><tr><th></th><th>v2 right</th><th>v2 wrong</th></tr></thead>
+            <tbody>
+              <tr><th>v1 right</th><td>241</td><td class="key">12</td></tr>
+              <tr><th>v1 wrong</th><td class="key">30</td><td>67</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="formula">(|30 − 12| − 1)² ÷ (30 + 12) = 6.9 → p ≈ 0.009</p>
+        <p class="caption">The same 350 sealed cases as the slice table in Part 7: v1 right on 253 (0.72), v2 right on 271 (0.77).</p>
+      </div>
+      <div class="term">
+        <h4>Paired bootstrap</h4>
+        <p class="plain">For continuous scores like faithfulness. Redraw the 350 cases at random with replacement, say 10,000 times, compute the v2 − v1 difference each time, and take the middle 95% of those differences as the confidence interval.</p>
+      </div>
+      <div class="term">
+        <h4>Cohen's kappa (κ)</h4>
+        <p class="plain">Agreement between two raters after removing agreement expected by chance. Used for annotator vs annotator, and LLM judge vs engineers. See the worked example in Part 4.</p>
+      </div>
+      <div class="term">
+        <h4>Multiple-test correction (Holm)</h4>
+        <p class="plain">Check 7 slices at a 5% threshold and there is about a 30% chance at least one looks significant by luck. Holm's method tightens the threshold so a slice regression is only called real when it is.</p>
+        <p class="formula">1 − 0.95⁷ ≈ 0.30</p>
+      </div>
+      <div class="term">
+        <h4>Ablation</h4>
+        <p class="plain">Remove or add one change at a time and re-measure, to see which change caused the gain. Done on the validation set, because it takes many runs. See Part 8.</p>
+      </div>
+      <div class="term">
+        <h4>Data leakage (contamination)</h4>
+        <p class="plain">Test cases, or their answers, ending up in training data, prompts or the RAG index. Scores inflate because the system remembers rather than reasons. Prevented by the cutoff, the sealed set and frozen index snapshots.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- release -->
+  <div class="ggroup" id="g-rel">
+    <h3>Release terms</h3>
+    <div class="gl">
+      <div class="term">
+        <h4>Hard block vs soft gate</h4>
+        <p class="plain"><span class="pill hard">hard block</span> If it fails, the release cannot ship. No trade-off allowed. <span class="pill soft">soft gate</span> If it fails, a person can review it and accept a justified trade-off.</p>
+      </div>
+      <div class="term">
+        <h4>Shadow mode</h4>
+        <p class="plain">The new version answers every live query in parallel, but only the old version's answer is shown. Real traffic, no risk to the answers engineers see.</p>
+      </div>
+      <div class="term">
+        <h4>Canary</h4>
+        <p class="plain">A small share of users, say 10% of engineers or one station, get the new version first. Named after canaries once used to detect gas in coal mines.</p>
+      </div>
+      <div class="term">
+        <h4>Regression</h4>
+        <p class="plain">Something that got worse in the new version, even while other metrics improved.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 7 compare -->
+<section id="compare">
+  <div class="sec-head"><span class="label">Part 7</span><h2>Reading a v1 vs v2 comparison</h2></div>
+  <p class="lede">All numbers in this section are illustrative, to show what the report looks like.</p>
+  <div class="tiles">
+    <div class="tile pass"><span class="label">Critical safety errors</span><div class="big mono">3 <span>→</span> 0</div><span class="caption">Hard block passed. v1 had 0 on its own sealed set; its 3 errors appear on the new cases</span></div>
+    <div class="tile ok"><span class="label">Pairwise judge preference</span><div class="big mono">64%</div><span class="caption">v2 preferred, 95% CI 58–70%</span></div>
+    <div class="tile warn"><span class="label">p95 latency</span><div class="big mono">6.1 <span>→</span> 7.4 s</div><span class="caption">Within 8 s budget, reranker cost</span></div>
+  </div>
+  <div class="plate narrow">
+    <div class="legend" style="margin-bottom:8px"><span><i style="background:var(--v1)"></i>v1</span><span><i style="background:var(--v2)"></i>v2</span><span>whiskers: 95% confidence interval · sealed set, 5 runs per version</span></div>
+    <svg id="pairs" viewBox="0 0 860 330" role="img" aria-label="Paired bar chart of v1 versus v2 on six metrics"></svg>
+  </div>
+  <div class="two">
+    <div class="stack">
+      <span class="label">Slice check · answer correctness by category</span>
+      <div class="tbl-wrap">
+        <table style="min-width:420px" id="slices">
+          <thead><tr><th>Category</th><th class="num-c">n</th><th class="num-c">v1</th><th class="num-c">v2</th><th class="num-c">Δ</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <p class="caption">Overall v2 is better, about 0.72 → 0.77, but landing gear drops. With only 64 cases the drop may not survive the Holm correction. In a safety-relevant category it still fails the soft gate: someone must explain it before release.</p>
+    </div>
+    <div class="stack">
+      <span class="label">What makes the claim credible</span>
+      <ul class="checklist">
+        <li><span><b>McNemar's test</b> on paired right/wrong per case.</span></li>
+        <li><span><b>Paired bootstrap CI</b> for continuous scores such as faithfulness.</span></li>
+        <li><span><b>3–5 repeated runs</b> per version.</span></li>
+        <li><span><b>Δ reported with its interval</b>, never as a single number.</span></li>
+        <li><span><b>Holm correction</b> before calling a slice regression real.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 8 ablation -->
+<section id="ablation">
+  <div class="sec-head"><span class="label">Part 8</span><h2>Which change earned the gain</h2></div>
+  <p class="lede">v2 shipped newer data and several improvements at once. Adding them one at a time, on the validation set, attributes the gain and exposes a change that does nothing or hurts.</p>
+  <div class="plate narrow">
+    <svg id="waterfall" viewBox="0 0 860 300" role="img" aria-label="Waterfall of AOG Recall at 5 on the validation set from 0.70 to 0.82 by change"></svg>
+  </div>
+  <p class="caption">AOG Recall@5 on the validation set, illustrative. Ablation needs many runs, so it never touches the sealed set. The first step runs v1's pipeline on v2's newer data, to separate the gain from more history from the gain from better techniques. The fine-tuned LLM does not move retrieval, which is expected: its effect shows up in the generation metrics.</p>
+</section>
+
+<!-- 9 gates -->
+<section id="gates">
+  <div class="sec-head"><span class="label">Part 9</span><h2>Release gates in CI</h2></div>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Gate</th><th>Rule</th><th>Type</th></tr></thead>
+      <tbody>
+        <tr class="crit"><td class="layer">Safety</td><td>Zero critical errors on the sealed set</td><td><span class="pill hard">hard block</span></td></tr>
+        <tr><td class="layer">Primary metric</td><td>A quality release must show a significant gain in answer correctness (p &lt; 0.05). A release that only targets cost or speed must show no significant drop.</td><td><span class="pill hard">hard block</span></td></tr>
+        <tr><td class="layer">Node regression</td><td>No node metric drops more than 2 points</td><td><span class="pill soft">soft gate</span></td></tr>
+        <tr><td class="layer">Slice regression</td><td>No significant slice drop after Holm correction; a visible drop in a safety-relevant category is reviewed anyway</td><td><span class="pill soft">soft gate</span></td></tr>
+        <tr><td class="layer">Budgets</td><td>p95 under 8 s, cost per query within target</td><td><span class="pill soft">soft gate</span></td></tr>
+        <tr><td class="layer">Judge health</td><td>Judge vs engineer κ at least 0.7</td><td><span class="pill hard">hard block</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">Part 10 shows how to run all of this on Langfuse; LangSmith, Ragas or DeepEval are alternatives. Version everything that changes a result: prompts, model IDs, the embedding model per pgvector index, and the sets themselves. A new embedding model means a new index, never mixed vectors in one table.</p>
+</section>
+
+<!-- 10 langfuse -->
+<section id="langfuse">
+  <div class="sec-head"><span class="label">Part 10</span><h2>Running the evaluation on Langfuse</h2></div>
+  <p class="lede">Langfuse is an open-source platform for tracing and evaluating LLM applications. It plugs into LangGraph through a callback handler, so every ASIST run becomes a trace with one span per node. On top of those traces it holds the datasets, runs the experiments and stores the scores this page describes.</p>
+
+  <div class="plate">
+    <svg viewBox="0 0 1000 300" role="img" aria-label="Langfuse flow: annotation queues feed datasets; the experiment runner runs ASIST v1 and v2 over the datasets with the LangGraph callback handler, producing traces; evaluators turn traces into scores; scores are compared in the UI and pulled by a CI release gate; live ASIST traffic also produces traces, sampled into annotation queues">
+      <rect class="n-seal" x="20" y="30" width="210" height="104" rx="3"/>
+      <text class="t-main" x="36" y="54">Datasets</text>
+      <text class="t-sub" x="36" y="76">asist-val-2026-10</text>
+      <text class="t-sub" x="36" y="94">asist-sealed-2026-10</text>
+      <text class="t-sub" x="36" y="112">asist-anchor</text>
+      <rect class="n-box" x="20" y="180" width="210" height="60" rx="3"/>
+      <text class="t-main" x="125" y="205" text-anchor="middle">Annotation queues</text>
+      <text class="t-sub" x="125" y="223" text-anchor="middle">engineers review traces</text>
+      <path class="edge" d="M125,180 V136" marker-end="url(#ar)"/>
+      <text class="t-edge" x="132" y="162">after the cutoff</text>
+
+      <rect class="n-box" x="290" y="30" width="200" height="60" rx="3"/>
+      <text class="t-main" x="390" y="55" text-anchor="middle">Experiment runner</text>
+      <text class="t-sub" x="390" y="73" text-anchor="middle">v1 and v2 × 5 runs</text>
+      <path class="edge" d="M230,70 H288" marker-end="url(#ar)"/>
+      <rect class="n-box" x="290" y="130" width="200" height="60" rx="3"/>
+      <text class="t-main" x="390" y="155" text-anchor="middle">ASIST · LangGraph</text>
+      <text class="t-sub" x="390" y="173" text-anchor="middle">with Langfuse CallbackHandler</text>
+      <path class="edge" d="M390,90 V128" marker-end="url(#ar)"/>
+      <rect class="n-soft" x="290" y="230" width="200" height="56" rx="3"/>
+      <text class="t-main" x="390" y="254" text-anchor="middle">Live ASIST</text>
+      <text class="t-sub" x="390" y="272" text-anchor="middle">shadow · canary · production</text>
+      <path class="edge dash" d="M290,258 H250 L232,226" marker-end="url(#arm)"/>
+      <text class="t-edge" x="236" y="280">sample for review</text>
+
+      <rect class="n-box" x="560" y="130" width="190" height="60" rx="3"/>
+      <text class="t-main" x="655" y="155" text-anchor="middle">Traces</text>
+      <text class="t-sub" x="655" y="173" text-anchor="middle">span per node · latency · cost</text>
+      <path class="edge" d="M490,160 H558" marker-end="url(#ar)"/>
+      <path class="edge" d="M490,252 L560,186" marker-end="url(#ar)"/>
+      <rect class="n-box" x="560" y="30" width="190" height="60" rx="3"/>
+      <text class="t-main" x="655" y="55" text-anchor="middle">Evaluators</text>
+      <text class="t-sub" x="655" y="73" text-anchor="middle">code checks + LLM judge</text>
+      <path class="edge" d="M655,130 V92" marker-end="url(#ar)"/>
+
+      <rect class="n-out" x="800" y="30" width="180" height="60" rx="3"/>
+      <text class="t-main" x="890" y="55" text-anchor="middle">Scores</text>
+      <text class="t-sub" x="890" y="73" text-anchor="middle">per case, per run</text>
+      <path class="edge" d="M750,60 H798" marker-end="url(#ar)"/>
+      <rect class="n-box" x="800" y="130" width="180" height="56" rx="3"/>
+      <text class="t-main" x="890" y="154" text-anchor="middle">Compare runs</text>
+      <text class="t-sub" x="890" y="172" text-anchor="middle">side by side in the UI</text>
+      <path class="edge" d="M890,90 V128" marker-end="url(#ar)"/>
+      <rect class="n-seal" x="800" y="222" width="180" height="64" rx="3"/>
+      <text class="t-main" x="890" y="245" text-anchor="middle">CI release gate</text>
+      <text class="t-sub" x="890" y="262" text-anchor="middle">pulls scores via the API</text>
+      <text class="t-sub" x="890" y="278" text-anchor="middle">McNemar · bootstrap · gates</text>
+      <path class="edge" d="M980,60 H994 V254 H982" marker-end="url(#ar)"/>
+    </svg>
+  </div>
+
+  <h3>Annotators and evaluators are different jobs</h3>
+  <p>Annotators write the answer key before any testing. Evaluators mark ASIST's answers against that key every time a test runs. Think of an exam: teachers write the answer key, a machine marks the multiple-choice questions, a teaching assistant marks the essays, and the teacher spot-checks the assistant.</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Who</th><th>When</th><th>What they produce</th><th>In Langfuse</th></tr></thead>
+      <tbody>
+        <tr><td class="layer">2 annotators + adjudicator</td><td>Before testing, once per case</td><td>The answer key: category, route, expected AOGs, references, steps</td><td>Dataset items</td></tr>
+        <tr><td class="layer">Code evaluators</td><td>Every run, every case</td><td>Exact checks: Recall@5, route, values with no source</td><td>Scores</td></tr>
+        <tr><td class="layer">LLM judge</td><td>Every run, every case</td><td>Judgement calls: faithfulness, correctness, v1 vs v2 preference</td><td>Scores from LLM-as-a-judge evaluators</td></tr>
+        <tr><td class="layer">Engineer reviewers</td><td>After runs, on a sample</td><td>Hand marks used to check the LLM judge (kappa)</td><td>Annotation queues, human scores</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">An LLM is never one of the annotators. It may pre-fill a draft (Part 4), but engineers decide the answer key. Otherwise ASIST would be graded against another model's opinion.</p>
+
+  <h3>Who marks how much</h3>
+  <div class="plate narrow" style="padding:14px">
+    <svg viewBox="0 0 900 150" role="img" aria-label="About 3,500 answers marked by code and the LLM judge per release, against roughly 100 marked by engineers plus every safety flag" style="min-width:560px">
+      <text class="t-main" x="10" y="38" style="font-size:13px">Code + LLM judge</text>
+      <rect x="200" y="20" width="680" height="28" fill="var(--v2)"/>
+      <text class="t-sub" x="210" y="39" style="fill:var(--paper)">~3,500 answers: 350 cases × 2 versions × 5 runs, every one marked</text>
+      <text class="t-main" x="10" y="98" style="font-size:13px">Engineers</text>
+      <rect x="200" y="80" width="20" height="28" fill="var(--accent)"/>
+      <text class="t-sub" x="230" y="99" style="fill:var(--ink)">~50–100 sampled answers, plus every safety flag and the cases that decide the release</text>
+      <text class="t-axis" x="200" y="138">bar lengths to scale · illustrative volumes</text>
+    </svg>
+  </div>
+  <div class="gl">
+    <div class="term">
+      <h4>Machines mark everything</h4>
+      <p class="plain">Code evaluators and the LLM judge mark every case in every run, for both versions. That volume is impossible by hand, which is why the marking is automated.</p>
+    </div>
+    <div class="term">
+      <h4>Humans check the judge, not the code</h4>
+      <p class="plain">Code always gives the same mark for the same input, so engineers verify its logic once, when it is written. The LLM judge can drift unnoticed, so each release engineers mark a sample by hand and compare with the judge using kappa.</p>
+      <p class="watch">Below κ 0.7 the judge's scores are not trusted: fix its rubric or review more cases by hand.</p>
+    </div>
+    <div class="term wide">
+      <h4>Always sent to a human</h4>
+      <ul class="checklist">
+        <li><span><b>Every critical-error flag</b>, to confirm it is real and to make sure no safety finding is dismissed without review.</span></li>
+        <li><span><b>Cases where v1 and v2 disagree</b>, because they decide the release.</span></li>
+        <li><span><b>Cases where the judge is unsure</b>, or where code and judge scores contradict each other.</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Where each part of this page lives in Langfuse</h3>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>On this page</th><th>In Langfuse</th><th>How it is used</th></tr></thead>
+      <tbody>
+        <tr><td class="layer">One ASIST run and its node path</td><td>Trace, with a span per LangGraph node and a generation per LLM call</td><td>Recorded through the LangChain/LangGraph CallbackHandler. Gives the trajectory, p50/p95 latency and cost per query.</td></tr>
+        <tr><td class="layer">Validation, sealed and anchor sets</td><td>Datasets: a validation and a sealed dataset per release, plus one permanent anchor dataset</td><td>Versioned files in S3 are the source of truth and are imported into Langfuse. Each item holds the input (query, aircraft), the expected output (category, route, expected AOGs, references, steps) and metadata (AOG date, difficulty, airline).</td></tr>
+        <tr><td class="layer">Scoring v1 and v2 on the same cases</td><td>Experiments (dataset runs)</td><td>One run per version and repeat, for example <code>v2-sealed-run3</code>. Runs on the same dataset are compared side by side.</td></tr>
+        <tr><td class="layer">Recall@5, route, critical errors, step coverage</td><td>Scores from code evaluators</td><td>Deterministic checks written in Python and attached to each item of each run.</td></tr>
+        <tr><td class="layer">Faithfulness, answer correctness, pairwise preference</td><td>LLM-as-a-judge evaluators</td><td>Pin the judge model and its prompt version. Calibrate against engineer scores with kappa.</td></tr>
+        <tr><td class="layer">Annotators and adjudicator writing the answer key</td><td>Dataset items, in their expected output</td><td>The double labelling and adjudication from Part 4 are usually organised in a labelling tool or spreadsheet, and the final labels are imported as dataset items.</td></tr>
+        <tr><td class="layer">Engineers marking ASIST's answers</td><td>Annotation queues and human scores</td><td>Engineers mark a sample of answers by hand, to check the LLM judge with kappa, and review production traces to find new cases.</td></tr>
+        <tr><td class="layer">Prompt versions</td><td>Prompt management, with labels such as production and staging</td><td>Each trace records which prompt version produced it, so a prompt change is a tracked part of a release.</td></tr>
+        <tr><td class="layer">Shadow, canary, feedback, human in the loop</td><td>Production traces tagged with the version; feedback and corrections as scores</td><td>Reviewed traces can be added to a dataset once they fall after the next cutoff.</td></tr>
+        <tr><td class="layer">Significance tests and release gates</td><td>Computed outside Langfuse</td><td>A CI step pulls the scores through the API and runs McNemar, the bootstrap, Holm and the gates from Part 9.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="two">
+    <div class="stack">
+      <span class="label">Sketch · scoring v1 and v2 on the sealed set</span>
+<pre class="case"><span class="c"># Langfuse Python SDK v3. Check names against the current docs.</span>
+<span class="k">from</span> langfuse <span class="k">import</span> get_client, Evaluation
+<span class="k">from</span> langfuse.langchain <span class="k">import</span> CallbackHandler
+<span class="k">from</span> asist <span class="k">import</span> build_graph, untraceable_values
+
+langfuse = get_client()   <span class="c"># self-hosted URL and keys from env</span>
+sealed = langfuse.get_dataset("asist-sealed-2026-10")
+
+<span class="k">def</span> make_task(version):
+    graph = build_graph(version)   <span class="c"># frozen v1 or v2</span>
+    <span class="k">def</span> task(*, item, **kwargs):
+        state = graph.invoke(
+            item.input,
+            config={"callbacks": [CallbackHandler()]},
+        )
+        <span class="k">return</span> {"answer": state["answer"],
+                "sources": state["sources"],
+                "top5": state["retrieved_aogs"][:5],
+                "route": state["route"]}
+    <span class="k">return</span> task
+
+<span class="k">def</span> aog_recall_at_5(*, output, expected_output, **kwargs):
+    expected = set(expected_output["expected_aogs"])
+    <span class="k">if not</span> expected:   <span class="c"># manual or abstain case</span>
+        <span class="k">return</span> Evaluation(name="aog_recall@5", value=None)
+    found = expected &amp; set(output["top5"])
+    <span class="k">return</span> Evaluation(name="aog_recall@5",
+                      value=len(found) / len(expected))
+
+<span class="k">def</span> critical_errors(*, output, **kwargs):
+    bad = untraceable_values(output["answer"], output["sources"])
+    <span class="k">return</span> Evaluation(name="critical_errors",
+                      value=len(bad), comment=", ".join(bad))
+
+<span class="k">for</span> version <span class="k">in</span> ["v1", "v2"]:
+    <span class="k">for</span> run <span class="k">in</span> range(5):
+        sealed.run_experiment(
+            name=f"{version}-sealed-run{run}",
+            task=make_task(version),
+            evaluators=[aog_recall_at_5, critical_errors],
+        )</pre>
+      <p class="caption">A sketch, not production code. <code>build_graph</code> and <code>untraceable_values</code> stand for ASIST's own code.</p>
+    </div>
+    <div class="stack">
+      <h3>Keeping the sealed set sealed</h3>
+      <ul class="checklist">
+        <li><span><b>Separate projects.</b> Keep the sealed and anchor datasets in their own Langfuse project that only the CI service account and the engineer reviewers can open. Developers work in the project that holds the validation set.</span></li>
+        <li><span><b>Self-host.</b> Langfuse is open source and runs on ECS in the airline's own AWS account (see Tech stack), so AOG records and Airbus manual text stay in-house.</span></li>
+        <li><span><b>Name runs by version.</b> Put the model, embedding, prompt and index versions in each run's metadata so every score traces back to one exact configuration.</span></li>
+        <li><span><b>Same evaluators for both versions.</b> v1 and v2 are scored by the same evaluator code and the same pinned judge, in the same session.</span></li>
+        <li><span><b>Gates outside the UI.</b> Langfuse shows the comparison; the release decision comes from the CI step, so it is repeatable and auditable.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 10 production -->
+<section id="production">
+  <div class="sec-head"><span class="label">Part 11</span><h2>Confirming in production</h2></div>
+  <div class="rollout">
+    <div class="stage"><span class="label">Stage A</span><h3>Shadow</h3><div class="meter ghost"><span style="width:100%"></span></div><p>v2 answers 100% of live queries in parallel. Logged as Langfuse traces, never shown. Judge plus engineer spot checks.</p></div>
+    <div class="stage"><span class="label">Stage B</span><h3>Canary</h3><div class="meter"><span style="width:10%"></span></div><p>About 10% of engineers or stations see v2. Watch feedback, rephrasing and escalations.</p></div>
+    <div class="stage"><span class="label">Stage C</span><h3>Full rollout</h3><div class="meter"><span style="width:100%"></span></div><p>Promote when online metrics hold. Track time to resolve the AOG against v1.</p></div>
+    <div class="stage"><span class="label">Stage D</span><h3>Next airline</h3><div class="meter"><span style="width:0%"></span></div><p>New IAG airline, new fleet mix and writing style. Build its own sets before reusing the Aer Lingus result.</p></div>
+  </div>
+</section>
+
+<!-- 11 techniques -->
+<section id="techniques">
+  <div class="sec-head"><span class="label">Part 12</span><h2>Improvement techniques and how each is proven</h2></div>
+  <p class="lede">Each technique targets one layer, so you know in advance which metric should move and what could get worse.</p>
+  <div class="filters" role="group" aria-label="Filter techniques by layer">
+    <button type="button" id="f-all" data-f="all" aria-pressed="true">All</button>
+    <button type="button" id="f-retrieval" data-f="retrieval" aria-pressed="false">Retrieval</button>
+    <button type="button" id="f-generation" data-f="generation" aria-pressed="false">Generation</button>
+    <button type="button" id="f-graph" data-f="graph" aria-pressed="false">Graph &amp; loop</button>
+  </div>
+  <div class="tech" id="tech"></div>
+</section>
+
+<section>
+  <div class="closing">
+    <span class="label">The one-line version</span>
+    <p>Score every release node by node against a sealed, time-split set of real AOGs labelled by engineers. Ship only with a significant gain, zero safety-critical errors, and confirmation in shadow mode.</p>
+  </div>
+  <footer>Based on the ASIST project for IAG. The architecture is simplified, and all scores, counts and examples are illustrative, not ASIST's real results.</footer>
+</section>
+
+</div>
+
+<script>
+(function(){
+  var NS="http://www.w3.org/2000/svg";
+  function el(tag,attrs,text){var e=document.createElementNS(NS,tag);for(var k in attrs)e.setAttribute(k,attrs[k]);if(text!=null)e.textContent=text;return e;}
+
+  // confusion matrix
+  var cats=["LG","HYD","ENG","AVI"],M=[[55,7,0,2],[9,38,1,0],[0,1,64,2],[1,0,3,54]];
+  var cm=document.getElementById("cm"),h="<thead><tr><th>real ↓ / pred →</th>";
+  cats.forEach(function(c){h+="<th>"+c+"</th>";});h+="</tr></thead><tbody>";
+  M.forEach(function(row,i){
+    var tot=row.reduce(function(a,b){return a+b;},0);
+    h+="<tr><th>"+cats[i]+"</th>";
+    row.forEach(function(v,j){
+      var pct=Math.round(v/tot*85),diag=i===j;
+      var bg=v===0?"var(--paper)":"color-mix(in srgb,"+(diag?"var(--v2)":"var(--bad)")+" "+Math.max(pct,12)+"%,var(--paper))";
+      var fg=diag&&pct>45?"var(--paper)":"var(--ink)";
+      h+="<td style='background:"+bg+";color:"+fg+"'>"+v+"</td>";
+    });
+    h+="</tr>";
+  });
+  cm.innerHTML=h+"</tbody>";
+
+  // latency histogram (seeded simulation)
+  var seed=7;function rnd(){seed|=0;seed=seed+0x6D2B79F5|0;var t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;}
+  var lat=[];for(var i=0;i<1000;i++){var u=rnd()||1e-9,v=rnd();var z=Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v);lat.push(3.2*Math.exp(.5*z));}
+  var sorted=lat.slice().sort(function(a,b){return a-b;});
+  var p50=sorted[499],p95=sorted[949],mean=lat.reduce(function(a,b){return a+b;},0)/lat.length;
+  var hs=document.getElementById("hist"),hl=36,hr=448,hb=190,ht=34,maxX=14,bin=.5,nb=maxX/bin,counts=new Array(nb).fill(0);
+  lat.forEach(function(x){var k=Math.min(nb-1,Math.floor(x/bin));counts[k]++;});
+  var maxC=Math.max.apply(null,counts),X=function(s){return hl+(hr-hl)*s/maxX;},Yh=function(c){return hb-(hb-ht)*c/maxC;};
+  [0,2,4,6,8,10,12,14].forEach(function(t){hs.appendChild(el("text",{x:X(t),y:hb+16,class:"t-axis","text-anchor":"middle"},t+"s"));});
+  hs.appendChild(el("line",{x1:hl,x2:hr,y1:hb,y2:hb,class:"axis"}));
+  counts.forEach(function(c,k){var x0=X(k*bin)+.5,w=X(bin)-X(0)-1;hs.appendChild(el("rect",{x:x0,y:Yh(c),width:w,height:hb-Yh(c),fill:k*bin>=p95?"var(--accent)":"var(--v1)"}));});
+  function mark(v,lbl,col,dy){hs.appendChild(el("line",{x1:X(v),x2:X(v),y1:ht-6+dy,y2:hb,stroke:col,"stroke-width":1.6,"stroke-dasharray":lbl.indexOf("mean")===0?"3 3":""}));hs.appendChild(el("text",{x:X(v)+4,y:ht-8+dy,class:"t-val",style:"fill:"+col},lbl));}
+  mark(p50,"p50 "+p50.toFixed(1)+"s","var(--v2)",0);
+  mark(mean,"mean "+mean.toFixed(1)+"s","var(--muted)",14);
+  mark(p95,"p95 "+p95.toFixed(1)+"s","var(--accent)",0);
+  hs.appendChild(el("text",{x:hr,y:hb+32,class:"t-axis","text-anchor":"end"},"1,000 simulated queries · amber = slowest 5%"));
+  hs.setAttribute("viewBox","0 0 460 228");
+  document.getElementById("lat-caption").textContent="In the simulation: half the queries finish under "+p50.toFixed(1)+" s, the mean is "+mean.toFixed(1)+" s, and 1 in 20 takes longer than "+p95.toFixed(1)+" s.";
+
+  // paired bars
+  var pairs=[["Category macro-F1",.81,.86,.02],["AOG Recall@5",.72,.84,.02],["Fallback precision",.65,.79,.03],["Manual Recall@5",.70,.77,.03],["Faithfulness",.88,.93,.015],["Step coverage",.69,.76,.025]];
+  var s=document.getElementById("pairs");
+  var L=180,R=820,top=10,rowH=50,x=function(v){return L+(R-L)*v;};
+  [0,.25,.5,.75,1].forEach(function(t){
+    s.appendChild(el("line",{x1:x(t),x2:x(t),y1:top,y2:top+rowH*pairs.length,class:"axis"}));
+    s.appendChild(el("text",{x:x(t),y:top+rowH*pairs.length+16,class:"t-axis","text-anchor":"middle"},t.toFixed(2)));
+  });
+  pairs.forEach(function(p,i){
+    var y=top+i*rowH+8,c=p[3];
+    s.appendChild(el("text",{x:L-10,y:y+20,class:"t-sub","text-anchor":"end",style:"font-size:12px;fill:var(--ink)"},p[0]));
+    s.appendChild(el("rect",{x:L,y:y,width:x(p[1])-L,height:14,fill:"var(--v1)"}));
+    s.appendChild(el("rect",{x:L,y:y+17,width:x(p[2])-L,height:14,fill:"var(--v2)"}));
+    s.appendChild(el("line",{x1:x(p[2]-c),x2:x(p[2]+c),y1:y+24,y2:y+24,stroke:"var(--ink)","stroke-width":1.2}));
+    s.appendChild(el("line",{x1:x(p[2]-c),x2:x(p[2]-c),y1:y+19,y2:y+29,stroke:"var(--ink)","stroke-width":1.2}));
+    s.appendChild(el("line",{x1:x(p[2]+c),x2:x(p[2]+c),y1:y+19,y2:y+29,stroke:"var(--ink)","stroke-width":1.2}));
+    s.appendChild(el("text",{x:x(p[1])+6,y:y+11,class:"t-val"},p[1].toFixed(2)));
+    s.appendChild(el("text",{x:x(p[2]+c)+6,y:y+28,class:"t-val",style:"font-weight:500"},p[2].toFixed(2)+"  +"+(p[2]-p[1]).toFixed(2)));
+  });
+  s.setAttribute("viewBox","0 0 860 "+(top+rowH*pairs.length+26));
+
+  // slices
+  var sl=[["Landing gear",64,.82,.74],["Hydraulics",48,.71,.80],["Fuel",41,.68,.77],["Engines / APU",67,.66,.75],["Avionics",58,.70,.79],["Electrical",39,.73,.80],["Flight controls",33,.75,.81]];
+  var tb=document.querySelector("#slices tbody");
+  sl.forEach(function(r){
+    var d=r[3]-r[2],tr=document.createElement("tr"),cls=d<0?"down":(d>0?"up":"flat");
+    tr.innerHTML="<td>"+r[0]+"</td><td class='num-c'>"+r[1]+"</td><td class='num-c'>"+r[2].toFixed(2)+"</td><td class='num-c'>"+r[3].toFixed(2)+"</td><td class='num-c'><span class='pill "+cls+"'>"+(d>0?"+":"")+d.toFixed(2)+"</span></td>";
+    if(d<0)tr.className="crit";
+    tb.appendChild(tr);
+  });
+
+  // waterfall
+  var w=document.getElementById("waterfall");
+  var steps=[["v1 baseline",.70,"base"],["+ newer data",.02,"up"],["+ hybrid search",.03,"up"],["+ embeddings",.04,"up"],["+ reranker",.03,"up"],["+ fine-tuned LLM",0,"flat"],["v2",.82,"base"]];
+  var wl=70,wr=840,wb=240,wt=20,lo=.60,hi=.90,Y=function(v){return wb-(v-lo)/(hi-lo)*(wb-wt);};
+  [.6,.65,.7,.75,.8,.85,.9].forEach(function(t){
+    w.appendChild(el("line",{x1:wl,x2:wr,y1:Y(t),y2:Y(t),class:"axis"}));
+    w.appendChild(el("text",{x:wl-8,y:Y(t)+4,class:"t-axis","text-anchor":"end"},t.toFixed(2)));
+  });
+  var bw=(wr-wl)/steps.length,run=0;
+  steps.forEach(function(st,i){
+    var cx=wl+i*bw+bw*.18,width=bw*.64,y0,y1,fill;
+    if(st[2]==="base"){y0=Y(st[1]);y1=Y(lo);run=st[1];fill=i===0?"var(--v1)":"var(--v2)";}
+    else{y0=Y(run+st[1]);y1=Y(run);fill="var(--good)";run+=st[1];}
+    var hh=Math.max(y1-y0,2);
+    if(st[2]==="flat"){fill="var(--muted)";y0=Y(run)-1;hh=2;}
+    w.appendChild(el("rect",{x:cx,y:y0,width:width,height:hh,fill:fill}));
+    var lab=st[2]==="base"?st[1].toFixed(2):(st[1]>0?"+"+st[1].toFixed(2):"±0.00");
+    w.appendChild(el("text",{x:cx+width/2,y:y0-6,class:"t-val","text-anchor":"middle"},lab));
+    w.appendChild(el("text",{x:cx+width/2,y:wb+20,class:"t-sub","text-anchor":"middle",style:"font-size:11.5px;fill:var(--ink)"},st[0]));
+    if(i<steps.length-1){w.appendChild(el("line",{x1:cx+width,x2:cx+bw,y1:Y(run),y2:Y(run),stroke:"var(--muted)","stroke-dasharray":"3 3"}));}
+  });
+
+  // techniques
+  var T=[
+    ["retrieval","Hybrid search","Postgres full-text search (tsvector) next to pgvector, fused by rank. Part numbers, fault codes and ECAM messages need exact matches that vectors miss.","AOG and manual Recall@k, on a code-heavy slice","Duplicate hits; fusion weights tuned on the sealed set"],
+    ["retrieval","Domain-tuned embeddings","Contrastive training on query to correct-AOG pairs mined from logs and engineer clicks.","Recall@k, MRR","Requires a new index; leakage if sealed AOGs are in the pairs"],
+    ["retrieval","Cross-encoder reranker","Re-sorts the top 20–50 candidates before generation.","MRR, nDCG","p95 latency and cost"],
+    ["retrieval","Metadata pre-filtering","Filter by the category column, aircraft type or MSN before the vector search.","Recall@k per category","Inherits every router error; measure with the classifier"],
+    ["retrieval","Structure-aware manual chunking","Split Airbus manuals by task and subtask, prepend the section path to each chunk.","Manual Recall@k, citation accuracy","Re-ingestion; old citations change IDs"],
+    ["retrieval","What to embed per AOG","Embed the problem, the problem plus solution, or one vector for each. Queries describe problems, so embedding only the solution can hurt retrieval.","AOG Recall@5, MRR","Needs re-embedding into a new index"],
+    ["retrieval","Query rewriting","Expand maintenance acronyms, multi-query, or HyDE on short, messy queries.","Recall@k on short queries","Drift from the engineer's intent; extra LLM call"],
+    ["generation","LLM fine-tuning","SFT or LoRA on good resolutions written by engineers; DPO from their preferences.","Step coverage, faithfulness, judge preference","Memorized test AOGs; more confident hallucinations"],
+    ["generation","Guardrails and structured output","Every number and task reference in the answer must appear in a retrieved source, or the answer is refused.","Critical errors to zero, citation accuracy","Over-refusal on answerable cases"],
+    ["generation","Prompt optimization","Tune prompts systematically (e.g. DSPy) against the validation set.","Generation metrics","Overfitting if tuned on the sealed set"],
+    ["graph","Corrective RAG node","Grade retrieved AOGs; if weak, re-query or fall back to the manuals.","Fallback precision and recall","Loops and latency; cap retries"],
+    ["graph","Human-in-the-loop interrupt","LangGraph interrupt asks an engineer to confirm low-confidence answers. Corrections are stored as Langfuse scores and become labelled data.","Escalation rate, time to resolve","New data enters the sets only after the next cutoff"],
+    ["graph","Model routing","A small model for classification and grading, the large one only for drafting.","Cost and latency per query","Router accuracy drop"]
+  ];
+  var tl={retrieval:"Retrieval",generation:"Generation",graph:"Graph & loop"};
+  var box=document.getElementById("tech");
+  T.forEach(function(t){
+    var d=document.createElement("article");d.className="tc";d.dataset.f=t[0];
+    d.innerHTML="<span class='tag "+t[0]+"'>"+tl[t[0]]+"</span><h3>"+t[1]+"</h3><p>"+t[2]+"</p><dl><dt>Moves</dt><dd>"+t[3]+"</dd><dt>Watch</dt><dd>"+t[4]+"</dd></dl>";
+    box.appendChild(d);
+  });
+  var btns=document.querySelectorAll(".filters button");
+  btns.forEach(function(b){b.addEventListener("click",function(){
+    btns.forEach(function(o){o.setAttribute("aria-pressed",o===b?"true":"false");});
+    var f=b.dataset.f;
+    box.querySelectorAll(".tc").forEach(function(c){c.hidden=!(f==="all"||c.dataset.f===f);});
+  });});
+
+  // open hash target
+  try{if(location.hash){var t=document.getElementById(location.hash.slice(1));if(t)t.scrollIntoView();}}catch(e){}
+})();
+</script>
+
+</body></html>

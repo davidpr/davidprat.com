@@ -119,6 +119,14 @@ body {
   text-decoration: underline;
   text-underline-offset: 4px;
 }
+.post-body blockquote {
+  margin-top: 1rem;
+  border-left: 3px solid rgb(124, 58, 237);
+  border-radius: 0 0.5rem 0.5rem 0;
+  background: rgba(124, 58, 237, 0.06);
+  padding: 0.1rem 1rem 0.9rem;
+  font-size: 0.95rem;
+}
 .post-details {
   margin-top: 1rem;
   border: 1px solid rgba(100, 116, 139, 0.25);

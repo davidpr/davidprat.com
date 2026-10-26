@@ -10,9 +10,18 @@ export function getAllProjectPageSlugs(): string[] {
     .map((f) => f.replace(/\.md$/, ""));
 }
 
-export function getProjectPage(slug: string): { title: string; body: string } | null {
+export type ProjectPage = {
+  title: string;
+  body: string;
+  embed?: { src: string; title: string };
+};
+
+export function getProjectPage(slug: string): ProjectPage | null {
   const file = join(DIR, `${slug}.md`);
   if (!/^[a-z0-9-]+$/.test(slug) || !existsSync(file)) return null;
   const { data, content } = matter(readFileSync(file, "utf8"));
-  return { title: String(data.title), body: content };
+  const embed = data.embed
+    ? { src: String(data.embed.src), title: String(data.embed.title) }
+    : undefined;
+  return { title: String(data.title), body: content, embed };
 }

@@ -6,6 +6,7 @@ import remarkGfm from "remark-gfm";
 import { getAllProjectPageSlugs, getProjectPage } from "@/lib/projectPages";
 import { site } from "@/content/site";
 import { MarkdownLink } from "@/components/MarkdownLink";
+import { EmbeddedPage } from "@/components/EmbeddedPage";
 
 export function generateStaticParams() {
   return getAllProjectPageSlugs().map((slug) => ({ slug }));
@@ -59,6 +60,16 @@ export default async function ProjectPage({
           {page.body}
         </ReactMarkdown>
       </article>
+      {page.embed && (
+        <div className="mt-10 sm:-mx-[calc((min(100vw_-_3rem,72rem)_-_100%)/2)]">
+          <EmbeddedPage src={page.embed.src} title={page.embed.title} />
+          <p className="mt-3 text-sm text-neutral-500 dark:text-neutral-400">
+            <a href={page.embed.src} className="underline hover:text-violet-500">
+              Open it full screen
+            </a>
+          </p>
+        </div>
+      )}
     </main>
   );
 }
