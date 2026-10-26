@@ -1,7 +1,7 @@
 ---
 title: "ASIST"
 embed:
-  src: "/projects/asist/evaluation.html"
+  src: "/projects/asist/evaluation"
   title: "ASIST release evaluation plan"
 ---
 > **Disclaimer.** This page does not make public any confidential information. The material shown is a simplification of the real project, for educational purposes only. All scores, counts and examples are illustrative, not ASIST's real results.

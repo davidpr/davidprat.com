@@ -47,8 +47,8 @@ describe("project case-study pages", () => {
   it("the ASIST page carries the disclaimer and embeds an existing standalone page", () => {
     const page = getProjectPage("asist")!;
     expect(page.body).toContain("does not make public any confidential information");
-    expect(page.embed?.src).toBe("/projects/asist/evaluation.html");
-    const html = readFileSync(join(process.cwd(), "public", page.embed!.src), "utf8");
+    expect(page.embed?.src).toBe("/projects/asist/evaluation");
+    const html = readFileSync(join(process.cwd(), "public", `${page.embed!.src}.html`), "utf8");
     expect(html).toContain('class="disclaimer"');
     expect(html).toContain("for educational purposes only");
   });
