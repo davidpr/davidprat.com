@@ -97,7 +97,7 @@ export const site: SiteContent = {
     { value: "4", label: "teams led in parallel" },
     { value: "40+", label: "junior engineers mentored" },
     { value: "30+", label: "senior engineers mentored" },
-    { value: "20", label: "technical articles published", href: "#articles" },
+    { value: "21", label: "technical articles published", href: "#articles" },
     { value: "9", label: "video tutorials produced", href: "#videos" },
     { value: "17", label: "professional certifications", href: "#certifications" },
   ],
