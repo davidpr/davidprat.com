@@ -53,12 +53,16 @@ describe("site content", () => {
       expect(e.period).toMatch(/^\d{4}/);
       expect(e.org).toBeTruthy();
       expect(e.role).toBeTruthy();
-      expect(e.points.length).toBeGreaterThan(0);
+    }
+    // Only the current role may have no description yet.
+    for (const e of site.experience.slice(1)) {
+      expect(e.points.length, e.org).toBeGreaterThan(0);
     }
     const orgs = site.experience.map((e) => e.org);
     expect(orgs).toContain("BNP Paribas Fortis");
     expect(orgs).not.toContain("Finlooker.io");
-    expect(orgs[0]).toBe("Multiverse Computing");
+    expect(orgs[0]).toBe("Accenture");
+    expect(orgs[1]).toBe("Multiverse Computing");
     expect(site.experienceVisibleCount).toBe(3);
   });
 

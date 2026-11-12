@@ -128,6 +128,13 @@ export const site: SiteContent = {
   ],
   experience: [
     {
+      period: "2026 — present",
+      org: "Accenture",
+      logo: "/experience/accenture/logo.svg",
+      role: "Enterprise Architect Manager",
+      points: [],
+    },
+    {
       period: "2026",
       org: "Multiverse Computing",
       logo: "/experience/multiverse-computing/logo.svg",

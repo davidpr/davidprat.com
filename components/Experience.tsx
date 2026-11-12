@@ -62,20 +62,22 @@ export function Experience() {
                   <p className="eyebrow mt-1 text-cyan-700 dark:text-cyan-400">{e.role}</p>
                 </div>
               </div>
-              <ul className="mt-4 space-y-2">
-                {e.points.map((p) => (
-                  <li
-                    key={p}
-                    className="flex gap-3 leading-relaxed text-neutral-700 dark:text-neutral-300"
-                  >
-                    <span
-                      aria-hidden="true"
-                      className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gradient-to-r from-violet-500 to-cyan-500"
-                    />
-                    {p}
-                  </li>
-                ))}
-              </ul>
+              {e.points.length > 0 && (
+                <ul className="mt-4 space-y-2">
+                  {e.points.map((p) => (
+                    <li
+                      key={p}
+                      className="flex gap-3 leading-relaxed text-neutral-700 dark:text-neutral-300"
+                    >
+                      <span
+                        aria-hidden="true"
+                        className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gradient-to-r from-violet-500 to-cyan-500"
+                      />
+                      {p}
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
           </article>
         ))}
